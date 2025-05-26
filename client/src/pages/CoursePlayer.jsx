@@ -5,7 +5,12 @@ import { useTheme } from '../context/ThemeContext';
 import YouTubePlayer from '../components/YouTubePlayer';
 import YouTubePlaylist from '../components/YouTubePlaylist';
 import CourseModules from '../components/CourseModules';
-import { getYouTubeUrlType, extractPlaylistId, extractVideoId } from '../utils/youtubeUtils';
+import {
+  getYouTubeUrlType,
+  extractPlaylistId,
+  extractVideoId,
+  generateYouTubeUrl
+} from '../utils/youtubeUtils';
 import { FaArrowLeft, FaBookmark, FaPlay, FaShare, FaEye, FaThumbsUp } from 'react-icons/fa';
 
 const CoursePlayer = () => {
@@ -101,53 +106,82 @@ const CoursePlayer = () => {
     checkWatchlist();
   }, [checkWatchlist]);
 
-  // Memoized YouTube link analysis function
-  const analyzeYouTubeLink = useCallback(() => {
-    if (!course || !course.creator_youtube_link) {
+  // Memoized YouTube data analysis function
+  const analyzeYouTubeData = useCallback(() => {
+    if (!course) {
       return;
     }
 
     try {
-      // Ensure the URL is properly formatted
-      let url = course.creator_youtube_link;
-      if (!url.startsWith('http')) {
-        url = 'https://' + url;
+      // Check if we have the new youtube_id and youtube_content_type fields
+      if (course.youtube_id && course.youtube_content_type) {
+        // Use the stored YouTube ID and content type directly
+        let playlistId = null;
+        let videoId = null;
+
+        if (course.youtube_content_type === 'playlist') {
+          playlistId = course.youtube_id;
+        } else if (course.youtube_content_type === 'video') {
+          videoId = course.youtube_id;
+
+          // If it's a video, check if it's part of a playlist
+          if (course.creator_youtube_link) {
+            playlistId = extractPlaylistId(course.creator_youtube_link);
+          }
+        }
+
+        setYoutubeData({
+          type: course.youtube_content_type,
+          id: course.youtube_id,
+          playlistId,
+          videoId
+        });
+        return;
       }
 
-      const linkType = getYouTubeUrlType(url);
+      // Fallback to the old method if youtube_id is not available
+      if (course.creator_youtube_link) {
+        // Ensure the URL is properly formatted
+        let url = course.creator_youtube_link;
+        if (!url.startsWith('http')) {
+          url = 'https://' + url;
+        }
 
-      let playlistId = null;
-      let videoId = null;
+        const linkType = getYouTubeUrlType(url);
 
-      if (linkType.type === 'playlist') {
-        playlistId = linkType.id;
-      } else if (linkType.type === 'video') {
-        videoId = linkType.id;
+        let playlistId = null;
+        let videoId = null;
 
-        // Check if the video URL also contains a playlist ID
-        playlistId = extractPlaylistId(url);
-      } else if (linkType.type === 'channel') {
-        // For channels, we don't have a specific video to show
-      } else {
-        // Try to extract a video ID directly as a fallback
-        videoId = extractVideoId(url);
+        if (linkType.type === 'playlist') {
+          playlistId = linkType.id;
+        } else if (linkType.type === 'video') {
+          videoId = linkType.id;
+
+          // Check if the video URL also contains a playlist ID
+          playlistId = extractPlaylistId(url);
+        } else if (linkType.type === 'channel') {
+          // For channels, we don't have a specific video to show
+        } else {
+          // Try to extract a video ID directly as a fallback
+          videoId = extractVideoId(url);
+        }
+
+        setYoutubeData({
+          type: linkType.type,
+          id: linkType.id,
+          playlistId,
+          videoId
+        });
       }
-
-      setYoutubeData({
-        type: linkType.type,
-        id: linkType.id,
-        playlistId,
-        videoId
-      });
     } catch (error) {
-      console.error('Error analyzing YouTube URL:', error);
+      console.error('Error analyzing YouTube data:', error);
     }
   }, [course]);
 
-  // 3. Third useEffect: Analyze YouTube link (depends on course)
+  // 3. Third useEffect: Analyze YouTube data (depends on course)
   useEffect(() => {
-    analyzeYouTubeLink();
-  }, [analyzeYouTubeLink]);
+    analyzeYouTubeData();
+  }, [analyzeYouTubeData]);
 
   // Memoized fetch progress function
   const fetchProgress = useCallback(async () => {
@@ -518,9 +552,13 @@ const CoursePlayer = () => {
               ) : (
                 <div className={`aspect-video flex flex-col items-center justify-center p-6`}>
                   <p className="text-lg mb-4">No video available for direct playback</p>
-                  {course.creator_youtube_link && (
+                  {(course.youtube_id || course.creator_youtube_link) && (
                     <a
-                      href={course.creator_youtube_link}
+                      href={
+                        course.youtube_id && course.youtube_content_type
+                          ? generateYouTubeUrl(course.youtube_id, course.youtube_content_type)
+                          : course.creator_youtube_link
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="py-2 px-4 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors flex items-center"

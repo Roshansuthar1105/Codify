@@ -44,25 +44,88 @@ const getOneCourse = async (req,res)=>{
     next(error);
   }
 }
-const addNewCourse = async (req,res)=>{
+const addNewCourse = async (req,res, next)=>{
   try {
-    const newCourse = await Course.create(req.body);
-    return res.status(200).json({message:"Course added successfully"});
+    const courseData = { ...req.body };
+
+    // If youtube_id is provided directly, use it
+    if (courseData.youtube_id && courseData.youtube_content_type) {
+      // Already have the required fields
+    }
+    // If only creator_youtube_link is provided, extract the ID
+    else if (courseData.creator_youtube_link) {
+      // The pre-save middleware in the Course model will handle extraction
+    }
+    // If neither is provided, return an error
+    else {
+      return res.status(400).json({
+        message: "Either youtube_id and youtube_content_type OR creator_youtube_link must be provided"
+      });
+    }
+
+    const newCourse = await Course.create(courseData);
+    return res.status(200).json({
+      message: "Course added successfully",
+      course: newCourse
+    });
   } catch (error) {
     next(error);
   }
 }
-const updateCourse = async (req,res)=>{
+const updateCourse = async (req,res, next)=>{
   try {
     const id = req.params.id;
-    
+
     if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({ message: "Request body is empty" });
     }
 
+    const courseData = { ...req.body };
+
+    // If updating YouTube content
+    if (courseData.creator_youtube_link && !courseData.youtube_id) {
+      // Get the existing course
+      const existingCourse = await Course.findById(id);
+      if (!existingCourse) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+
+      // Extract YouTube info from the new link
+      const url = courseData.creator_youtube_link;
+
+      // Extract playlist ID
+      const playlistMatch = url.match(/^.*(youtu.be\/|list=)([^#\&\?]*).*/);
+      if (playlistMatch && playlistMatch[2]) {
+        courseData.youtube_id = playlistMatch[2];
+        courseData.youtube_content_type = 'playlist';
+      }
+      // Extract video ID
+      else {
+        const videoMatch = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#\&\?]*).*/);
+        if (videoMatch && videoMatch[2].length === 11) {
+          courseData.youtube_id = videoMatch[2];
+          courseData.youtube_content_type = 'video';
+        }
+        // Extract channel ID or handle
+        else {
+          const channelMatch = url.match(/^.*(youtube.com\/channel\/)([^#\&\?]*).*/);
+          if (channelMatch && channelMatch[2]) {
+            courseData.youtube_id = channelMatch[2];
+            courseData.youtube_content_type = 'channel';
+          } else {
+            const handleMatch = url.match(/^.*(youtube.com\/@)([^#\&\?\/]*).*/);
+            if (handleMatch && handleMatch[2]) {
+              courseData.youtube_id = handleMatch[2];
+              courseData.youtube_content_type = 'channel';
+            }
+          }
+        }
+      }
+    }
+
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
-      req.body,
+      courseData,
       { new: true, runValidators: true }
     );
 
@@ -70,9 +133,9 @@ const updateCourse = async (req,res)=>{
       return res.status(404).json({ message: "Course not found" });
     }
 
-    return res.status(200).json({ 
+    return res.status(200).json({
       message: "Course updated successfully",
-      course: updatedCourse 
+      course: updatedCourse
     });
   } catch (error) {
     next(error);

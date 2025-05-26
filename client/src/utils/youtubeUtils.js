@@ -3,6 +3,31 @@
  */
 
 /**
+ * Generate a YouTube URL from an ID and content type
+ * @param {string} id - YouTube ID (video, playlist, or channel)
+ * @param {string} contentType - Type of content ('video', 'playlist', or 'channel')
+ * @returns {string} - Full YouTube URL
+ */
+export const generateYouTubeUrl = (id, contentType) => {
+  if (!id) return null;
+
+  switch (contentType) {
+    case 'video':
+      return `https://www.youtube.com/watch?v=${id}`;
+    case 'playlist':
+      return `https://www.youtube.com/playlist?list=${id}`;
+    case 'channel':
+      // Check if it's a handle (starts with @) or a channel ID
+      if (id.startsWith('@')) {
+        return `https://www.youtube.com/${id}`;
+      }
+      return `https://www.youtube.com/channel/${id}`;
+    default:
+      return null;
+  }
+};
+
+/**
  * Extract the playlist ID from a YouTube playlist URL
  * @param {string} url - YouTube playlist URL
  * @returns {string|null} - Playlist ID or null if not found

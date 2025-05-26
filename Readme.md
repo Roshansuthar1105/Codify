@@ -82,6 +82,17 @@ Codify implements several performance optimization techniques:
 4. **Image Optimization**: Efficient image loading and rendering
 5. **SEO Optimization**: Comprehensive meta tags and structured data
 6. **Responsive Design**: Optimized for all device sizes
+7. **YouTube ID Storage**: Stores only YouTube IDs instead of full URLs for better performance and flexibility
+
+### YouTube Content Integration
+
+Codify uses an optimized approach for integrating YouTube content:
+
+- **Direct ID Storage**: Instead of storing full YouTube URLs, we store only the content ID and type
+- **Content Type Classification**: Each course is classified as containing a video, playlist, or channel
+- **Automatic ID Extraction**: When adding courses via URL, the system automatically extracts the appropriate ID
+- **Flexible Rendering**: The player adapts to different content types (single video vs. playlist)
+- **Backward Compatibility**: The system maintains compatibility with older course entries
 
 ## 📸 Screenshots
 
