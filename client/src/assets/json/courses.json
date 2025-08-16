@@ -48,7 +48,7 @@
         "course_category": "Python",
         "course_image": "https://i.ytimg.com/vi/t8pPdKYpowI/hqdefault.jpg",
         "course_title": "Python for Beginners | Full Python Programming Course",
-        "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu8dZQJYCt6Ffcd-pl113huuo_HJ3PpvgkyFk5FkrQ=s176-c-k-c0x00ffffff-no-rj",
+        "creator_image": "https://yt3.googleusercontent.com/FEcjRtez5od8UowDo6tTt9WlE-MrIFEmcwPMTORmK9Swk6KCklOmA3xfIG9WuLWfNYfNThQE=s160-c-k-c0x00ffffff-no-rj",
         "creator_name": "Apna College",
         "creator_youtube_link": "https://www.youtube.com/watch?v=t8pPdKYpowI",
         "description": "Learn Python programming with this comprehensive course for beginners."
@@ -97,5 +97,23 @@
         "creator_name": "freeCodeCamp.org",
         "creator_youtube_link": "https://www.youtube.com/watch?v=bMknfKXIFA8",
         "description": "Learn React by building eight real-world projects and solving 140+ coding challenges."
+    },
+    {
+        "course_category": "Web Development",
+        "course_image": "https://i.ytimg.com/vi/6mbwJ2xxgz0/hqdefault.jpg",
+        "course_title": "HTML Tutorial for Beginners: HTML Crash Course 2024",
+        "creator_image": "https://yt3.googleusercontent.com/ytc/AIdro_kX3sdbuu3KFmRPsmlu0R5Rx_BhpxwupjtvJmkEdNfla7w=s160-c-k-c0x00ffffff-no-rj",
+        "creator_name": "CodeWithHarry",
+        "creator_youtube_link": "https://www.youtube.com/@CodeWithHarry",
+        "description": "Learn HTML from scratch with this comprehensive tutorial for beginners. Perfect for web development starters."
+    },
+    {
+        "course_category": "Data Structures",
+        "course_image": "https://i.ytimg.com/vi/31ah5QJ4UAs/hqdefault.jpg",
+        "course_title": "Data Structures and Algorithms Course for Beginners",
+        "creator_image": "https://yt3.googleusercontent.com/st0tjHROqHEs6scfJ0ZVyMPP1_bh18WJ7l4zAjR4yRf-9sX-eFz2heChzXkiF2TL2tyo2fj_mg=s160-c-k-c0x00ffffff-no-rj",
+        "creator_name": "CodeHelp - by Babbar",
+        "creator_youtube_link": "https://www.youtube.com/@CodeHelp",
+        "description": "Master Data Structures and Algorithms with this comprehensive course designed for beginners and intermediate learners."
     }
 ]

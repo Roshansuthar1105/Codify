@@ -38,6 +38,38 @@ export default {
           900: 'var(--color-primary-900, #4c3d99)',
           950: 'var(--color-primary-950, #2e2564)',
         },
+        // Secondary color palette
+        secondary: {
+          DEFAULT: 'var(--color-secondary, #ff6b6b)',
+          light: 'var(--color-secondary-light, #ff8e8e)',
+          dark: 'var(--color-secondary-dark, #ff5252)',
+          50: '#fff5f5',
+          100: '#ffe3e3',
+          200: '#ffc9c9',
+          300: '#ffa8a8',
+          400: '#ff8787',
+          500: '#ff6b6b',
+          600: '#fa5252',
+          700: '#e03131',
+          800: '#c92a2a',
+          900: '#862e2e',
+        },
+        // Accent color palette
+        accent: {
+          DEFAULT: 'var(--color-accent, #4ecdc4)',
+          light: 'var(--color-accent-light, #6ed7d0)',
+          dark: 'var(--color-accent-dark, #2ec4b6)',
+          50: '#f0fdfb',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#4ecdc4',
+          600: '#0d9488',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+        },
         // Dark mode colors
         dark: {
           bg: {

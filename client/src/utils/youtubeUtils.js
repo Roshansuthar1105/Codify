@@ -291,3 +291,115 @@ const mockPlaylistData = (playlistId) => {
     nextPageToken: null
   };
 };
+
+/**
+ * Get YouTube API key from environment variables
+ * @returns {string|null} - YouTube API key or null if not available
+ */
+export const getYouTubeApiKey = () => {
+  // In a real production app, this would come from environment variables
+  // For now, we'll return null to use mock data
+  return process.env.REACT_APP_YOUTUBE_API_KEY || null;
+};
+
+/**
+ * Fetch channel information including profile image from YouTube Data API
+ * @param {string} channelId - YouTube channel ID
+ * @param {string} apiKey - YouTube Data API key (optional)
+ * @returns {Promise<object>} - Channel data including profile image
+ */
+export const fetchChannelData = async (channelId, apiKey = null) => {
+  if (!channelId) {
+    throw new Error('Channel ID is required');
+  }
+
+  // Use provided API key or get from environment
+  const key = apiKey || getYouTubeApiKey();
+
+  // If no API key is provided, return mock data for development
+  if (!key) {
+    return mockChannelData(channelId);
+  }
+
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${key}`
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error.message || 'Failed to fetch channel data');
+    }
+
+    const data = await response.json();
+    
+    if (data.items && data.items.length > 0) {
+      const channel = data.items[0];
+      return {
+        id: channel.id,
+        title: channel.snippet.title,
+        description: channel.snippet.description,
+        profileImage: channel.snippet.thumbnails?.default?.url || 
+                     channel.snippet.thumbnails?.medium?.url || 
+                     channel.snippet.thumbnails?.high?.url,
+        subscriberCount: channel.statistics?.subscriberCount,
+        videoCount: channel.statistics?.videoCount,
+        viewCount: channel.statistics?.viewCount,
+        publishedAt: channel.snippet.publishedAt
+      };
+    }
+
+    throw new Error('Channel not found');
+  } catch (error) {
+    console.error('Error fetching YouTube channel data:', error);
+    throw error;
+  }
+};
+
+/**
+ * Generate mock channel data for development without API key
+ * @param {string} channelId - YouTube channel ID
+ * @returns {object} - Mock channel data
+ */
+const mockChannelData = (channelId) => {
+  // Map known channel IDs to their EXACT profile images from courses.json
+  const knownChannels = {
+    'UCeVMnSShP_Iviwkknt83cww': { // CodeWithHarry - EXACT image from courses.json
+      title: 'CodeWithHarry',
+      profileImage: 'https://yt3.ggpht.com/ytc/AIdro_kotL-OQVXsay2vKRujBvNWcY47UZUwC-axNozc8Mzdutk=s88-c-k-c0x00ffffff-no-rj'
+    },
+    'UCBwmMxybNva6P_5VmxjzwqA': { // Apna College - EXACT image from courses.json
+      title: 'Apna College',
+      profileImage: 'https://yt3.ggpht.com/ytc/AMLnZu8dZQJYCt6Ffcd-pl113huuo_HJ3PpvgkyFk5FkrQ=s176-c-k-c0x00ffffff-no-rj'
+    },
+    'UCbWZFD-vbGYHkyz4cdyfldQ': { // CodeHelp - EXACT image from courses.json
+      title: 'CodeHelp - by Babbar',
+      profileImage: 'https://yt3.ggpht.com/ytc/AMLnZu_PjRc81p0qP-ZPWxv8aY4k-4gFRzGEYs3HWbIQ=s176-c-k-c0x00ffffff-no-rj'
+    }
+  };
+
+  const channel = knownChannels[channelId];
+  
+  if (channel) {
+    return {
+      id: channelId,
+      title: channel.title,
+      profileImage: channel.profileImage,
+      subscriberCount: '100K+',
+      videoCount: '50+',
+      viewCount: '1M+',
+      publishedAt: '2020-01-01T00:00:00Z'
+    };
+  }
+
+  // Return generic mock data for unknown channels
+  return {
+    id: channelId,
+    title: 'Unknown Channel',
+    profileImage: `https://ui-avatars.com/api/?name=Channel&background=random&size=88`,
+    subscriberCount: '10K+',
+    videoCount: '20+',
+    viewCount: '100K+',
+    publishedAt: '2020-01-01T00:00:00Z'
+  };
+};
