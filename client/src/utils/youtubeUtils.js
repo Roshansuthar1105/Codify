@@ -100,7 +100,7 @@ export const getYouTubeUrlType = (url) => {
  * @param {number} maxResults - Maximum number of videos to fetch (default: 50)
  * @returns {Promise<Array>} - Array of video data objects
  */
-export const fetchPlaylistData = async (playlistId, apiKey, maxResults = 50) => {
+export const fetchPlaylistData = async (playlistId, apiKey, maxResults = 100) => {
   if (!playlistId) {
     throw new Error('Playlist ID is required');
   }

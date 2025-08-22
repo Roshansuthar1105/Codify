@@ -140,7 +140,7 @@ function AdminCourses() {
 
         <Link
           to="/admin/courses/add"
-          className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-300"
+          className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-300 cursor-pointer"
         >
           <FaPlus />
           <span>Add New Course</span>

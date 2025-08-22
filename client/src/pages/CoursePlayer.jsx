@@ -115,7 +115,7 @@ const CoursePlayer = () => {
       }
 
       const linkType = getYouTubeUrlType(url);
-
+      console.log("linkType :",linkType);
       let playlistId = null;
       let videoId = null;
 

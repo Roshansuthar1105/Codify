@@ -56,6 +56,7 @@ const YouTubePlaylist = ({ playlistId, apiKey, onVideoSelect }) => {
 
         // Only update state if the component is still mounted and playlistId hasn't changed
         if (playlistId === previousPlaylistIdRef.current) {
+          console.log("playlist : ",data)
           setPlaylistData(data);
 
           // Auto-select the first video if available
