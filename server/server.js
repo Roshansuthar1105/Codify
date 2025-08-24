@@ -13,15 +13,23 @@ import progressRouter from './routes/progressRoute.js';
 import activityRouter from './routes/activityRoute.js';
 dotenv.config();
 const app= express();
-
-// using cors
+// Allow all origins
 const corsOption = {
-    // origin:"https://bitwise-learning.netlify.app",
-    origin:process.env.CLIENT_CORS,
-    methods:"POST , PUT , GET , DELETE , PATCH ,HEAD",
-    credentials:false
-}
+    origin: "*",   // any domain can access
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: false
+};
+
 app.use(cors(corsOption));
+
+// // using cors
+// const corsOption = {
+//     // origin:"https://bitwise-learning.netlify.app",
+//     origin:process.env.CLIENT_CORS,
+//     methods:"POST , PUT , GET , DELETE , PATCH ,HEAD",
+//     credentials:false
+// }
+// app.use(cors(corsOption));
 // https://bitwise-backend.onrender.com/api/v1/auth/login
 app.use(express.json());
 app.use("/api/v1/auth",authRouter);
