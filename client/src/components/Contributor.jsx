@@ -14,7 +14,7 @@ const ContributorsPage = () => {
   const isDark = theme === 'dark';
   const API = import.meta.env.VITE_SERVER_API;
   console.log(API);
-  const API_ENDPOINT = `${API}/api/v1/leaderboard`;
+  const API_ENDPOINT = ``;
 
   useEffect(() => {
     fetchContributors();
@@ -25,7 +25,7 @@ const ContributorsPage = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(API_ENDPOINT);
+      const response = await fetch(`${API}/api/leaderboard`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       
       const data = await response.json();

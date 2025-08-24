@@ -123,7 +123,7 @@ function NavBar() {
               </NavLink>
 
               <NavLink
-                to="/C"
+                to="/leaderboard"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
                   ${isActive

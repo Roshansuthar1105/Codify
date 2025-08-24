@@ -70,7 +70,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/logout" element={<LogOut />} />
-                <Route path="/C" element = {<ContributorsPage/>}/>
+                <Route path="/Leaderboard" element = {<ContributorsPage/>}/>
                 <Route path="*" element={<ErrorPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contributorGuide" element={<ContributorsGuide />} />

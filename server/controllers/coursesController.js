@@ -3,7 +3,7 @@ import UserActivity from "../models/userActivitySchema.js";
 import User from "../models/userSchema.js";
 
 // Get all courses
-const courses = async(req,res)=>{
+ export const courses = async(req,res)=>{
     try {
       const response = await Course.find({});
       if(!response){
@@ -54,4 +54,4 @@ export const enrollCourse = async (req, res) => {
     }
 };
 
-export { courses as default, enrollCourse };
+ 
