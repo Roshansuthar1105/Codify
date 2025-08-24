@@ -7,20 +7,6 @@
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="150%">
 
-# 🌐 Connect with Me on Discord  
-
-👤 **Username:** `sroshan1105_99788`  
-or search for `Roshan Suthar | PA`   
-🆔 **Discord ID:** `1317732270047498343`  
-
-[![Join My Server](https://img.shields.io/badge/Join%20Discord-5865F2?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/ybwDbRHY)  
-
-📌 **My Profile:** 
-[![Profile](https://img.shields.io/badge/View%20Profile-Click%20Here-blue?style=for-the-badge)](https://discord.com/users/1317732270047498343)  
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="150%">
-
-# Codify – Interactive Coding Learning Platform 
 > Welcome to **Codify**, your all-in-one coding learning platform! Bookmarked learning paths, interactive courses, personalized dashboards, dark/light themes, and more — all in one place.
 
 <div align="center">
@@ -72,33 +58,6 @@ or search for `Roshan Suthar | PA`
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18**: Component-based UI development
-- **TailwindCSS**: Utility-first CSS framework for styling
-- **React Router**: Client-side routing
-- **Context API**: State management
-- **Lazy Loading**: Performance optimization for components and routes
-- **JWT Authentication**: Secure user authentication
-
-### Backend
-- **Node.js**: JavaScript runtime
-- **Express**: Web application framework
-- **MongoDB**: NoSQL database for data storage
-- **Mongoose**: MongoDB object modeling
-- **JWT**: JSON Web Tokens for authentication
-
-### DevOps & Tools
-- **Vite**: Next-generation frontend tooling
-- **ESLint**: Code quality and style checking
-- **Netlify**: Frontend deployment and hosting
-- **Git & GitHub**: Version control and collaboration
-
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-
 ## ✨ Highlights
 
 - 🎓 **Interactive Courses** with hands-on lessons  
@@ -109,46 +68,6 @@ or search for `Roshan Suthar | PA`
 - 🛡️ **JWT Auth**, role-based access (Admin/Learner)
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-## 🔧 Performance Optimizations
-
-Codify implements several performance optimization techniques:
-
-1. **Lazy Loading**: Components and routes are loaded on demand
-2. **Code Splitting**: Bundle splitting for faster initial load times
-3. **Memoization**: Prevents unnecessary re-renders with useMemo and useCallback
-4. **Image Optimization**: Efficient image loading and rendering
-5. **SEO Optimization**: Comprehensive meta tags and structured data
-6. **Responsive Design**: Optimized for all device sizes
-
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-
-## 🗺️ Roadmap
-
-- [ ] Mobile application (React Native)
-- [ ] Interactive code editor and playground
-- [ ] Peer-to-peer learning and mentorship
-- [ ] Gamification elements (badges, achievements)
-- [ ] AI-powered learning recommendations
-- [ ] Community forums and discussion boards
-- [ ] Integration with GitHub for project-based learning
-
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-
-## 🙏 Acknowledgments
-
-- Inspired by leading educational platforms like Coursera, Udemy, and freeCodeCamp
-- Special thanks to all contributors and the open-source community
-- YouTube API for video content integration
-- All the amazing instructors who provided course content
-
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
 
 ## 🌐 Live Demo
 
@@ -163,7 +82,6 @@ Codify implements several performance optimization techniques:
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-
 ## 🚀 Getting Started
 
 Follow these steps to set up **Codify** locally and begin contributing.
@@ -175,8 +93,9 @@ Follow these steps to set up **Codify** locally and begin contributing.
 - Git
 - Code editor (VS Code recommended)
 
-### Installation : **Clone Codify Repository**
+### Installation
 
+**Clone Codify Repository**
 ### Frontend Setup
 1. Clone the repository
    ```bash
@@ -190,7 +109,7 @@ Follow these steps to set up **Codify** locally and begin contributing.
    ```bash
    npm install
    ```
-4. Environment (Frontend)
+2. Environment (Frontend)
 
    Create .env in client/:
    
@@ -198,7 +117,7 @@ Follow these steps to set up **Codify** locally and begin contributing.
     VITE_SERVER_API=http://localhost:5050
     VITE_YOUTUBE_API=add_your_youtube_api_here
    ```
-5. Run Frontend
+4. Run Frontend
    
    ```bash
    npm run dev
@@ -215,7 +134,7 @@ Follow these steps to set up **Codify** locally and begin contributing.
    ```bash
    npm install
    ```
-3. Environment (Backend)
+6. Environment (Backend)
 
    Create .env in server/:
    
@@ -225,10 +144,8 @@ Follow these steps to set up **Codify** locally and begin contributing.
     PORT=5050
     JWT_SECRET=your_jwt_secret
     CLIENT_CORS=http://localhost:5173
-    EMAIL_USER=your_email@gmail.com
-    EMAIL_PASS=your_app_password
    ```
-4. Run Backend
+8. Run Backend
 
    ```bash
    npm run start
@@ -406,6 +323,4 @@ Feel free to open issues or discussions if you have any feedback, feature sugges
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=65&section=footer"/>
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Ready to show off your coding achievements? Get started with Codify today! 🚀**

@@ -67,12 +67,13 @@ userSchema.methods.generateToken = async function () {
     console.error(error);
   }
 };
-userSchema.methods.compairPassword = async function (e) {
-    try {
-        return bcryptjs.compare(e ,this.password);
-    } catch (error) {
-        console.error(error)
-    }
+userSchema.methods.comparePassword = async function (plainTextPassword) {
+  try {
+    return await bcryptjs.compare(plainTextPassword, this.password);
+  } catch (error) {
+    console.error("Password comparison error:", error);
+    return false; // Always return false on error for security
+  }
 }
 const User = mongoose.model("User", userSchema);
 export default User;

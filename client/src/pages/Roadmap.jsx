@@ -330,16 +330,19 @@ const Roadmap = () => {
                 >
                   {filter.label}
                   <span className={`ml-2 text-xs px-2 py-1 rounded-full ${
-                    activeFilter === filter.key
-                      ? 'bg-white/20'
-                      : isDark
-                      ? 'bg-dark-bg-primary text-dark-text-secondary'
-                      : 'bg-light-bg-primary text-light-text-secondary'
-                  }`}>
-                    {filter.key === 'all' ? (roadmap?.length || 0) + (skills?.length || 0) :
-                     filter.key === 'roles' ? filteredRoadmaps.roles.length :
-                     filteredRoadmaps.skills.length}
-                  </span>
+  activeFilter === filter.key
+    ? 'bg-white/20'
+    : isDark
+    ? 'bg-dark-bg-primary text-dark-text-secondary'
+    : 'bg-light-bg-primary text-light-text-secondary'
+}`}>
+  {filter.key === 'all'
+    ? roadmap.length + skills.length
+    : filter.key === 'roles'
+    ? roadmap.length
+    : skills.length}
+</span>
+
                 </motion.button>
               ))}
             </div>

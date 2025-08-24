@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import OtpModal from "../components/OtpModal";
+import React, { useState,useRef } from "react";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";
@@ -7,6 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useLoading } from "../components/loadingContext";
 import { FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import OtpModal from "../components/OtpModal";
 
 function Login() {
   const [user, setUser] = useState({
@@ -19,12 +19,12 @@ function Login() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [serverOtp, setServerOtp] = useState(null);
-  const [showOtpModal, setShowOtpModal] = useState(false);
-  const [resending, setResending] = useState(false);
-  const [loginVerdict, setLoginVerdict] = useState(null); // "success" or "fail"
-  const otpRefs = useRef([]);
   const otpLength = 6;
+  const otpRefs = useRef([]);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [serverOtp, setServerOtp] = useState(null);
+  const [resending, setResending] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -35,25 +35,28 @@ function Login() {
     });
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     setIsLoading(true);
 
-    // Step 1: Send OTP immediately
-    const otpResponse = await fetch(`${API}/api/v1/auth/send-otp`, {
+    // Save email for OTP verification
+    setLoginEmail(user.email);
+
+    const response = await fetch(`${API}/api/v1/auth/send-otp`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: user.email }),
     });
-    const otpData = await otpResponse.json();
 
-    if (otpResponse.ok) {
-      setServerOtp(otpData.otp);
+    const data = await response.json();
+
+    if (response.ok) {
+      setServerOtp(data.otp); // optional, mostly for testing
       setShowOtpModal(true);
       toast.success("OTP sent to your email!");
     } else {
-      toast.error("Failed to send OTP");
+      toast.error(data.message || "Failed to send OTP");
     }
   } catch (err) {
     console.error(err);
@@ -63,70 +66,51 @@ function Login() {
   }
 };
 
-
-const verifyOtp = async () => {
+  const verifyOtp = async () => {
   try {
     setIsLoading(true);
-    const otpString = otp.join("");
-
-    // Verify OTP first
-    const response = await fetch(`${API}/api/v1/auth/verify-otp`, {
+    const response = await fetch(`${API}/api/v1/auth/verify-otp-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: user.email, otp: otpString }),
+      body: JSON.stringify({ email: credentials.email, otp }),
     });
-
     const result = await response.json();
-
     if (response.ok) {
-      // OTP is correct → now call actual login
-      const loginResponse = await fetch(`${API}/api/v1/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
-
-      const loginData = await loginResponse.json();
-
-      if (loginResponse.ok) {
-        storeTokenInLS(loginData.token);
-        toast.success("Login successful!");
-        window.location.href = "/";
-      } else {
-        toast.error(loginData.message || "Unexpected error while logging in");
-      }
+      storeTokenInLS(result.token);
+      toast.success("Login successful!");
+      setShowOtpModal(false);
+      window.location.href = "/";
     } else {
-      toast.error("Invalid OTP");
+      toast.error(result.message || "Invalid OTP");
     }
   } catch (error) {
     toast.error("Error verifying OTP");
   } finally {
     setIsLoading(false);
-    setShowOtpModal(false);
   }
 };
 
-  const handleResendOtp = async () => {
-    try {
-      setResending(true);
-      const res = await fetch(`${API}/api/v1/auth/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success("OTP resent!");
-        setServerOtp(data.otp);
-      } else {
-        toast.error(data.message || "Failed to resend OTP");
-      }
-    } catch (error) {
-      toast.error("Error resending OTP");
-    } finally {
-      setResending(false);
+const handleResendOtp = async () => {
+  try {
+    setResending(true);
+    const res = await fetch(`${API}/api/v1/auth/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: credentials.email }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      toast.success("OTP resent!");
+      setServerOtp(data.otp);
+    } else {
+      toast.error(data.message || "Failed to resend OTP");
     }
-  };
+  } catch (error) {
+    toast.error("Error resending OTP");
+  } finally {
+    setResending(false);
+  }
+};
 
 
   return (
@@ -266,16 +250,18 @@ const verifyOtp = async () => {
       </div>
     </div>
       <OtpModal
-        isDark={isDark}
         show={showOtpModal}
+        isDark={isDark}
         otp={otp}
         setOtp={setOtp}
-        otpLength={otpLength}
+        otpLength={6}
         verifyOtp={verifyOtp}
-        resending={resending}
         handleResendOtp={handleResendOtp}
+        resending={resending}
       />
+
     </>
+    
   );
 }
 

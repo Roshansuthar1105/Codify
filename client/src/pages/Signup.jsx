@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useLoading } from "../components/loadingContext";
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserPlus, FaExclamationCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import OtpModal from "../components/OtpModal";
 
 function Signup() {
   const [user, setUser] = useState({
@@ -20,6 +21,12 @@ function Signup() {
   const { setIsLoading } = useLoading();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const otpRefs = useRef([]);
+  const otpLength = 6; 
+  const [serverOtp, setServerOtp] = useState(null);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [resending, setResending] = useState(false);
 
   const validateField = (name, value) => {
     let error = "";
@@ -79,51 +86,116 @@ function Signup() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = {};
-    Object.keys(user).forEach((key) => {
-      const error = validateField(key, user[key]);
-      if (error) {
-        newErrors[key] = error;
-      }
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const newErrors = {};
+  Object.keys(user).forEach((key) => {
+    const error = validateField(key, user[key]);
+    if (error) newErrors[key] = error;
+  });
+
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length > 0) {
+    toast.error("Please fix the errors before submitting.");
+    return;
+  }
+
+  // Save user data in localStorage for later registration
+  localStorage.setItem("signupData", JSON.stringify(user));
+
+  try {
+    setIsLoading(true);
+    const response = await fetch(`${API}/api/v1/auth/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email }),
     });
+    const data = await response.json();
 
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) {
-      toast.error("Please fix the errors before submitting.");
-      return;
+    if (response.ok) {
+      setServerOtp(data.otp); 
+      setShowOtpModal(true);
+      toast.success("OTP sent to your email!");
+    } else {
+      toast.error(data.message || "Failed to send OTP");
     }
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong!");
+  } finally {
+    setIsLoading(false);
+  }
+};
+//verify otp
+const verifyOtp = async () => {
+  try {
+    setIsLoading(true);
+    const otpString = otp.join(""); //convert the otp to string which backend expects
+    const response = await fetch(`${API}/api/v1/auth/verify-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email, otp: otpString }),
+    });
+    const result = await response.json();
 
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${API}/api/v1/auth/register`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if (response.ok) {
+      toast.success("OTP verified successfully!");
+
+      // Now register the user
+      const storedData = JSON.parse(localStorage.getItem("signupData"));
+      const registerResponse = await fetch(`${API}/api/v1/auth/register`, {
         method: "POST",
-        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(storedData),
       });
-      const res_data = await response.json();
 
-      if (response.ok) {
-        storeTokenInLS(res_data.token);
-        toast.success("Registration successful! Welcome aboard!");
+      const registerResult = await registerResponse.json();
+      if (registerResponse.ok) {
+        storeTokenInLS(registerResult.token);
+        toast.success("Registration successful!");
+        localStorage.removeItem("signupData");
         window.location.href = "/";
       } else {
-        const errorMessage = res_data.extraDetails ? res_data.extraDetails : res_data.message;
-        toast.warn(errorMessage);
+        toast.error(registerResult.message || "Registration failed!");
       }
-    } catch (error) {
-      console.log("response error : ", error);
-      toast.error("Registration failed. Please try again.");
-    } finally {
-      setIsLoading(false);
+    } else {
+      toast.error(result.message || "Invalid OTP");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    toast.error("Error while verifying OTP");
+  } finally {
+    setIsLoading(false);
+    setShowOtpModal(false);
+  }
+};
+// //resend otp
+const handleResendOtp = async () => {
+  try {
+    setResending(true);
+    const res = await fetch(`${API}/api/v1/auth/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      toast.success("OTP resent!");
+      setServerOtp(data.otp);
+    } else {
+      toast.error(data.message || "Failed to resend OTP");
+    }
+  } catch (error) {
+    toast.error("Error resending OTP");
+  } finally {
+    setResending(false);
+  }
+};
+
 
   return (
+  <>
     <div className={`relative min-h-screen-minus-nav flex items-center justify-center p-4 md:p-8 overflow-hidden z-10 ${
       isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'
     }`}>
@@ -267,6 +339,7 @@ function Signup() {
                     type={show ? "text" : "password"}
                     id="password"
                     name="password"
+                    autoComplete="new-password"
                     placeholder="Enter your password"
                     value={user.password}
                     onChange={handleChange}
@@ -308,6 +381,18 @@ function Signup() {
         </div>
       </div>
     </div>
+      <OtpModal
+        show={showOtpModal}
+        isDark={isDark}
+        otp={otp}
+        setOtp={setOtp}
+        otpLength={6}
+        verifyOtp={verifyOtp}
+        handleResendOtp={handleResendOtp}
+        resending={resending}
+      />
+  </>
+
   );
 }
 

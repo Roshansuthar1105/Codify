@@ -24,6 +24,7 @@ const CoursePlayer = () => {
   const [courseProgress, setCourseProgress] = useState(null);
   const [progress, setProgress] = useState(0);
   const [inWatchlist, setInWatchlist] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const apiKey=import.meta.env.VITE_YOUTUBE_API;
   // YouTube link analysis
   const [youtubeData, setYoutubeData] = useState({
@@ -100,7 +101,10 @@ const CoursePlayer = () => {
   // 2. Second useEffect: Check if course is in watchlist (depends on course and userdata)
   useEffect(() => {
     checkWatchlist();
-  }, [checkWatchlist]);
+    if (userdata && userdata.enrolledCourses && userdata.enrolledCourses.includes(courseId)) {
+      setIsEnrolled(true);
+    }
+  }, [checkWatchlist, userdata, courseId]);
 
   // Memoized YouTube link analysis function
   const analyzeYouTubeLink = useCallback(() => {
@@ -377,6 +381,34 @@ const CoursePlayer = () => {
     }
   }, [course]);
 
+  const enrollCourse = useCallback(async () => {
+    if (!userdata?._id) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API}/api/courses/enroll`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ courseId })
+      });
+
+      if (response.ok) {
+        setIsEnrolled(true);
+        alert('Successfully enrolled in the course!');
+      } else {
+        alert('Failed to enroll in the course.');
+      }
+    } catch (error) {
+      console.error('Error enrolling in course:', error);
+      alert('An error occurred while enrolling in the course.');
+    }
+  }, [userdata, navigate, API, token, courseId]);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen-minus-nav">
@@ -470,6 +502,18 @@ const CoursePlayer = () => {
                 title="Share course"
               >
                 <FaShare />
+              </button>
+
+              <button
+                onClick={enrollCourse}
+                disabled={isEnrolled}
+                className={`
+                  p-2 rounded-full transition-colors
+                  ${isEnrolled ? 'bg-green-500/20 text-green-500' : isDark ? 'hover:bg-dark-bg-tertiary' : 'hover:bg-light-bg-tertiary'}
+                `}
+                title={isEnrolled ? 'Already Enrolled' : 'Enroll in course'}
+              >
+                <FaPlay />
               </button>
             </div>
           </div>

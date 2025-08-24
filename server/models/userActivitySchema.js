@@ -17,7 +17,8 @@ const userActivitySchema = mongoose.Schema({
       'watchlist_update',
       'video_change',
       'course_select',
-      'progress_update'
+      'progress_update',
+      'course_enrolled'
     ],
     required: true
   },

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
 import { RiMenu3Fill } from "react-icons/ri";
-import { FaGraduationCap } from "react-icons/fa";
+import { FaGraduationCap, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import ThemeSwitcher from "./ThemeSwitcher";
 import ThemeColorSelector from "./ThemeColorSelector";
 import MobileMenu from "./MobileMenu";
@@ -42,8 +42,17 @@ function NavBar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Scroll to top handler
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <nav 
+    // className={`
+    //   sticky top-0 z-50 w-full transition-all duration-300 ${isDark ? 'bg-dark-bg-primary/95' : 'bg-light-bg-primary/95'} shadow-nav backdrop-blur-sm
+    //   ${isDark ? 'text-dark-text-primary' : 'text-white'}
+    // `}
     className={`
       sticky top-0 z-50 w-full transition-all duration-300
       ${scrolled
@@ -52,8 +61,8 @@ function NavBar() {
       ${isDark ? 'text-dark-text-primary' : 'text-white'}
     `}
     >
-      <div className=" mx-auto px-4 sm:px-6 lg:4">
-        <div className="flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <NavLink to="/" className={`flex items-center space-x-2 font-bold text-xl text-primary-500 transition-colors`}>
@@ -62,101 +71,159 @@ function NavBar() {
             </NavLink>
           </div>
 
-          {/* Desktop Navigation - Centered */}
-          <div className="hidden md:flex flex-1 justify-center px-4">
-            <div className="flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-4">
               <NavLink
                 to="/"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive 
-                    ? 'bg-primary text-white' 
+                  ${isActive
+                    ? 'bg-primary text-white'
                     : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
                 `}
               >
                 Home
               </NavLink>
+
               <NavLink
                 to="/about"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive 
-                    ? 'bg-primary text-white' 
+                  ${isActive
+                    ? 'bg-primary text-white'
                     : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
                 `}
               >
                 About
               </NavLink>
+
               <NavLink
                 to="/courses"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive 
-                    ? 'bg-primary text-white' 
+                  ${isActive
+                    ? 'bg-primary text-white'
                     : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
                 `}
               >
                 Courses
               </NavLink>
+
               <NavLink
                 to="/roadmap"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive 
-                    ? 'bg-primary text-white' 
+                  ${isActive
+                    ? 'bg-primary text-white'
                     : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
                 `}
               >
                 Roadmaps
               </NavLink>
+
+              <NavLink
+                to="/C"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive
+                    ? 'bg-primary text-white'
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Contributor
+              </NavLink>
+
               <NavLink
                 to="/contact"
                 className={({ isActive }) => `
                   px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive 
-                    ? 'bg-primary text-white' 
+                  ${isActive
+                    ? 'bg-primary text-white'
                     : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
                 `}
               >
                 Contact
               </NavLink>
-            </div>
-          </div>
 
-          {/* Right Side - Auth Buttons and Theme Controls */}
-          <div className="hidden md:flex items-center justify-end gap-3 min-w-[250px]">
-            {/* Auth Buttons */}
-            <div className="flex items-center gap-2">
               {isLoggedIn ? (
-                <NavLink
-                  to="/logout"
-                  className={`px-2 py-1.5 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white transition-colors`}
-                >
-                  Logout
-                </NavLink>
+                <>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) => `
+                      px-3 py-2 rounded-md text-sm font-medium transition-colors
+                      ${isActive
+                        ? 'bg-primary text-white'
+                        : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                    `}
+                  >
+                    Dashboard
+                  </NavLink>
+
+                  {userdata?.isAdmin && (
+                    <NavLink
+                      to="/admin"
+                      className={({ isActive }) => `
+                        px-3 py-2 rounded-md text-sm font-medium transition-colors
+                        ${isActive
+                          ? 'bg-primary text-white'
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                      `}
+                    >
+                      Admin
+                    </NavLink>
+                  )}
+
+                  <NavLink
+                    to="/logout"
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary '} hover:bg-primary-400 hover:text-white transition-colors`}
+                  >
+                    Logout
+                  </NavLink>
+                </>
               ) : (
                 <>
                   <NavLink
                     to="/login"
-                    className={`px-2 py-1.5 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white transition-colors`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary '} hover:bg-primary-400 hover:text-white transition-colors`}
                   >
                     Login
                   </NavLink>
+
                   <NavLink
                     to="/signup"
-                    className={`px-2 py-1.5 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white transition-colors`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary '} hover:bg-primary-400 hover:text-white transition-colors`}
                   >
                     Sign Up
                   </NavLink>
                 </>
               )}
             </div>
+          </div>
 
-            {/* Theme Controls */}
-            <div className="flex items-center gap-2 border-l pl-3 border-gray-200 dark:border-gray-700">
-              <ThemeSwitcher />
-              <ThemeColorSelector />
-            </div>
+
+          {/* Theme Controls & Back to Top */}
+          <div className="hidden md:flex items-center space-x-3">
+            <ThemeSwitcher />
+            <ThemeColorSelector />
+            {/* Back to Top Arrow */}
+            <button
+              onClick={handleBackToTop}
+              className="ml-4 p-2 rounded-full bg-primary-500 hover:bg-primary-600 text-white shadow transition-colors focus:outline-none"
+              title="Back to Top"
+              style={{ position: 'relative', right: 0 }}
+            >
+              <FaArrowUp className="text-xl" />
+            </button>
+            {/* Top to Bottom Arrow */}
+            <button
+              onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+              className="ml-2 p-2 rounded-full bg-primary-500 hover:bg-primary-600 text-white shadow transition-colors focus:outline-none"
+              title="Top to Bottom"
+              style={{ position: 'relative', right: 0 }}
+            >
+              <FaArrowDown className="text-xl" />
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -165,7 +232,7 @@ function NavBar() {
             <ThemeColorSelector />
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/10 focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md ${isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/10'} focus:outline-none`}
             >
               <span className="sr-only">Open main menu</span>
               <RiMenu3Fill className="block h-6 w-6" />
@@ -186,6 +253,7 @@ function NavBar() {
 }
 
 export default NavBar;
+
 // src/components/NavBar.jsx
 // import React, { useEffect, useState } from 'react';
 // import { NavLink, useNavigate } from 'react-router-dom';

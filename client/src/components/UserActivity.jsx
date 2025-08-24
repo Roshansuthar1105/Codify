@@ -5,7 +5,8 @@ import {
   FaCheckCircle,
   FaBookmark,
   FaTrash,
-  FaGraduationCap
+  FaGraduationCap,
+  FaUserGraduate
 } from 'react-icons/fa';
 
 const UserActivity = ({ activities }) => {
@@ -145,6 +146,14 @@ const UserActivity = ({ activities }) => {
           title: 'Updated progress',
           description: getCourseTitle(),
           details: getAdditionalDetails()
+        };
+
+      case 'course_enrolled':
+        return {
+          icon: <FaUserGraduate className="text-green-500" />,
+          title: 'Enrolled in course',
+          description: getCourseTitle(),
+          details: activity.details?.enrollmentDate ? `Enrolled on ${new Date(activity.details.enrollmentDate).toLocaleDateString()}` : null
         };
 
       default:
