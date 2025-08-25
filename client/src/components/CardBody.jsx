@@ -109,7 +109,7 @@ const CardBody = ({ course, watchlist = [], updateWatchlist, onClick }) => {
 
       <div className="p-4 flex flex-col gap-5 relative">
         <h3 className={`text-lg font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
-          {course_title.length > 30 ? `${course_title.slice(0, 30)}...` : course_title}
+          {course_title.length > 20 ? `${course_title.slice(0, 20)}...` : course_title}
         </h3>
 
         <div className="flex items-center gap-2">
