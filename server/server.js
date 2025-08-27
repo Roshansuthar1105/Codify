@@ -13,6 +13,7 @@ import progressRouter from './routes/progressRoute.js';
 import activityRouter from './routes/activityRoute.js';
 import LearderBoardRouter from './routes/LeaderBoardRoute.js'
 import bookmarkRouter from './routes/bookmarkRoute.js';
+import executeRoute from './routes/executeRoute.js';
 dotenv.config();
 const app= express();
 // Allow all origins
@@ -43,6 +44,7 @@ app.use("/",router)
 app.use("/admin",adminRouter);
 app.use("/api/v1",LearderBoardRouter);
 app.use("/api/v1/bookmarks", bookmarkRouter);
+app.use('/api/v1/execute', executeRoute);
 // app.get("/",)
 const PORT = process.env.PORT ||5050;
 
