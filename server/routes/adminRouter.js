@@ -36,4 +36,7 @@ adminRouter
 adminRouter
   .route("/users/update/:id")
   .patch(authMiddleware, adminMiddleware, adminController.updateOneUser);
+adminRouter
+  .route("/courses/fetch-youtube")
+  .post(authMiddleware, adminMiddleware, adminController.fetchYoutubeCourseData);  
 export default adminRouter;

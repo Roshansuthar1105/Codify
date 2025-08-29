@@ -19,6 +19,8 @@ const AddNewCourse = () => {
 
     const [newCourse, setNewCourse] = useState({
         course_category: "",
+        course_type: "",       
+        course_youtube_id: "", // manual entry till here 
         creator_name: "",
         course_title: "",
         creator_image: "",
@@ -31,6 +33,62 @@ const AddNewCourse = () => {
         setNewCourse({ ...newCourse, [e.target.name]: e.target.value });
     }
 
+    //Population of courses though Youtube API
+    const handleFetchFromYoutube = async () => {
+        if (!newCourse.course_youtube_id || !newCourse.course_category || !newCourse.course_type) {
+            toast.error("Please enter YouTube ID, Course Category, and Course Type");
+            return;
+        }
+
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${API}/admin/courses/fetch-youtube`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authorizationToken,
+                },
+                body: JSON.stringify({
+                    course_youtube_id: newCourse.course_youtube_id,
+                    course_category: newCourse.course_category,
+                    course_type: newCourse.course_type
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(
+                    errorData.message ||
+                    "Failed to fetch YouTube data. You can fill the fields manually."
+                );
+            }
+
+            const data = await response.json();
+            const course = data.course || data; // Use correct object
+            // Prefill form fields + store youtubeId in state
+            setNewCourse((prev) => ({
+                ...prev,
+                course_title: course.course_title || "",
+                description: course.description || "",
+                course_image: course.course_image || "",
+                creator_name: course.creator_name || "",
+                creator_image: course.creator_image || "",
+                creator_youtube_link: course.creator_youtube_link || "",
+            }));
+
+            toast.success("YouTube data fetched successfully!");
+        } catch (error) {
+            console.error("YouTube API fetch failed:", error);
+            toast.error(
+                error.message || "Failed to fetch YouTube data. Please enter manually."
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+    //Manual Update Fallback 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -48,12 +106,14 @@ const AddNewCourse = () => {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to add course');
             }
-
+            
             const data = await response.json();
 
             // Reset form
             setNewCourse({
                 course_category: "",
+                course_type: "",
+                course_youtube_id: "",  //enter all manually
                 creator_name: "",
                 course_title: "",
                 creator_image: "",
@@ -135,7 +195,7 @@ const AddNewCourse = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Form */}
-                <div className={`lg:col-span-2 p-6 rounded-xl shadow-lg ${
+                {/* <div className={`lg:col-span-2 p-6 rounded-xl shadow-lg ${
                     isDark ? 'bg-dark-bg-secondary border border-dark-border' : 'bg-light-bg-secondary border border-light-border'
                 }`}>
                     <div className={`mb-4 pb-4 border-b border-dashed flex items-center gap-2 ${
@@ -155,7 +215,21 @@ const AddNewCourse = () => {
                         newCourse={newCourse}
                         isDark={isDark}
                     />
-                </div>
+                </div> */}
+                <div
+          className={`lg:col-span-2 p-6 rounded-xl shadow-lg ${
+            isDark ? "bg-dark-bg-secondary border border-dark-border" : "bg-light-bg-secondary border border-light-border"
+          }`}
+        >
+
+          <CourseForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleFetchFromYoutube={handleFetchFromYoutube}
+            newCourse={newCourse}
+            isDark={isDark}
+          />
+        </div>
 
                 {/* Preview */}
                 <div className={`${preview ? 'block' : 'hidden lg:block'} lg:col-span-1`}>
