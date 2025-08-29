@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { RiCloseLargeLine } from 'react-icons/ri';
-import { FaBook, FaBookReader, FaEnvelope, FaGraduationCap, FaHome, FaRoad, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie } from 'react-icons/fa';
+import { FaBook, FaBookReader,FaBookmark , FaEnvelope, FaGraduationCap, FaHome, FaRoad, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
@@ -160,6 +160,26 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   <FaRoad className='text-xl' /> <span className='text-xl'>Roadmaps</span>
                 </NavLink>
 
+
+                <NavLink
+                  to="/bookmarks"
+                  onClick={onClose}
+                  className={({ isActive }) => `
+                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                    ${isActive
+                      ? isDark
+                        ? 'bg-dark-bg-tertiary text-primary'
+                        : 'bg-light-bg-tertiary text-primary'
+                      : isDark
+                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
+                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    }
+                  `}
+                >
+                  <FaBookmark className='text-xl' /> <span className='text-xl'>Bookmark</span>
+                </NavLink>
+
+                
                 <NavLink
                   to="/contributors"
                   onClick={onClose}
