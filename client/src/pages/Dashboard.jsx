@@ -15,6 +15,7 @@ function Dashboard() {
   const { userdata, API } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const [bookmarks, setBookmarks] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
   // Stats for user dashboard with proper tracking
   const [stats, setStats] = useState({
@@ -30,6 +31,28 @@ function Dashboard() {
   const [selectedCourseProgress, setSelectedCourseProgress] = useState(null);
   const [continueWatchingCourses, setContinueWatchingCourses] = useState([]);
   const token = localStorage.getItem('token');
+
+  const fetchBookmarks = useCallback(async () => {
+    try {
+      const response = await fetch(`${API}/api/v1/bookmarks`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBookmarks(data.data || []);
+      } else {
+        console.error('Failed to fetch bookmarks:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching bookmarks:', error);
+    }
+  }, [API, token]);
+
 
   // Fetch user's watchlist (Saved Courses) - memoized to prevent unnecessary re-renders
   const fetchWatchlist = useCallback(async () => {
@@ -329,10 +352,11 @@ function Dashboard() {
   }, [selectedCourseProgress, token, API, fetchUserActivity]);
 
   useEffect(() => {
+    fetchBookmarks();
     fetchWatchlist();
     fetchUserProgress();
     fetchUserActivity();
-  }, [fetchWatchlist, fetchUserProgress, fetchUserActivity]);
+  }, [fetchBookmarks,fetchWatchlist, fetchUserProgress, fetchUserActivity]);
 
   // Handle watchlist update in CardBody and track the activity - memoized to prevent unnecessary re-renders
   const updateWatchlist = useCallback(async (course, action) => {
@@ -840,6 +864,105 @@ return (
                 </motion.div>
               )}
             </motion.div>
+
+            {/* Bookmarks Section */}
+<motion.section 
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1.2 }}
+  className="mt-16"
+>
+  <div className="mb-8 flex justify-between items-center">
+    <h2 className={`text-2xl sm:text-3xl font-righteous tracking-wide ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
+      Your Bookmarks
+    </h2>
+    {bookmarks.length > 0 && (
+      <Link
+        to="/bookmarks"
+        className="text-primary hover:text-primary-dark transition-colors font-medium"
+      >
+        View All
+      </Link>
+    )}
+  </div>
+
+  {bookmarks.length > 0 ? (
+    <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+      {bookmarks.map((item, idx) => (
+        <motion.div
+          key={idx}
+          whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ duration: 0.3 }}
+          className={`relative p-6 w-[280px] rounded-2xl shadow-lg bg-gradient-to-br backdrop-blur-xl transition-all duration-300 hover:shadow-2xl overflow-hidden flex-shrink-0 ${
+            isDark 
+              ? 'from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000' 
+              : 'from-blue-50 to-indigo-50 border border-light-border'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-3xl">{item.icon || "📌"}</span>
+            <FaBookmark className="text-primary" />
+          </div>
+          <h3 className={`text-xl font-semibold mb-2 ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} group-hover:text-primary transition-colors duration-300`}>
+            {item.name}
+          </h3>
+          <p className={`text-sm mb-6 capitalize ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
+            {item.type} roadmap
+          </p>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <a
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block py-2 px-4 bg-primary hover:bg-primary-dark text-white rounded-xl transition-colors text-sm font-semibold"
+            >
+              Explore
+            </a>
+          </motion.div>
+        </motion.div>
+      ))}
+    </div>
+  ) : (
+    <motion.div 
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.3 }}
+      className={`relative p-8 lg:p-12 rounded-2xl shadow-lg bg-gradient-to-br backdrop-blur-xl text-center transition-all duration-300 hover:shadow-2xl overflow-hidden ${
+        isDark 
+          ? 'from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000' 
+          : 'from-blue-50 to-indigo-50 border border-light-border'
+      }`}
+    >
+      <motion.div 
+        className={`w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center ${isDark ? 'bg-dark-bg-primary' : 'bg-light-bg-primary'}`}
+        whileHover={{ rotate: 360 }}
+        transition={{ duration: 0.5 }}
+      >
+        <FaBookmark className="text-primary text-xl" />
+      </motion.div>
+      <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
+        No bookmarks yet
+      </h3>
+      <p className={`mb-4 ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
+        Save your favorite roadmaps here for quick access.
+      </p>
+      <motion.div
+        variants={buttonVariants}
+        initial="initial"
+        whileHover="hover"
+        whileTap="tap"
+      >
+        <Link
+          to="/roadmap"
+          className="py-2 px-4 bg-primary hover:bg-primary-dark text-white rounded-xl transition-colors text-sm font-semibold"
+        >
+          Explore Roadmaps
+        </Link>
+      </motion.div>
+    </motion.div>
+  )}
+</motion.section>
+
+
           </div>
 
           {/* Right Column - Stats & Activity with Updated Card Styling */}
