@@ -7,7 +7,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useLoading } from "../components/loadingContext";
 import { FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion"; // Added for animation
+import { motion } from "framer-motion";
 
 // Animation variants (copied from Roadmap)
 const backgroundVariants = {
@@ -209,19 +209,18 @@ function Login() {
               className="w-full md:w-1/2 flex flex-col items-center"
             >
               <motion.div
-                className={`w-full max-w-md p-8 rounded-2xl shadow-lg backdrop-blur-xl transition-all duration-300 hover:shadow-2xl ${isDark
-                  ? 'bg-dark-bg-secondary/90 border border-dark-border'
-                  : 'bg-light-bg-secondary/90 border border-light-border'
-                }`}
+                className={`group w-full max-w-md p-8 rounded-2xl shadow-2xl hover:border-b-2 hover:border-r-2 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${isDark ? 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl' : 'bg-light-bg-secondary border border-light-border hover:border-primary/50'} transition-all duration-300 overflow-hidden`}
               >
-                <h2 className="text-3xl font-righteous text-center mb-8">
-                  Login
-                </h2>
+
+                 <h2 className="text-3xl font-righteous text-center mb-8 transition-colors duration-300 group-hover:text-primary"
+    >
+      <span className="group-hover:text-primary transition-colors duration-300">Login</span>
+    </h2>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-6">
                     <label
                       htmlFor="email"
-                      className={`block mb-2 text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
+                      className={`block mb-2 text-m font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
                     >
                       <div className="flex items-center">
                         <FaEnvelope className="mr-2 text-primary" />
@@ -236,16 +235,18 @@ function Login() {
                       placeholder="Enter your email"
                       value={user.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 rounded-xl bg-transparent border ${isDark
-                        ? 'border-dark-border text-dark-text-primary placeholder-dark-text-secondary'
-                        : 'border-light-border text-light-text-primary placeholder-light-text-secondary'
-                        } focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300`}
+                      className={`w-full px-4 py-3 rounded-xl bg-transparent border
+    ${isDark
+                          ? 'border-dark-border text-dark-text-primary placeholder-dark-text-secondary'
+                          : 'border-light-border text-light-text-primary placeholder-light-text-secondary'
+                        }
+    focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300`}
                     />
                   </div>
                   <div className="mb-6 relative">
                     <label
                       htmlFor="password"
-                      className={`block mb-2 text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
+                      className={`block mb-2 text-m font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
                     >
                       <div className="flex items-center">
                         <FaLock className="mr-2 text-primary" />
@@ -260,10 +261,12 @@ function Login() {
                       placeholder="Enter your password"
                       value={user.password}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 rounded-xl bg-transparent border ${isDark
-                        ? 'border-dark-border text-dark-text-primary placeholder-dark-text-secondary'
-                        : 'border-light-border text-light-text-primary placeholder-light-text-secondary'
-                        } focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300`}
+                      className={`w-full px-4 py-3 rounded-xl bg-transparent border
+    ${isDark
+                          ? 'border-dark-border text-dark-text-primary placeholder-dark-text-secondary'
+                          : 'border-light-border text-light-text-primary placeholder-light-text-secondary'
+                        }
+    focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300`}
                     />
                     <div
                       className="absolute right-3 top-[42px] cursor-pointer text-xl p-1 rounded-full hover:bg-primary/10 transition-colors"
@@ -316,4 +319,4 @@ function Login() {
   );
 }
 
-export default Login;  
+export default Login;
