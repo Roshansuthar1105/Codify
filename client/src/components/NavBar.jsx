@@ -67,6 +67,7 @@ function NavBar() {
               <FaGraduationCap className="text-3xl" />
               <span className="font-righteous text-3xl">Codify</span>
             </NavLink>
+            
           </div>
 
           {/* Desktop Navigation */}
@@ -95,6 +96,19 @@ function NavBar() {
               >
                 About
               </NavLink>
+
+              <NavLink
+                to="/editor"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-lg font-medium transition-colors
+                  ${isActive
+                    ? 'bg-primary text-white'
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Editor
+              </NavLink>
+              
 
               <NavLink
                 to="/courses"
@@ -153,7 +167,7 @@ function NavBar() {
               >
                 Contact
               </NavLink>
-              
+
 
               <NavLink
                 to="/bookmarks"
@@ -181,7 +195,7 @@ function NavBar() {
                     Dashboard
                   </NavLink>
 
-                  {(userdata?.isAdmin ||userdata?.isReadOnlyAdmin ) && (
+                  {(userdata?.isAdmin || userdata?.isReadOnlyAdmin) && (
                     <NavLink
                       to="/admin"
                       className={({ isActive }) => `

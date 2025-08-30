@@ -10,8 +10,6 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer.jsx";
 import Loader from "./components/Loader";
 import ScrollToTopButton from "./components/ScrollToTopButton.jsx";
- 
-
 // Lazy loaded components
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -39,6 +37,8 @@ const AdminUpdate = lazy(() => import("./layouts/AdminUpdate"));
 const AddNewCourse = lazy(() => import("./layouts/CourseLayout/AddNewCourse.jsx"));
 const CourseUpdate = lazy(() => import("./layouts/CourseLayout/CourseUpdate"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const CodeEditor = lazy(() => import("./pages/CodeEditor"));
+
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
 
@@ -69,6 +69,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/courses/:courseId" element={<CoursePlayer />} />
+                <Route path="/editor" element={<CodeEditor />} />
                 <Route path="/roadmap" element={<Roadmap />} />
                 <Route path="/bookmarks" element={<Bookmarks />} />
                 <Route path="/contact" element={<ContactUs />} />
