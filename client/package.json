@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-cpp": "^6.0.3",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-python": "^6.1.6",
     "@codemirror/state": "^6.4.1",
@@ -20,6 +20,7 @@
     "axios": "^1.11.0",
     "dotenv": "^16.4.5",
     "framer-motion": "^12.23.12",
+    "fuse.js": "^7.1.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.541.0",
     "react": "^18.3.1",

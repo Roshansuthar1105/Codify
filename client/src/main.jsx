@@ -5,12 +5,14 @@ import "./index.css";
 import { AuthProvider } from "./store/auth.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ToastContainer } from "react-toastify";
+import {PopupProvider} from "./context/PopupContext.jsx"
 // import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
       <AuthProvider>
+        <PopupProvider>
         <App />
         <ToastContainer
           position="top-right"
@@ -24,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           pauseOnHover
           theme="dark"
         />
+        </PopupProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
