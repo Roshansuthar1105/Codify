@@ -58,5 +58,53 @@
         "content": "User interface design concepts, prototyping, and design system implementation",
         "icon": "🎯",
         "link": "/notes/design"
+    },
+    {
+        "name": "TypeScript Essentials",
+        "content": "Static typing for JavaScript, interfaces, generics, and advanced type system features",
+        "icon": "📘",
+        "link": "/notes/typescript"
+    },
+    {
+        "name": "Algorithm & Data Structures",
+        "content": "Common algorithms, time complexity, arrays, trees, graphs, and problem-solving patterns",
+        "icon": "🧮",
+        "link": "/notes/algorithms"
+    },
+    {
+        "name": "API Design & REST",
+        "content": "RESTful API principles, HTTP methods, authentication, and API documentation best practices",
+        "icon": "🔌",
+        "link": "/notes/api-design"
+    },
+    {
+        "name": "Testing Strategies",
+        "content": "Unit testing, integration testing, TDD/BDD approaches, and testing frameworks overview",
+        "icon": "🧪",
+        "link": "/notes/testing"
+    },
+    {
+        "name": "Web Security",
+        "content": "OWASP guidelines, authentication, authorization, XSS prevention, and secure coding practices",
+        "icon": "🔒",
+        "link": "/notes/security"
+    },
+    {
+        "name": "Performance Optimization",
+        "content": "Web performance metrics, code splitting, caching strategies, and frontend optimization techniques",
+        "icon": "⚡",
+        "link": "/notes/performance"
+    },
+    {
+        "name": "Microservices Architecture",
+        "content": "Service decomposition, communication patterns, API gateways, and distributed system concepts",
+        "icon": "🏗️",
+        "link": "/notes/microservices"
+    },
+    {
+        "name": "DevOps & CI/CD",
+        "content": "Continuous integration, deployment pipelines, infrastructure as code, and automation practices",
+        "icon": "⚙️",
+        "link": "/notes/devops"
     }
 ]
