@@ -1,0 +1,64 @@
+[
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/35EQXmHKZYs/hqdefault.jpg",
+    "course_title": "Spring Boot Tutorial for Beginners",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu8Qb9xzFpgDNV9og-9q98lsbkGuKUsNfA5pDPU=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Telusko",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=35EQXmHKZYs",
+    "description": "Beginner-friendly introduction to Spring Boot covering REST APIs, dependency injection, and project setup."
+  },
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/vtPkZShrvXQ/hqdefault.jpg",
+    "course_title": "Spring Boot Crash Course",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu8i9fWvdp9D_g4cC0WjISzGpzzmK9vSShx3lw=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Amigoscode",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=vtPkZShrvXQ",
+    "description": "Learn Spring Boot by building a RESTful API in this crash course by Amigoscode."
+  },
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/9SGDpanrc8U/hqdefault.jpg",
+    "course_title": "Spring Boot Full Course [2021]",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu9sIY5RLmP9CCbRyGKY0cvGJ1u9gq-8eM9wVg=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Telusko",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=9SGDpanrc8U",
+    "description": "Comprehensive Spring Boot full course by Telusko covering REST APIs, MVC framework, and advanced configurations."
+  },
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/Ke7Tr4RgRTs/hqdefault.jpg",
+    "course_title": "Spring Boot + Spring Security Crash Course",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu-PzxSnCMuOpgDWJb1p6E9AqxwOQwhnQjX8VQ=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Java Techie",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=Ke7Tr4RgRTs",
+    "description": "Crash course on securing REST APIs with Spring Boot and Spring Security."
+  },
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/jl9OKQ92SJU/hqdefault.jpg",
+    "course_title": "Spring Framework & Spring Boot Tutorial with Project",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu8Qb9xzFpgDNV9og-9q98lsbkGuKUsNfA5pDPU=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Telusko",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=Jl9OKQ92SJU",
+    "description": "In-depth project-based Spring Framework and Spring Boot tutorial by Telusko."
+  },
+  {
+    "course_category": "Spring Boot",
+    "course_image": "https://i.ytimg.com/vi/gJrjgg1KVL4/hqdefault.jpg",
+    "course_title": "Spring Boot Tutorial for Beginners [2025]",
+    "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu8Qb9xzFpgDNV9og-9q98lsbkGuKUsNfA5pDPU=s88-c-k-c0x00ffffff-no-rj",
+    "creator_name": "Telusko",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=gJrjgg1KVL4",
+    "description": "Up-to-date (2025) Spring Boot tutorial—learn basics to advanced concepts and build real-world apps."
+  },{
+  "course_category": "Spring Boot",
+  "course_image": "https://i.ytimg.com/vi/52YKZV_Qj3o/hqdefault.jpg",
+  "course_title": "Spring Boot Full Course with Project | Tamil | Code io",
+  "creator_image": "https://yt3.ggpht.com/ytc/UC6g0-HULUz5qCk2xLMxMPRw=s88-c-k-c0x00ffffff-no-rj", 
+  "creator_name": "Code io - Tamil",
+  "creator_youtube_link": "https://www.youtube.com/watch?v=52YKZV_Qj3o",
+  "description": "This course is specially designed for college students, beginners, and freshers who want to start their journey with Spring Boot. Learn basics, REST APIs, database integration, and real-world project building, all explained in a beginner-friendly way."
+}
+]
