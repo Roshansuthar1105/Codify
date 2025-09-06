@@ -1,14 +1,21 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { RiCloseLargeLine } from 'react-icons/ri';
-import { FaBook, FaBookReader,FaBookmark , FaEnvelope, FaGraduationCap, FaHome, FaRoad, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie } from 'react-icons/fa';
+import { FaBookmark , FaEnvelope, FaGraduationCap, FaHome, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
-import { FaCode } from "react-icons/fa";  
+import { FaCode } from "react-icons/fa";
+import ThemeSwitcher from './ThemeSwitcher';
+import ThemeColorSelector from './ThemeColorSelector';  
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    onClose();
+  };
 
   // Prevent scrolling when menu is open
   useEffect(() => {
@@ -126,58 +133,6 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   <FaCode className='text-xl' /> <span className='text-xl'>Code Editor</span>
                 </NavLink>
 
-                <NavLink
-                  to="/courses"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
-                    }
-                  `}
-                >
-                  <FaBook className='text-xl' /> <span className='text-xl'>Courses</span>
-                </NavLink>
-                <NavLink
-                  to="/notes"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
-                    }
-                  `}
-                >
-                  <FaBookReader className='text-xl' /> <span className='text-xl'>Notes</span>
-                </NavLink>
-
-                <NavLink
-                  to="/roadmap"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
-                    }
-                  `}
-                >
-                  <FaRoad className='text-xl' /> <span className='text-xl'>Roadmaps</span>
-                </NavLink>
 
 
                 <NavLink
@@ -318,6 +273,46 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   </>
                 )}
               </nav>
+
+              {/* Theme Controls */}
+              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className={`text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
+                      Theme
+                    </span>
+                    <ThemeSwitcher />
+                  </div>
+                  <div>
+                    <ThemeColorSelector />
+                  </div>
+                </div>
+              </div>
+
+              {/* Scroll Controls */}
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={handleBackToTop}
+                    className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors text-sm"
+                    title="Back to Top"
+                  >
+                    <FaArrowUp className="text-xs" />
+                    <span>Top</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                      onClose();
+                    }}
+                    className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors text-sm"
+                    title="Go to Bottom"
+                  >
+                    <FaArrowDown className="text-xs" />
+                    <span>Bottom</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
