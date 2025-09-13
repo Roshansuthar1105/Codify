@@ -5,6 +5,8 @@ import { useTheme } from "../context/ThemeContext";
 import { FaGraduationCap, FaUser, FaBookOpen, FaRoad, FaStickyNote } from "react-icons/fa";
 import { RiMenu3Fill } from "react-icons/ri";
 import MobileMenu from "./MobileMenu";
+import ThemeSwitcher from './ThemeSwitcher';
+import ThemeColorSelector from './ThemeColorSelector';  
 
 function NavBar() {
   const { isLoggedIn, userdata } = useAuth();
@@ -50,8 +52,6 @@ function NavBar() {
   };
 
   return (
-
-
     <nav
       className={`
       sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-sm
@@ -66,14 +66,13 @@ function NavBar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <NavLink to="/" className={`flex items-center space-x-2 font-bold text-2xl sm:text-3xl text-primary transition-colors`}>
-              <FaGraduationCap className="text-2xl sm:text-3xl" />
+              <FaGraduationCap className="w-7 h-7 sm:w-8 sm:h-8" />
               <span className="font-righteous text-2xl sm:text-3xl">Codify</span>
             </NavLink>
-            
           </div>
 
           {/* Direct Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6 ml-16">
             <NavLink
               to="/courses"
               className={({ isActive }) => `
@@ -83,7 +82,7 @@ function NavBar() {
                   : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
               `}
             >
-              <FaBookOpen className="text-lg" />
+              <FaBookOpen className="w-5 h-5" />
               <span>Courses</span>
             </NavLink>
 
@@ -96,7 +95,7 @@ function NavBar() {
                   : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
               `}
             >
-              <FaRoad className="text-lg" />
+              <FaRoad className="w-5 h-5" />
               <span>Roadmaps</span>
             </NavLink>
 
@@ -109,15 +108,19 @@ function NavBar() {
                   : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
               `}
             >
-              <FaStickyNote className="text-lg" />
+              <FaStickyNote className="w-5 h-5" />
               <span>Notes</span>
             </NavLink>
           </div>
 
+          {/* Theme controls */}
+          <div className="hidden lg:flex items-center gap-6 ml-auto mr-12">
+            <ThemeSwitcher />
+            <ThemeColorSelector />
+          </div>  
 
           {/* Right Side - Profile & Controls */}
           <div className="flex items-center space-x-3">
-            {/* Profile Section - Clickable Box */}
             {/* Mobile hamburger */}
             <button
               onClick={toggleMenu}
@@ -126,7 +129,7 @@ function NavBar() {
               }`}
               aria-label="Open menu"
             >
-              <RiMenu3Fill className="text-xl" />
+              <RiMenu3Fill className="w-6 h-6" />
             </button>
 
             {/* Profile button (desktop/tablet) */}
@@ -153,11 +156,10 @@ function NavBar() {
                     className="w-full h-full rounded-full object-cover"
                   />
                 ) : (
-                  <FaUser className="text-primary text-sm" />
+                  <FaUser className="w-5 h-5 text-primary" />
                 )}
               </div>
             </button>
-
           </div>
         </div>
       </div>

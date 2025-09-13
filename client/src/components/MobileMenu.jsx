@@ -5,8 +5,7 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 import { FaBook, FaBookReader, FaBookmark, FaEnvelope, FaGraduationCap, FaHome, FaRoad, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie, FaArrowUp, FaArrowDown, FaQuestionCircle } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { FaCode } from "react-icons/fa";
-import ThemeSwitcher from './ThemeSwitcher';
-import ThemeColorSelector from './ThemeColorSelector';  
+
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
   const { theme } = useTheme();
@@ -390,7 +389,7 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
               </nav>
 
               {/* Theme Controls */}
-              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+              {/* <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <ThemeSwitcher />
                   <ThemeColorSelector
@@ -399,7 +398,7 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                     onClose={() => setThemeColorOpen(false)}
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Scroll Controls */}
               <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">

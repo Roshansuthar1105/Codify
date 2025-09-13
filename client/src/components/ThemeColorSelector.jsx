@@ -33,12 +33,17 @@ const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
       {isOpen && (
         <div
           className={`
+
+            absolute mt-2 p-3 rounded-lg shadow-lg z-50 grid grid-cols-3 gap-2 w-48
+            ${isDark ? 'bg-dark-bg-secondary border border-dark-border' : 'bg-white border border-light-border'}
+
             absolute left-12 -bottom-14 mt-2 p-3 rounded-lg shadow-lg z-50 grid grid-cols-3 gap-2 w-48
             ${
               isDark
                 ? "bg-dark-bg-secondary border border-dark-border"
                 : "bg-white border border-light-border"
             }
+
             `}
         >
           <div className="col-span-3 mb-2 text-center text-sm font-medium">
