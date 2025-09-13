@@ -1,10 +1,17 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from "react";
 
 const QuestionsContext = createContext(null);
 
 export function useQuestions() {
   const ctx = useContext(QuestionsContext);
-  if (!ctx) throw new Error("useQuestions must be used within <QuestionsProvider>");
+  if (!ctx)
+    throw new Error("useQuestions must be used within <QuestionsProvider>");
   return ctx;
 }
 
@@ -14,7 +21,10 @@ const updateReplyInArray = (replies, replyId, updatedReply) =>
     reply._id === replyId
       ? { ...updatedReply, children: reply.children || [] }
       : reply.children
-      ? { ...reply, children: updateReplyInArray(reply.children, replyId, updatedReply) }
+      ? {
+          ...reply,
+          children: updateReplyInArray(reply.children, replyId, updatedReply),
+        }
       : reply
   );
 
@@ -27,6 +37,24 @@ const removeReplyFromArray = (replies, replyId) =>
         : reply
     );
 
+// 🔹 Extract userId from token
+const getUserIdFromToken = (token) => {
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload?.id || null;
+  } catch (err) {
+    console.warn("Failed to decode JWT", err);
+    return null;
+  }
+};
+
+// 🔹 Normalize a question with a bookmarked field
+const transformQuestion = (q, userId) => ({
+  ...q,
+  bookmarked: q.bookmarkedBy?.includes(userId) || false,
+});
+
 export function QuestionsProvider({ children }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,6 +64,7 @@ export function QuestionsProvider({ children }) {
 
   const API =  import.meta.env.VITE_SERVER_API;
   const token = localStorage.getItem("token");
+  const userId = getUserIdFromToken(token);
 
   const getAuthHeader = () =>
     token ? { Authorization: `Bearer ${token}` } : {};
@@ -67,7 +96,10 @@ export function QuestionsProvider({ children }) {
     setLoading(true);
     try {
       const data = await apiFetch(`${API}/api/questions/getAll`);
-      setQuestions(data || []);
+      const withBookmark = Array.isArray(data)
+        ? data.map((q) => transformQuestion(q, userId))
+        : [];
+      setQuestions(withBookmark);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -87,15 +119,18 @@ export function QuestionsProvider({ children }) {
       method: "POST",
       body: JSON.stringify(payload),
     });
-    setQuestions((prev) => [newQuestion, ...prev]);
+    setQuestions((prev) => [transformQuestion(newQuestion, userId), ...prev]);
   };
 
   // Add reply
   const addReply = async (questionId, reply) => {
-    const newReply = await apiFetch(`${API}/api/questions/${questionId}/replies`, {
-      method: "POST",
-      body: JSON.stringify(reply),
-    });
+    const newReply = await apiFetch(
+      `${API}/api/questions/${questionId}/replies`,
+      {
+        method: "POST",
+        body: JSON.stringify(reply),
+      }
+    );
     setQuestions((prev) =>
       prev.map((q) =>
         q._id === questionId
@@ -136,7 +171,9 @@ export function QuestionsProvider({ children }) {
     const updated = await apiFetch(`${API}/api/questions/${type}/${id}`, {
       method: "POST",
     });
-    setQuestions((prev) => prev.map((q) => (q._id === id ? updated : q)));
+    setQuestions((prev) =>
+      prev.map((q) => (q._id === id ? transformQuestion(updated, userId) : q))
+    );
   };
 
   // Vote reply
@@ -157,12 +194,9 @@ export function QuestionsProvider({ children }) {
   const toggleBookmark = async (id) => {
     // Optimistic update
     setQuestions((prev) =>
-      prev.map((q) =>
-        q._id === id ? { ...q, bookmarked: !q.bookmarked } : q
-      )
+      prev.map((q) => (q._id === id ? { ...q, bookmarked: !q.bookmarked } : q))
     );
-  
-    // Then call API
+
     try {
       await apiFetch(`${API}/api/questions/bookmark/${id}`, { method: "POST" });
     } catch (err) {
@@ -175,7 +209,6 @@ export function QuestionsProvider({ children }) {
       );
     }
   };
-  
 
   // Filter & Sort
   const filtered = useMemo(() => {
