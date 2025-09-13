@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { FiGithub, FiChevronRight, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import categories from "./JsSideBarData.json";
@@ -7,6 +7,7 @@ import useMobile from '../../../../hooks/useMobile';
 
 const JavaScriptNotesSidebar = ({ onNavigate }) => {
     const isMobile = useMobile(768);
+    const location = useLocation()
 
     const handleNavClick = () => {
         if (isMobile && onNavigate) {
@@ -14,7 +15,20 @@ const JavaScriptNotesSidebar = ({ onNavigate }) => {
         }
     };
 
-    const [expandedCategories, setExpandedCategories] = useState(new Set(Object.keys(categories).splice(0, 1)));
+    const [expandedCategories, setExpandedCategories] = useState(new Set());
+
+    // Set the initial expanded categories based on the current URL path
+    useEffect(() => {
+        // Look for the last path that is open, if that found in the sidebar -> if found expand that category else expand the first one.
+        let path = location.pathname.split('/').pop();
+        const category = Object.keys(categories).find(key => categories[key].some(item => item.toLowerCase().replace(/\s+/g, '-') === path));
+        if (category) {
+            setExpandedCategories(new Set([category]));
+        } else {
+            const category = Object.keys(categories)[0];
+            setExpandedCategories(new Set([category]));
+        }
+    }, []);
 
     const toggleCategory = (category) => {
         setExpandedCategories(prev => {
