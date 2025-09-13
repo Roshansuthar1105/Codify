@@ -291,6 +291,22 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
+               <li>
+                <Link
+                  to="/terms"
+                  className={`
+                    ${
+                      isDark
+                        ? "text-dark-text-secondary"
+                        : "text-light-text-secondary"
+                    } 
+                    hover:text-primary transition-colors flex items-center
+                  `}
+                >
+                  <span className="mr-2 text-primary text-xs">▸</span>
+                  Terms of Service
+                </Link>
+              </li>
               <li>
                 <Link
                   to="/contact"
