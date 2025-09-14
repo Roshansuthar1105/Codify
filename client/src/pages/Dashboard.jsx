@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { FaBookmark, FaGraduationCap, FaChartLine, FaClock, FaPlay, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
+import CircularProgressChart from './CircularProgressChart'; // ✅ Added import
 
 // Lazy loaded components
 const CardBody = lazy(() => import('../components/CardBody'));
@@ -53,7 +54,6 @@ function Dashboard() {
       console.error('Error fetching bookmarks:', error);
     }
   }, [API, token]);
-
 
   // Fetch user's watchlist (Saved Courses) - memoized to prevent unnecessary re-renders
   const fetchWatchlist = useCallback(async () => {
@@ -157,7 +157,6 @@ function Dashboard() {
     }
   }, [API, token]);
 
-
   // Handle course selection and track the activity - memoized to prevent unnecessary re-renders
   const handleCourseSelect = useCallback(async (course) => {
     //console.log('Course selected:', course);
@@ -180,7 +179,6 @@ function Dashboard() {
       const newProgress = exists
         ? prev.map(p => p._id === updatedProgress._id ? updatedProgress : p)
         : [...prev, updatedProgress];
-
 
       // Update stats based on new progress data
       let inProgress = 0;
@@ -243,6 +241,38 @@ function Dashboard() {
       }
     }
   }, [selectedCourseProgress, token, API]);
+
+  // ✅ NEW: Interactive segment click handler for CircularProgressChart
+  const handleSegmentClick = useCallback((segment) => {
+    console.log('Segment clicked:', segment);
+    
+    // Handle different segment clicks with enhanced interactions
+    switch(segment.id) {
+      case 'completed':
+        // Filter to show only completed courses or create a modal
+        console.log('Show completed courses');
+        // You could create a modal or redirect to filtered view
+        alert(`You have completed ${segment.value} courses! 🎉`);
+        break;
+      case 'inProgress':
+        // Scroll to or highlight the continue learning section
+        console.log('Show in-progress courses');
+        const continueSection = document.querySelector('[data-section="continue-learning"]');
+        if (continueSection) {
+          continueSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Optionally pulse the continue learning section
+        break;
+      case 'notStarted':
+        // Show available courses to start
+        console.log('Show available courses');
+        // Redirect to courses page to explore new courses
+        window.location.href = '/courses';
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   useEffect(() => {
     fetchBookmarks();
@@ -316,7 +346,6 @@ function Dashboard() {
       }
     }
   };
-
 
 return (
     <div className={`relative min-h-screen-minus-nav overflow-hidden z-10 ${isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'}`}>
@@ -499,7 +528,17 @@ return (
             >
               {activeTab === 'learning' && (
                 <div className="space-y-6">
-                  <div className="mb-6">
+                  {/* ✅ Updated Interactive Circular Progress Chart */}
+                  <CircularProgressChart
+                    totalCourses={stats.coursesInProgress + stats.coursesCompleted}
+                    completedCourses={stats.coursesCompleted}
+                    inProgressCourses={stats.coursesInProgress}
+                    title="Your Learning Overview"
+                    onSegmentClick={handleSegmentClick} // ✅ Added interactive handler
+                  />
+
+                  {/* ✅ Added data-section attribute for scroll targeting */}
+                  <div className="mb-6" data-section="continue-learning">
                     <h2 className={`text-2xl sm:text-3xl font-righteous tracking-wide ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
                       Continue Learning
                     </h2>
@@ -786,8 +825,6 @@ return (
             </motion.div>
           </div>
         </div>
-
-
 
         {/* Call to Action Section - refreshed UI */}
         <motion.section 
