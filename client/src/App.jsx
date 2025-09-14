@@ -28,6 +28,7 @@ const Bookmarks = lazy(() => import("./pages/Bookmarks"));
 const QuestionsPage = lazy(() => import("./pages/QuestionPage.jsx"));
 const QuestionDetail = lazy(() => import("./components/QuestionDetail.jsx"))
 const OAuthCallback = lazy(() => import("./pages/OAuthCallback"));
+const DemoVideo = lazy(() => import("./pages/DemoVideo"));
 
 // Notes components
 const JavaScriptFundamentals = lazy(() => import("./pages/Notes/JavaScriptFundamentals/JavaScriptFundamentals.jsx"));
@@ -88,6 +89,7 @@ function App() {
                   <Route path="/contact" element={<ContactUs />} />
                   <Route path="/questions" element={<QuestionsPage />} />
                   <Route path="/questions/:id" element={<QuestionDetail />} />
+                  <Route path="/demo" element={<DemoVideo />} />
 
                   {/* Notes Routes */}
                   <Route path="/notes" element={<NotesPage />} />
