@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 import { LoadingProvider } from "./components/loadingContext.jsx";
@@ -57,8 +57,15 @@ const CodeEditor = lazy(() => import("./components/CodeEditor..jsx"))
 
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
+  const isFirstLoadRef = useRef(true);
 
   useEffect(() => {
+    // Skip on initial mount to allow browser to restore scroll after refresh
+    if (isFirstLoadRef.current) {
+      isFirstLoadRef.current = false;
+      return;
+    }
+    // Scroll to top only on subsequent route changes
     window.scrollTo(0, 0);
   }, [location.pathname]); // Trigger on route change
 
