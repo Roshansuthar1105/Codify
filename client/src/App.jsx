@@ -34,9 +34,15 @@ const JavaScriptFundamentals = lazy(() => import("./pages/Notes/JavaScriptFundam
 const GitNotes = lazy(() => import("./pages/Notes/GitVersionControl/GitNotes.jsx"));
 const ReactPattern = lazy(() => import("./pages/Notes/ReactPatterns/ReactPattern.jsx"));
 const PythonNotes = lazy(() => import("./pages/Notes/PythonBasics/PythonNotes.jsx"));
-
-
-
+// EDA Notes
+const DataCollection = lazy(() => import("./pages/Notes/EDA/DataCollection.jsx"));
+const DataExploration = lazy(() => import("./pages/Notes/EDA/DataExploration.jsx"));
+const FeatureEngineering = lazy(() => import("./pages/Notes/EDA/FeatureEngineering.jsx"));
+const StepsOfEDA = lazy(() => import("./pages/Notes/EDA/StepsOfEDA.jsx"));
+const Visualization = lazy(() => import("./pages/Notes/EDA/Visualization.jsx"));
+const Graphs = lazy(() => import("./pages/Notes/EDA/Graphs.jsx"));
+const CaseStudies = lazy(() => import("./pages/Notes/EDA/CaseStudies.jsx"));
+const BestPractices = lazy(() => import("./pages/Notes/EDA/BestPractices.jsx"));
 
 // Admin components
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
@@ -96,6 +102,15 @@ function App() {
                   <Route path="/notes/python" element={<PythonNotes />} />
                   <Route path="/notes/git" element={<GitNotes />} />
                   <Route path="/notes/react" element={<ReactPattern />} />
+                  {/* EDA Notes Routes */}
+                  <Route path="/notes/eda/data-collection" element={<DataCollection />} />
+                  <Route path="/notes/eda/data-exploration" element={<DataExploration />} />
+                  <Route path="/notes/eda/feature-engineering" element={<FeatureEngineering />} />       
+                  <Route path="/notes/eda/steps" element={<StepsOfEDA />} />
+                  <Route path="/notes/eda/visualization" element={<Visualization />} />
+                  <Route path="/notes/eda/graphs" element={<Graphs />} />
+                  <Route path="/notes/eda/case-studies" element={<CaseStudies />} />
+                  <Route path="/notes/eda/best-practices" element={<BestPractices />} />
 
                   {/* Auth Routes */}
                   <Route path="/signup" element={<Signup />} />
