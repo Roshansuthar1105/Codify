@@ -38,6 +38,20 @@ const MathInJs = React.lazy(() => import('./JsTopics/JsObjects/MathInJS'));
 const NumberinJs = React.lazy(() => import('./JsTopics/JsObjects/NumberInJS'));
 const BooleanInJs = React.lazy(() => import('./JsTopics/JsObjects/BooleanInJS'));
 
+// JavaScript DOM and BOM
+const JsWindowObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsWindowObject'));
+const JsHistoryObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsHistoryObject'));
+const JsNavigatorObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsNavigatorObject'));
+const JsScreenObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsScreenObject'));
+const JsDocumentObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsDocumentObject'));
+const JsGetElementById = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementById'));
+const JsGetElementsByClassName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByClassName'));
+const JsGetElementsByName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByName'));
+const JsGetElementsByTagName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByTagName'));
+const JsInnerHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsInnerHTML'));
+const JsOuterHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsOuterHTML'));
+
+
 // Lazy load the note components --------------------------------------
 
 
@@ -126,6 +140,20 @@ const JavaScriptFundamentals = () => {
                 <Route path="boolean" element={<BooleanInJs />} />
 
                 {/* DOM and BOM */}
+                <Route path="window-object" element={<JsWindowObject />} />
+                <Route path="history-object" element={<JsHistoryObject />} />
+                <Route path="navigator-object" element={<JsNavigatorObject />} />
+                <Route path="screen-object" element={<JsScreenObject />} />
+                <Route path="document-object" element={<JsDocumentObject />} />
+                <Route path="getElementById" element={<JsGetElementById />} />
+                <Route path="getElementsByClassName" element={<JsGetElementsByClassName />} />
+                <Route path="getElementsByName" element={<JsGetElementsByName />} />
+                <Route path="getElementsByTagName" element={<JsGetElementsByTagName />} />
+                <Route path="innerHTML" element={<JsInnerHTML />} />
+                <Route path="outerHTML" element={<JsOuterHTML />} />
+
+
+
 
 
                 {/* OOPS */}
