@@ -7,6 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import { FaCode } from "react-icons/fa";
 import ThemeSwitcher from './ThemeSwitcher';
 import ThemeColorSelector from './ThemeColorSelector';  
+import { NAV_LINKS } from "../constants/navLinks";
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
   const { theme } = useTheme();
@@ -94,203 +95,26 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
 
             <div className="mt-6">
               <nav className="grid gap-y-2">
-                <NavLink
-                  to="/"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
+                {NAV_LINKS.map(({ to, label, icon: Icon }) => (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    onClick={onClose}
+                    className={({ isActive }) => `
+                      px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                      ${isActive
                         ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
+                          ? 'bg-dark-bg-tertiary text-primary'
+                          : 'bg-light-bg-tertiary text-primary'
                         : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaHome className="text-xl" />{" "}
-                  <span className="text-xl">Home</span>
-                </NavLink>
-
-                <NavLink
-                  to="/about"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaUser className="text-xl" />{" "}
-                  <span className="text-xl">About</span>
-                </NavLink>
-
-                <NavLink
-                  to="/editor"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaCode className="text-xl" />{" "}
-                  <span className="text-xl">Code Editor</span>
-                </NavLink>
-                <NavLink
-                  to="/courses"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaBook className="text-xl" />{" "}
-                  <span className="text-xl">Courses</span>
-                </NavLink>
-                <NavLink
-                  to="/notes"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaBookReader className="text-xl" />{" "}
-                  <span className="text-xl">Notes</span>
-                </NavLink>
-
-                <NavLink
-                  to="/roadmap"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaRoad className="text-xl" />{" "}
-                  <span className="text-xl">Roadmaps</span>
-                </NavLink>
-
-                <NavLink
-                  to="/bookmarks"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaBookmark className="text-xl" />{" "}
-                  <span className="text-xl">Bookmark</span>
-                </NavLink>
-
-                <NavLink
-                  to="/contributors"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaUser className="text-xl" />{" "}
-                  <span className="text-xl">Contributors</span>
-                </NavLink>
-
-                <NavLink
-                  to="/Questions"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaQuestionCircle className="text-xl" />{" "}
-                  <span className="text-xl">Questions</span>
-                </NavLink>
-
-                <NavLink
-                  to="/contact"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${
-                      isActive
-                        ? isDark
-                          ? "bg-dark-bg-tertiary text-primary"
-                          : "bg-light-bg-tertiary text-primary"
-                        : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary"
-                    }
-                  `}
-                >
-                  <FaEnvelope className="text-xl" />{" "}
-                  <span className="text-xl">Contact</span>
-                </NavLink>
+                          ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
+                          : 'text-light-text-primary hover:bg-light-bg-tertiary'}
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                    `}
+                  >
+                    <Icon className="text-xl" /> <span className="text-xl">{label === 'Questions' ? 'Questions' : label}</span>
+                  </NavLink>
+                ))}
 
                 {isLoggedIn ? (
                   <>
