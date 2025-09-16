@@ -1,4 +1,4 @@
-import  { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { RiCloseLargeLine } from 'react-icons/ri';
@@ -10,6 +10,8 @@ import ThemeColorSelector from './ThemeColorSelector';
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
   const { theme } = useTheme();
+  const [isThemeColorOpen, setThemeColorOpen] = useState(false);
+
   const isDark = theme === 'dark';
 
   const handleBackToTop = () => {
@@ -23,6 +25,7 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
+      setThemeColorOpen(false);
     }
 
     return () => {
@@ -34,7 +37,11 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
     <div
       className={`
         fixed inset-0 z-[9000]
-        ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}
+        ${
+          isOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible pointer-events-none"
+        }
         transition-all duration-300 ease-in-out
       `}
     >
@@ -44,32 +51,40 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
           className={`
             absolute inset-0 bg-black/50 backdrop-blur-sm
             transition-opacity duration-300 ease-in-out
-            ${isOpen ? 'opacity-100' : 'opacity-0'}
+            ${isOpen ? "opacity-100" : "opacity-0"}
           `}
           onClick={onClose}
         ></div>
 
         {/* Menu panel */}
-        <div className={`
+        <div
+          className={`
           absolute right-0 top-0 h-full w-[85vw] sm:w-80 md:w-96 max-w-sm overflow-y-auto z-[9100]
-          ${isDark ? 'bg-dark-bg-primary' : 'bg-white'}
-          ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}
+          ${isDark ? "bg-dark-bg-primary" : "bg-white"}
+          ${isDark ? "text-dark-text-primary" : "text-light-text-primary"}
           shadow-lg transform transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-        `}>
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
+        `}
+        >
           <div className="px-4 pt-5 pb-6 space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <FaGraduationCap className={`text-2xl ${isDark ? 'text-primary' : 'text-primary'}`} />
+                <FaGraduationCap
+                  className={`text-2xl ${
+                    isDark ? "text-primary" : "text-primary"
+                  }`}
+                />
                 <span className="ml-2 font-righteous text-xl">Codify</span>
               </div>
               <button
                 onClick={onClose}
                 className={`
                   rounded-md p-2 focus:outline-none transition-colors z-[9200]
-                  ${isDark
-                    ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                    : 'text-light-text-primary hover:bg-light-bg-tertiary'}
+                  ${
+                    isDark
+                      ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                      : "text-light-text-primary hover:bg-light-bg-tertiary"
+                  }
                 `}
               >
                 <span className="sr-only">Close menu</span>
@@ -84,17 +99,19 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaHome className='text-xl' /> <span className='text-xl'>Home</span>
+                  <FaHome className="text-xl" />{" "}
+                  <span className="text-xl">Home</span>
                 </NavLink>
 
                 <NavLink
@@ -102,17 +119,19 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaUser className='text-xl' /> <span className='text-xl'>About</span>
+                  <FaUser className="text-xl" />{" "}
+                  <span className="text-xl">About</span>
                 </NavLink>
 
                 <NavLink
@@ -120,51 +139,57 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaCode className='text-xl' /> <span className='text-xl'>Code Editor</span>
+                  <FaCode className="text-xl" />{" "}
+                  <span className="text-xl">Code Editor</span>
                 </NavLink>
-                 <NavLink
+                <NavLink
                   to="/courses"
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaBook className='text-xl' /> <span className='text-xl'>Courses</span>
+                  <FaBook className="text-xl" />{" "}
+                  <span className="text-xl">Courses</span>
                 </NavLink>
                 <NavLink
                   to="/notes"
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaBookReader className='text-xl' /> <span className='text-xl'>Notes</span>
+                  <FaBookReader className="text-xl" />{" "}
+                  <span className="text-xl">Notes</span>
                 </NavLink>
 
                 <NavLink
@@ -172,55 +197,59 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaRoad className='text-xl' /> <span className='text-xl'>Roadmaps</span>
+                  <FaRoad className="text-xl" />{" "}
+                  <span className="text-xl">Roadmaps</span>
                 </NavLink>
-
 
                 <NavLink
                   to="/bookmarks"
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaBookmark className='text-xl' /> <span className='text-xl'>Bookmark</span>
+                  <FaBookmark className="text-xl" />{" "}
+                  <span className="text-xl">Bookmark</span>
                 </NavLink>
 
-                
                 <NavLink
                   to="/contributors"
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaUser className='text-xl' /> <span className='text-xl'>Contributors</span>
+                  <FaUser className="text-xl" />{" "}
+                  <span className="text-xl">Contributors</span>
                 </NavLink>
 
                 <NavLink
@@ -228,17 +257,19 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaQuestionCircle className='text-xl' /> <span className='text-xl'>Questions</span>
+                  <FaQuestionCircle className="text-xl" />{" "}
+                  <span className="text-xl">Questions</span>
                 </NavLink>
 
                 <NavLink
@@ -246,17 +277,19 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   onClick={onClose}
                   className={({ isActive }) => `
                     px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                    ${isActive
-                      ? isDark
-                        ? 'bg-dark-bg-tertiary text-primary'
-                        : 'bg-light-bg-tertiary text-primary'
-                      : isDark
-                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    ${
+                      isActive
+                        ? isDark
+                          ? "bg-dark-bg-tertiary text-primary"
+                          : "bg-light-bg-tertiary text-primary"
+                        : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary"
                     }
                   `}
                 >
-                  <FaEnvelope className='text-xl' /> <span className='text-xl'>Contact</span>
+                  <FaEnvelope className="text-xl" />{" "}
+                  <span className="text-xl">Contact</span>
                 </NavLink>
 
                 {isLoggedIn ? (
@@ -266,17 +299,19 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                       onClick={onClose}
                       className={({ isActive }) => `
                         px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${isActive
-                          ? isDark
-                            ? 'bg-dark-bg-tertiary text-primary'
-                            : 'bg-light-bg-tertiary text-primary'
-                          : isDark
-                            ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                            : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                        ${
+                          isActive
+                            ? isDark
+                              ? "bg-dark-bg-tertiary text-primary"
+                              : "bg-light-bg-tertiary text-primary"
+                            : isDark
+                            ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                            : "text-light-text-primary hover:bg-light-bg-tertiary"
                         }
                       `}
                     >
-                      <FaUser className='text-xl' /> <span className='text-xl'>Dashboard</span>
+                      <FaUser className="text-xl" />{" "}
+                      <span className="text-xl">Dashboard</span>
                     </NavLink>
 
                     {(userdata?.isAdmin || userdata?.isReadOnlyAdmin) && (
@@ -285,33 +320,36 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                         onClick={onClose}
                         className={({ isActive }) => `
                           px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                          ${isActive
-                            ? isDark
-                              ? 'bg-dark-bg-tertiary text-primary'
-                              : 'bg-light-bg-tertiary text-primary'
-                            : isDark
-                              ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                              : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                          ${
+                            isActive
+                              ? isDark
+                                ? "bg-dark-bg-tertiary text-primary"
+                                : "bg-light-bg-tertiary text-primary"
+                              : isDark
+                              ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                              : "text-light-text-primary hover:bg-light-bg-tertiary"
                           }
                         `}
                       >
-                        <FaUserTie className='text-xl' /> <span className='text-xl'>Admin Panel</span>
+                        <FaUserTie className="text-xl" />{" "}
+                        <span className="text-xl">Admin Panel</span>
                       </NavLink>
                     )}
-
-                    
 
                     <NavLink
                       to="/logout"
                       onClick={onClose}
                       className={`
                         px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${isDark
-                          ? 'bg-primary/10 text-primary hover:bg-primary/20'
-                          : 'bg-primary/10 text-primary hover:bg-primary/20'}
+                        ${
+                          isDark
+                            ? "bg-primary/10 text-primary hover:bg-primary/20"
+                            : "bg-primary/10 text-primary hover:bg-primary/20"
+                        }
                       `}
                     >
-                      <FaSignOutAlt className='text-xl' /> <span className='text-xl'>Logout</span>
+                      <FaSignOutAlt className="text-xl" />{" "}
+                      <span className="text-xl">Logout</span>
                     </NavLink>
                   </>
                 ) : (
@@ -321,12 +359,15 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                       onClick={onClose}
                       className={`
                         px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${isDark
-                          ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
-                          : 'text-light-text-primary hover:bg-light-bg-tertiary'}
+                        ${
+                          isDark
+                            ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                            : "text-light-text-primary hover:bg-light-bg-tertiary"
+                        }
                       `}
                     >
-                      <FaSignInAlt className='text-xl' /> <span className='text-xl'>Login</span>
+                      <FaSignInAlt className="text-xl" />{" "}
+                      <span className="text-xl">Login</span>
                     </NavLink>
 
                     <NavLink
@@ -334,12 +375,15 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                       onClick={onClose}
                       className={`
                         px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${isDark
-                          ? 'bg-primary text-white hover:bg-primary-dark'
-                          : 'bg-primary text-white hover:bg-primary-dark'}
+                        ${
+                          isDark
+                            ? "bg-primary text-white hover:bg-primary-dark"
+                            : "bg-primary text-white hover:bg-primary-dark"
+                        }
                       `}
                     >
-                      <FaUserPlus className='text-xl' /> <span className='text-xl'>Sign Up</span>
+                      <FaUserPlus className="text-xl" />{" "}
+                      <span className="text-xl">Sign Up</span>
                     </NavLink>
                   </>
                 )}
@@ -349,7 +393,11 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
               <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <ThemeSwitcher />
-                  <ThemeColorSelector />
+                  <ThemeColorSelector
+                    isOpen={isThemeColorOpen}
+                    onToggle={() => setThemeColorOpen((prev) => !prev)}
+                    onClose={() => setThemeColorOpen(false)}
+                  />
                 </div>
               </div>
 
@@ -366,7 +414,10 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   </button>
                   <button
                     onClick={() => {
-                      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                      window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth",
+                      });
                       onClose();
                     }}
                     className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors text-sm"

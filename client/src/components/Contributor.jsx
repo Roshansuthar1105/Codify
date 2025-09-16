@@ -177,9 +177,20 @@ export default function LeaderBoard() {
           page += 1;
         }
 
-        setContributors(
-          Object.values(contributorsMap).sort((a, b) => b.points - a.points)
+        // Sort by points (or by PRs if that's your criteria)
+        const contributorsArray = Object.values(contributorsMap);
+        const sorted = contributorsArray.sort(
+          (a, b) => b.points - a.points
         );
+        // assign rank -> ranks will same on searching 
+        const rankedContributers = sorted.map(
+          (c, index) => ({
+            ...c ,
+            rank : index + 1, //store real rank
+          })
+        );
+
+        setContributors(rankedContributers);
       } catch (error) {
         console.error("Error fetching contributors:", error);
       } finally {
@@ -301,33 +312,6 @@ export default function LeaderBoard() {
           </p>
         </motion.div>
 
-        {/* Search Bar */}
-        <div className="flex justify-center mb-6 px-2">
-          <div className={`relative w-full max-w-xs`}>
-            <input
-              type="text"
-              placeholder="Search contributor..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
-              className={`w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none transition-colors ${
-                isDark
-                  ? "bg-dark-bg-secondary border-dark-border text-dark-text-primary placeholder:text-dark-text-secondary"
-                  : "bg-white border-light-border text-light-text-primary placeholder:text-light-text-secondary"
-              }`}
-            />
-            <FaSearch
-              className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
-                isDark
-                  ? "text-dark-text-secondary"
-                  : "text-light-text-secondary"
-              }`}
-            />
-          </div>
-        </div>
-
         {/* Stats Cards */}
         <div
           className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 px-2`}
@@ -447,6 +431,7 @@ export default function LeaderBoard() {
           </div>
         </div>
 
+        {/* contributer guid */}
         <div
           onClick={() => navigate("/contributorGuide")}
           className={`flex items-center justify-center flex-col mb-8 sm:mb-12 px-2 py-10 rounded-xl shadow-sm border ${gradientBg} ${
@@ -457,6 +442,33 @@ export default function LeaderBoard() {
             <FaBookOpen className="h-8 w-8" />
           </div>
           <div className="text-2xl">Contributor Guide</div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="flex justify-center mb-6 px-2">
+          <div className={`relative w-full max-w-xs`}>
+            <input
+              type="text"
+              placeholder="Search contributor..."
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
+              className={`w-full pl-10 pr-6 py-4 rounded-lg border focus:outline-none transition-colors placeholder:text-lg ${
+                isDark
+                  ? "bg-dark-bg-secondary border-dark-border text-dark-text-primary placeholder:text-dark-text-secondary"
+                  : "bg-white border-light-border text-light-text-primary placeholder:text-light-text-secondary"
+              }`}
+            />
+            <FaSearch
+              className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
+                isDark
+                  ? "text-dark-text-secondary"
+                  : "text-light-text-secondary"
+              }`}
+            />
+          </div>
         </div>
 
         {loading ? (
@@ -511,15 +523,15 @@ export default function LeaderBoard() {
                         {/* Rank Badge */}
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 ${
-                            (index === 0 && currentPage==1)
+                            index === 0 && currentPage == 1
                               ? isDark
                                 ? "bg-yellow-900/30 text-yellow-400"
                                 : "bg-yellow-100 text-yellow-600"
-                              : (index === 1 && currentPage==1)
+                              : index === 1 && currentPage == 1
                               ? isDark
                                 ? "bg-gray-800 text-gray-300"
                                 : "bg-gray-100 text-gray-600"
-                              : (index === 2 && currentPage==1)
+                              : index === 2 && currentPage == 1
                               ? isDark
                                 ? "bg-amber-900/30 text-amber-400"
                                 : "bg-amber-100 text-amber-600"
@@ -528,7 +540,8 @@ export default function LeaderBoard() {
                               : "bg-light-bg-tertiary text-light-text-secondary"
                           }`}
                         >
-                          {indexOfFirst + index + 1}
+                          {/* rendering the rank on search also */}
+                          {contributor.rank}
                         </div>
 
                         {/* Avatar */}
@@ -601,15 +614,15 @@ export default function LeaderBoard() {
                       <div className="col-span-1">
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            (index === 0 && currentPage==1)
+                            index === 0 && currentPage == 1
                               ? isDark
                                 ? "bg-yellow-900/30 text-yellow-400"
                                 : "bg-yellow-100 text-yellow-600"
-                              : (index === 1 && currentPage==1)
+                              : index === 1 && currentPage == 1
                               ? isDark
                                 ? "bg-gray-800 text-gray-300"
                                 : "bg-gray-100 text-gray-600"
-                              : (index === 2 && currentPage==1)
+                              : index === 2 && currentPage == 1
                               ? isDark
                                 ? "bg-amber-900/30 text-amber-400"
                                 : "bg-amber-100 text-amber-600"
@@ -619,7 +632,8 @@ export default function LeaderBoard() {
                           }`}
                         >
                           <span className="font-medium">
-                            {indexOfFirst + index + 1}
+                            {/* rendering the rank on search also */}
+                            {contributor.rank}
                           </span>
                         </div>
                       </div>

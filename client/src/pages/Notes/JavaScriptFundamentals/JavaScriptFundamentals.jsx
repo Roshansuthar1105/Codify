@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import JavaScriptNotesSidebar from './components/JavaScriptNotesSideBar';
 import JsHeroPage from './components/JsHeroPage';
 import Loader from '../../../components/Loader';
 import Breadcrumb from '../../../components/Breadcrumb';
 import useMobile from '../../../hooks/useMobile';
+import JsPageTitleManager from './components/JsPageTitleManager';
 
 // Lazy load the note components --------------------------------------
 // Introduction
@@ -35,7 +36,7 @@ const LoopsWithArrays = React.lazy(() => import('./JsTopics/JsObjects/LoopsWithA
 const MapFilterAndReduce = React.lazy(() => import('./JsTopics/JsObjects/MapFilterReduce'));
 const DateInJs = React.lazy(() => import('./JsTopics/JsObjects/DateInJS'));
 const MathInJs = React.lazy(() => import('./JsTopics/JsObjects/MathInJS'));
-const NumberinJs = React.lazy(() => import('./JsTopics/JsObjects/NumberInJS'));
+const NumberInJs = React.lazy(() => import('./JsTopics/JsObjects/NumberInJS'));
 const BooleanInJs = React.lazy(() => import('./JsTopics/JsObjects/BooleanInJS'));
 
 // JavaScript DOM and BOM
@@ -50,6 +51,7 @@ const JsGetElementsByName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetEle
 const JsGetElementsByTagName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByTagName'));
 const JsInnerHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsInnerHTML'));
 const JsOuterHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsOuterHTML'));
+
 
 
 // Lazy load the note components --------------------------------------
@@ -102,6 +104,9 @@ const JavaScriptFundamentals = () => {
           {/* Breadcrumb */}
           <Breadcrumb isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} className={"p-4"} />
 
+          {/* Page Title Manager */}
+          <JsPageTitleManager />
+
           {/* ROUTES OF THE SUB NOTES */}
           <div className="p-4 md:p-8">
             <React.Suspense fallback={<Loader />}>
@@ -109,8 +114,8 @@ const JavaScriptFundamentals = () => {
                 <Route index element={<JsHeroPage />} />
 
                 {/* Introduction */}
-                <Route path="js-introduction" element={<JsIntroduction />} />
-                <Route path="js-execution" element={<JsExecution />} />
+                <Route path="introduction" element={<JsIntroduction />} />
+                <Route path="execution" element={<JsExecution />} />
                 <Route path="node.js-installation" element={<NodeJsInstallation />} />
 
                 {/* Javascript variables */}
@@ -136,7 +141,7 @@ const JavaScriptFundamentals = () => {
                 <Route path="map-filter-reduce" element={<MapFilterAndReduce />} />
                 <Route path="date" element={<DateInJs />} />
                 <Route path="math" element={<MathInJs />} />
-                <Route path="number" element={<NumberinJs />} />
+                <Route path="number" element={<NumberInJs />} />
                 <Route path="boolean" element={<BooleanInJs />} />
 
                 {/* DOM and BOM */}
@@ -152,11 +157,16 @@ const JavaScriptFundamentals = () => {
                 <Route path="innerHTML" element={<JsInnerHTML />} />
                 <Route path="outerHTML" element={<JsOuterHTML />} />
 
-
-
-
-
                 {/* OOPS */}
+                <Route path="class" element={<JsClass />} />
+                <Route path="objects" element={<JsObjects />} />
+                <Route path="static-method" element={<JsStaticMethod />} />
+                <Route path="constructor" element={<JsConstructor />} />
+                <Route path="encapsulation" element={<JsEncapsulation />} />
+                <Route path="inheritance" element={<JsInheritance />} />
+                <Route path="polymorphism" element={<JsPolymorphism />} />
+                <Route path="abstraction" element={<JsAbstraction />} />
+
 
               </Routes>
             </React.Suspense>

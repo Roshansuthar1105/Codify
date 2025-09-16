@@ -1,7 +1,7 @@
 {
-    "Introduction": ["Js Introduction", "JS execution", "Node.js Installation"],
+    "Introduction": ["Introduction", "Execution", "Node.js Installation"],
     "JavaScript Variables": [
-        "What are Variables?",
+        "What are Variables",
         "Variable Naming Rules",
         "Primitives and Objects",
         "Operators and Expressions",
