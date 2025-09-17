@@ -686,3 +686,34 @@ span.doated{
   }
 }
 /* media query end */
+
+.video-wrapper {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  border: 2px solid var(--bg_buttons);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  background: var(--bg_secondary);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 550px;
+  border-radius: 12px;
+}
+
+.video-card {
+  background-color: var(--bg_secondary);
+  border: 1px solid var(--subtext);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.video-wrapper iframe {
+  border-radius: 15px;
+}
+

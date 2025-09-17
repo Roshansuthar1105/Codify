@@ -4,6 +4,8 @@ import { useTheme } from "../context/ThemeContext";
 import { motion } from "framer-motion";
 import Counter from "../utils/Counter";
 import { FaArrowUp } from "react-icons/fa";
+
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -23,6 +25,7 @@ function Home() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   // refs for scoped GSAP
   const root = useRef(null);
@@ -300,8 +303,10 @@ function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               className="group bg-transparent border-2 border-primary text-primary py-4 px-8 text-lg rounded-xl font-semibold transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-xl inline-flex items-center gap-3"
-            >
+               
+            >  <Link to="/demo">
               <span>Watch Demo</span>
+              </Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 sm:h-5 sm:w-5 transform group-hover:scale-110 transition-transform"
@@ -316,6 +321,20 @@ function Home() {
               </svg>
             </motion.button>
           </motion.div>
+
+          {showVideo && (
+  <div className="mt-6">
+    <iframe 
+      width="560" 
+      height="315"
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+      title="YouTube video player"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
+  </div>
+)}
 
           {/* Trust Indicators */}
           <div className="mt-10 sm:mt-16">
