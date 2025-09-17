@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
-import { FaGraduationCap, FaUser, FaBookOpen, FaRoad, FaStickyNote } from "react-icons/fa";
+import { FaGraduationCap, FaUser } from "react-icons/fa";
+import { NAV_LINKS, CONDENSED_LINKS } from "../constants/navLinks";
 import { RiMenu3Fill } from "react-icons/ri";
 import MobileMenu from "./MobileMenu";
 
@@ -72,46 +73,48 @@ function NavBar() {
             
           </div>
 
-          {/* Direct Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <NavLink
-              to="/courses"
-              className={({ isActive }) => `
-                flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200
-                ${isActive
-                  ? 'bg-primary text-white shadow-md'
-                  : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
-              `}
-            >
-              <FaBookOpen className="text-lg" />
-              <span>Courses</span>
-            </NavLink>
+          {/* Direct Navigation Links (Desktop full) */}
+          <div className="hidden xl:flex items-center space-x-1">
+            {NAV_LINKS.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) => `
+                  group flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-200
+                  ${isActive
+                    ? 'bg-primary text-white shadow-md'
+                    : isDark
+                      ? 'text-dark-text-primary/90 hover:text-white hover:bg-dark-bg-tertiary/70'
+                      : 'text-light-text-primary/90 hover:text-light-text-primary hover:bg-light-bg-tertiary'}
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                `}
+              >
+                <Icon className="text-base opacity-80 group-hover:opacity-100" />
+                <span>{label}</span>
+              </NavLink>
+            ))}
+          </div>
 
-            <NavLink
-              to="/roadmap"
-              className={({ isActive }) => `
-                flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200
-                ${isActive
-                  ? 'bg-primary text-white shadow-md'
-                  : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
-              `}
-            >
-              <FaRoad className="text-lg" />
-              <span>Roadmaps</span>
-            </NavLink>
-
-            <NavLink
-              to="/notes"
-              className={({ isActive }) => `
-                flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200
-                ${isActive
-                  ? 'bg-primary text-white shadow-md'
-                  : (isDark ? 'text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white' : 'text-light-text-primary hover:bg-light-bg-tertiary')}
-              `}
-            >
-              <FaStickyNote className="text-lg" />
-              <span>Notes</span>
-            </NavLink>
+          {/* Condensed Navigation Links (Between lg and xl) */}
+          <div className="hidden lg:flex xl:hidden items-center space-x-2">
+            {NAV_LINKS.filter(l => CONDENSED_LINKS.includes(l.to)).map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) => `
+                  group flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive
+                    ? 'bg-primary text-white shadow'
+                    : isDark
+                      ? 'text-dark-text-primary/90 hover:text-white hover:bg-dark-bg-tertiary/70'
+                      : 'text-light-text-primary/90 hover:bg-light-bg-tertiary'}
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                `}
+              >
+                <Icon className="text-sm" />
+                <span>{label === 'Questions' ? 'Q&A' : label}</span>
+              </NavLink>
+            ))}
           </div>
 
 

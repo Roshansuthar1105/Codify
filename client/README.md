@@ -9,6 +9,10 @@ Codify is a comprehensive web application that offers courses and roadmaps to va
 - User authentication and personalized profiles
 - Comprehensive admin panel for content and user management
 - Optimized responsive design for seamless mobile and desktop experiences
+- New unified Hero section with stable layout (no button jumping) and video background
+- Desktop navigation now shows primary links (Home, About, Editor, Courses, Roadmaps, Notes, Questions, Bookmarks, Contributors, Contact) without needing the hamburger menu
+- Accessible focus states (focus-visible rings) added to all navigation links & CTAs
+- Playwright end-to-end tests for responsive navbar behavior
 
 ## Technologies Used
 - **Frontend:** React, React Router, CSS 💻
@@ -51,6 +55,22 @@ https://github.com/user-attachments/assets/9ba51e5e-8e16-48f1-96d3-fe1e497541a0
 
 ## Usage
 Once the application is running, navigate to `http://localhost:5173` in your web browser to access the app. You can create an account, log in, and start learning about bitwise operations.
+
+### Running E2E Tests (Playwright)
+1. From the `client` directory install dependencies (including Playwright): this will auto-install browsers on first run.
+2. Run tests:
+```
+pnpm test:e2e (or) npm run test:e2e
+```
+Optional:
+```
+npm run test:e2e:ui       # Interactive UI mode
+npm run test:e2e:headed   # Run in headed browsers
+```
+
+The navbar test validates:
+- Desktop (xl) shows all primary links and hides the hamburger.
+- Mobile view shows hamburger and reveals links after opening the menu.
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
