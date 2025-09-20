@@ -96,6 +96,80 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
             </NavLink>
           </div>
 
+ feature/in-browser-ide
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex flex-1 justify-center px-4">
+            <div className="flex items-center space-x-8">
+              <NavLink
+                to="/"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/about"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                About
+              </NavLink>
+              <NavLink
+                to="/courses"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Courses
+              </NavLink>
+              <NavLink
+                to="/roadmap"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Roadmaps
+              </NavLink>
+              <NavLink
+                to="/ide"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors relative
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                IDE
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">AI</span>
+              </NavLink>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Contact
+              </NavLink>
+            </div>
+          </div>
+
           {/* Centered Buttons */}
           <div className="hidden lg:flex flex-1 justify-center items-center space-x-6">
             <NavLink
@@ -113,6 +187,7 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
               <FaBookOpen className="w-5 h-5" />
               <span>Courses</span>
             </NavLink>
+main
 
             <NavLink
               to="/roadmap"

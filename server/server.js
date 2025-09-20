@@ -1,3 +1,20 @@
+ feature/in-browser-ide
+import dotenv from 'dotenv'
+import express from 'express'
+import authRouter from './routes/authRouter.js';
+import contactRouter from './routes/contactRoute.js';
+import coursesRouter from './routes/coursesRoute.js'
+import connectDB from './utils/db.js';
+import cors from 'cors';
+import errorMiddleware from './middlewares/errorMiddlewares.js';
+import userRouter from './routes/userRoute.js';
+import router from './routes/router.js';
+import adminRouter from './routes/adminRouter.js';
+import progressRouter from './routes/progressRoute.js';
+import activityRouter from './routes/activityRoute.js';
+import ideRouter from './routes/ideRoute.js';
+dotenv.config();
+const app= express();
 import dotenv from "dotenv";
 import express from "express";
 import authRouter from "./routes/authRouter.js";
@@ -17,6 +34,7 @@ import questionRouter from "./routes/questionRoute.js"
 import replyRouter from "./routes/replyRoute.js"
 import todoRouter from "./routes/todoRoute.js";
 import newsletterRouter from "./routes/newsletterRoute.js";
+main
 
 import session from "express-session";
 import passport from "passport";
@@ -41,6 +59,16 @@ app.use(cors(corsOption));
 // app.use(cors(corsOption));
 // https://bitwise-backend.onrender.com/api/v1/auth/login
 app.use(express.json());
+feature/in-browser-ide
+app.use("/api/v1/auth",authRouter);
+app.use("/contact",contactRouter);
+app.use("/user",userRouter);
+app.use("/api/v1/courses",coursesRouter);
+app.use("/progress",progressRouter);
+app.use("/activity",activityRouter);
+app.use("/api/ide",ideRouter);
+app.use("/",router)
+app.use("/admin",adminRouter);
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "keyboard cat",
@@ -65,6 +93,7 @@ app.use("/api/todos", todoRouter);
 app.use("/api/newsletter", newsletterRouter);
 app.use("/api/questions",questionRouter);
 app.use("/api",replyRouter)
+main
 // app.get("/",)
 const PORT = process.env.PORT || 5050;
 
