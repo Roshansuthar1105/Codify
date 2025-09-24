@@ -20,8 +20,8 @@ function NavBar() {
     userdata?.firstName && userdata?.lastName
       ? `${userdata.firstName} ${userdata.lastName}`
       : userdata?.firstName ||
-        userdata?.username ||
-        (userdata?.email ? userdata.email.split("@")[0] : " ");
+      userdata?.username ||
+      (userdata?.email ? userdata.email.split("@")[0] : " ");
 
   const profileImageUrl =
     userdata?.profileImage ||
@@ -53,8 +53,8 @@ function NavBar() {
 
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
-const toggleColorSelector = () => setIsColorSelectorOpen(!isColorSelectorOpen);
-const closeColorSelector = () => setIsColorSelectorOpen(false);
+  const toggleColorSelector = () => setIsColorSelectorOpen(!isColorSelectorOpen);
+  const closeColorSelector = () => setIsColorSelectorOpen(false);
 
 
   // Toggle mobile menu
@@ -66,18 +66,15 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
     <nav
       className={`
         sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-sm
-        ${
-          scrolled
-            ? `${
-                isDark
-                  ? "bg-dark-bg-secondary/85 border-dark-border"
-                  : "bg-light-bg-secondary/85 border-light-border"
-              } border-b`
-            : `${
-                isDark
-                  ? "bg-dark-bg-secondary/70 border-dark-border/50"
-                  : "bg-light-bg-secondary/70 border-light-border/50"
-              } border-b`
+        ${scrolled
+          ? `${isDark
+            ? "bg-dark-bg-secondary/85 border-dark-border"
+            : "bg-light-bg-secondary/85 border-light-border"
+          } border-b`
+          : `${isDark
+            ? "bg-dark-bg-secondary/70 border-dark-border/50"
+            : "bg-light-bg-secondary/70 border-light-border/50"
+          } border-b`
         }
         ${isDark ? "text-dark-text-primary" : "text-light-text-primary"}
       `}
@@ -100,10 +97,9 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
             <NavLink
               to="/courses"
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
+                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${isActive
+                  ? "bg-primary text-white shadow-md"
+                  : isDark
                     ? "text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white"
                     : "text-light-text-primary hover:bg-light-bg-tertiary"
                 }`
@@ -116,10 +112,9 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
             <NavLink
               to="/roadmap"
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
+                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${isActive
+                  ? "bg-primary text-white shadow-md"
+                  : isDark
                     ? "text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white"
                     : "text-light-text-primary hover:bg-light-bg-tertiary"
                 }`
@@ -132,10 +127,9 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
             <NavLink
               to="/notes"
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
+                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${isActive
+                  ? "bg-primary text-white shadow-md"
+                  : isDark
                     ? "text-dark-text-primary hover:bg-dark-bg-tertiary hover:text-white"
                     : "text-light-text-primary hover:bg-light-bg-tertiary"
                 }`
@@ -150,75 +144,72 @@ const closeColorSelector = () => setIsColorSelectorOpen(false);
           <div className="hidden lg:flex items-center gap-6 ml-auto mr-12">
             <ThemeSwitcher />
             <ThemeColorSelector isOpen={isColorSelectorOpen}
-  onToggle={toggleColorSelector}
-  onClose={closeColorSelector}/>
+              onToggle={toggleColorSelector}
+              onClose={closeColorSelector} />
           </div>
 
           {/* Mobile Theme Controls */}
-<div className="flex lg:hidden items-center gap-2 ml-auto mr-2">
-  <ThemeSwitcher />
-  <ThemeColorSelector 
-    isOpen={isColorSelectorOpen}
-    onToggle={toggleColorSelector}
-    onClose={closeColorSelector}
-  />
-</div>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={toggleMenu}
-              className={`sm:hidden flex items-center justify-center p-2 rounded-lg border transition-colors ${
-                isDark
-                  ? "border-dark-border text-dark-text-primary hover:bg-dark-bg-tertiary"
-                  : "border-light-border text-light-text-primary hover:bg-light-bg-tertiary"
-              }`}
-              aria-label="Open menu"
-            >
-              <RiMenu3Fill className="w-6 h-6" />
-            </button>
-
-            {/* Profile button */}
-            <button
-              onClick={toggleMenu}
-              className={`hidden sm:flex items-center space-x-2 sm:space-x-3 px-2 py-1 sm:px-4 sm:py-2 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
-                isDark
-                  ? "bg-dark-bg-tertiary/50 border-dark-border hover:border-primary/40"
-                  : "bg-light-bg-tertiary/50 border-light-border hover:border-primary/40"
-              }`}
-            >
-              <span
-                className={`hidden sm:block max-w-[10rem] md:max-w-[14rem] truncate text-sm font-semibold tracking-wide ${
-                  isDark ? "text-white drop-shadow-sm" : "text-gray-800"
-                }`}
-                title={displayName}
-              >
-                {displayName}
-              </span>
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                {profileImageUrl ? (
-                  <img
-                    src={profileImageUrl}
-                    alt="Profile"
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                ) : (
-                  <FaUser className="w-5 h-5 text-primary" />
-                )}
-              </div>
-            </button>
+          <div className="flex lg:hidden items-center gap-2 ml-auto mr-2">
+            <ThemeSwitcher />
+            <ThemeColorSelector
+              isOpen={isColorSelectorOpen}
+              onToggle={toggleColorSelector}
+              onClose={closeColorSelector}
+            />
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={toggleMenu}
+            className={`sm:hidden flex items-center justify-center p-2 rounded-lg border transition-colors ${isDark
+                ? "border-dark-border text-dark-text-primary hover:bg-dark-bg-tertiary"
+                : "border-light-border text-light-text-primary hover:bg-light-bg-tertiary"
+              }`}
+            aria-label="Open menu"
+          >
+            <RiMenu3Fill className="w-6 h-6" />
+          </button>
+
+          {/* Profile button */}
+          <button
+            onClick={toggleMenu}
+            className={`hidden sm:flex items-center space-x-2 sm:space-x-3 px-2 py-1 sm:px-4 sm:py-2 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${isDark
+                ? "bg-dark-bg-tertiary/50 border-dark-border hover:border-primary/40"
+                : "bg-light-bg-tertiary/50 border-light-border hover:border-primary/40"
+              }`}
+          >
+            <span
+              className={`hidden sm:block max-w-[10rem] md:max-w-[14rem] truncate text-sm font-semibold tracking-wide ${isDark ? "text-white drop-shadow-sm" : "text-gray-800"
+                }`}
+              title={displayName}
+            >
+              {displayName}
+            </span>
+            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              {profileImageUrl ? (
+                <img
+                  src={profileImageUrl}
+                  alt="Profile"
+                  className="w-full h-full rounded-full object-cover"
+                />
+              ) : (
+                <FaUser className="w-5 h-5 text-primary" />
+              )}
+            </div>
+          </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      <MobileMenu
-        isOpen={isMenuOpen}
-        onClose={toggleMenu}
-        isLoggedIn={isLoggedIn}
-        userdata={userdata}
-      />
-    </nav>
-  );
+  
+      {/* Mobile menu */ }
+    <MobileMenu
+    isOpen={isMenuOpen}
+    onClose={toggleMenu}
+    isLoggedIn={isLoggedIn}
+    userdata={userdata}
+    />
+      </nav>
+    );
+  
 }
 
 export default NavBar;

@@ -19,7 +19,11 @@ const Footer = () => {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/`)
-      .then(res => res.json())
+      .then(async res => {
+        
+        const data = await res.json() 
+      console.log("data" , data)
+      } )
       .then(data => setVisitorCount(data.visitorCount))
       .catch(err => console.error("Error fetching visitors:", err));
   }, []);

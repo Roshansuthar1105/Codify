@@ -13,7 +13,8 @@ export default function OAuthCallback() {
     const token = params.get("token");
 
     if (token) {
-      storeTokenInLS(token);                 // save JWT (localStorage or memory—your choice)
+      storeTokenInLS(token);        
+      localStorage.setItem("isLoggedIn", "true");         // save JWT (localStorage or memory—your choice)
       toast.success("Logged in with Google");
       navigate("/", { replace: true }); // success : clean URL,so re-direct to home
     } else {

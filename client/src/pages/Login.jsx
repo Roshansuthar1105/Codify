@@ -85,6 +85,7 @@ function Login() {
 
       if (loginResponse.ok) {
         storeTokenInLS(loginData.token);
+        localStorage.setItem("isLoggedIn", "true");
         toast.success("Login successful!");
         window.location.href = "/";
       } else {

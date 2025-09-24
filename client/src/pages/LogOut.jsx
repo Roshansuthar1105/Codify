@@ -15,6 +15,10 @@ function LogOut() {
     const performLogout = async () => {
       try {
         setTimeout(() => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("signupData"); 
           LogoutUser();
           toast.success("Logged out successfully");
           setIsLoggingOut(false);

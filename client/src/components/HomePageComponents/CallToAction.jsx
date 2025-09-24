@@ -12,6 +12,8 @@ const CallToAction = () => {
   const isDark = theme === "dark";
   const sectionRef = useRef(null);
 
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
   useEffect(() => {
     if (!sectionRef.current) return;
     gsap.set(sectionRef.current, { scale: 0.9, opacity: 0 });
@@ -81,6 +83,8 @@ const CallToAction = () => {
                   />
                 </svg>
               </motion.a>
+
+{!isLoggedIn && 
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -101,6 +105,7 @@ const CallToAction = () => {
                   />
                 </svg>
               </motion.a>
+}
             </div>
           </div>
         </div>
