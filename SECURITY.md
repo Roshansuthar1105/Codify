@@ -6,7 +6,7 @@ Reporting a Vulnerability
 
 - Do not open public GitHub issues for security reports.
 - Preferred: use GitHub Security Advisories (Security → Advisories → Report a vulnerability) to submit a private report.
-- Alternate: email contact@codifylearn.com (or codify.team@gmail.com) if you cannot use Advisories.
+- Alternate: email rscodify@gmail.com if you cannot use Advisories.
 
 Please include:
 
