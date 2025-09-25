@@ -65,7 +65,7 @@ const AddNewCourse = lazy(() =>
 );
 const CourseUpdate = lazy(() => import("./layouts/CourseLayout/CourseUpdate"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const CodeEditor = lazy(() => import("./components/CodeEditor..jsx"));
+const CodeEditor = lazy(() => import("./pages/CodeEditor"));
 
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
@@ -112,9 +112,23 @@ function App() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<LogOut />} />
-                    <Route path="*" element={<ErrorPage />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/oauth/callback" element={<OAuthCallback />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/code-editor" element={<CodeEditor />} />
+                    <Route path="/editor" element={<CodeEditor />} />
+                    <Route path="/ide" element={<CodeEditor />} />
+                    <Route path="/playground" element={<CodeEditor />} />
+                    <Route path="/notes" element={<NotesPage />} />
+                    <Route path="/notes/javascript/*" element={<JavaScriptFundamentals />} />
+                    <Route path="/notes/git/*" element={<GitNotes />} />
+                    <Route path="/notes/react/*" element={<ReactPattern />} />
+                    <Route path="/notes/python/*" element={<PythonNotes />} />
+                    <Route path="/notes/fallback" element={<FallBackNotes />} />
+                    <Route path="/bookmarks" element={<Bookmarks />} />
+                    <Route path="/questions" element={<QuestionsPage />} />
+                    <Route path="/questions/:id" element={<QuestionDetail />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    {/* <Route path="/ide" element={<IDE />} /> */}
                     <Route path="/contributorGuide" element={<ContributorsGuide />} />
                     <Route path="/admin" element={<AdminLayout />}>
                       <Route path="users" element={<AdminUsers />} />
@@ -124,6 +138,7 @@ function App() {
                       <Route path="courses/add" element={<AddNewCourse />} />
                       <Route path="courses/update/:id" element={<CourseUpdate />} />
                     </Route>
+                    <Route path="*" element={<ErrorPage />} />
                   </Routes>
                 </Suspense>
               </main>
