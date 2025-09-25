@@ -129,6 +129,13 @@ function App() {
                     <Route path="/questions" element={<QuestionsPage />} />
                     <Route path="/questions/:id" element={<QuestionDetail />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                   <Route path="/dashboard" element={<Dashboard />} />
+<Route path="/editor" element={<CodeEditor />} />
+<Route path="/ide" element={<CodeEditor />} />
+{/* <Route path="/ide" element={<IDE />} /> */}
+<Route path="/contributorGuide" element={<ContributorsGuide />} />
+
+
                     <Route path="/contributorGuide" element={<ContributorsGuide />} />
                     <Route path="/admin" element={<AdminLayout />}>
                       <Route path="users" element={<AdminUsers />} />
