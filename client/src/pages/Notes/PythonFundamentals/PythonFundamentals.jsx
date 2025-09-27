@@ -10,8 +10,13 @@ import categories from './PyTopics.json';
 // Python Basics
 import Operators from './PyTopics/PythonBasics/Operators';
 import InputOutput from './PyTopics/PythonBasics/InputOutput';
+import TypeCasting from './PyTopics/PythonBasics/TypeCasting';
+import StringFormatting from './PyTopics/PythonBasics/StringFormatting';
+import ConditionalStatements from './PyTopics/PythonBasics/ConditionalStatements';
 import Loops from './PyTopics/PythonBasics/Loops';
 import Functions from './PyTopics/PythonBasics/Functions';
+import VariablesDataTypes from './PyTopics/PythonBasics/VariablesDataTypes';
+
 
 
 
@@ -72,10 +77,16 @@ const PythonFundamentals = () => {
               <Routes>
                 <Route index element={<PyHeroPage />} />
                  {/* Python Basics */}
+                {/* Python Basics */}
+                <Route path="variables-&-data-types" element={<VariablesDataTypes />} />
                 <Route path="operators" element={<Operators />} />
                 <Route path="input-&-output" element={<InputOutput />} />
+                <Route path="type-casting" element={<TypeCasting />} />
+                <Route path="string-formatting" element={<StringFormatting />} />
+                <Route path="conditional-statements" element={<ConditionalStatements />} />
                 <Route path="loops" element={<Loops />} />
                 <Route path="functions" element={<Functions />} />
+
 
 
                
