@@ -93,6 +93,43 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
 
             <div className="mt-6">
               <nav className="grid gap-y-2">
+                {/* Authentication buttons - moved to top */}
+                {!isLoggedIn && (
+                  <>
+                    <NavLink
+                      to="/login"
+                      onClick={onClose}
+                      className={`
+                        px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                        ${
+                          isDark
+                            ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
+                            : "text-light-text-primary hover:bg-light-bg-tertiary"
+                        }
+                      `}
+                    >
+                      <FaSignInAlt className="text-xl" />{" "}
+                      <span className="text-xl">Login</span>
+                    </NavLink>
+
+                    <NavLink
+                      to="/signup"
+                      onClick={onClose}
+                      className={`
+                        px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                        ${
+                          isDark
+                            ? "bg-primary text-white hover:bg-primary-dark"
+                            : "bg-primary text-white hover:bg-primary-dark"
+                        }
+                      `}
+                    >
+                      <FaUserPlus className="text-xl" />{" "}
+                      <span className="text-xl">Sign Up</span>
+                    </NavLink>
+                  </>
+                )}
+
                 <NavLink
                   to="/"
                   onClick={onClose}
@@ -291,7 +328,7 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   <span className="text-xl">Contact</span>
                 </NavLink>
 
-                {isLoggedIn ? (
+                {isLoggedIn && (
                   <>
                     <NavLink
                       to="/dashboard"
@@ -349,40 +386,6 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                     >
                       <FaSignOutAlt className="text-xl" />{" "}
                       <span className="text-xl">Logout</span>
-                    </NavLink>
-                  </>
-                ) : (
-                  <>
-                    <NavLink
-                      to="/login"
-                      onClick={onClose}
-                      className={`
-                        px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${
-                          isDark
-                            ? "text-dark-text-primary hover:bg-dark-bg-tertiary"
-                            : "text-light-text-primary hover:bg-light-bg-tertiary"
-                        }
-                      `}
-                    >
-                      <FaSignInAlt className="text-xl" />{" "}
-                      <span className="text-xl">Login</span>
-                    </NavLink>
-
-                    <NavLink
-                      to="/signup"
-                      onClick={onClose}
-                      className={`
-                        px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
-                        ${
-                          isDark
-                            ? "bg-primary text-white hover:bg-primary-dark"
-                            : "bg-primary text-white hover:bg-primary-dark"
-                        }
-                      `}
-                    >
-                      <FaUserPlus className="text-xl" />{" "}
-                      <span className="text-xl">Sign Up</span>
                     </NavLink>
                   </>
                 )}
