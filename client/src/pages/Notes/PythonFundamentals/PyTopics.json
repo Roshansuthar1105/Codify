@@ -4,6 +4,11 @@
         "Python Installation",
         "Running Python Code"
     ],
+
+
+
+
+
     "Python Basics": [
         "Variables & Data Types",
         "Operators",
@@ -14,14 +19,25 @@
         "Loops",
         "Functions"
     ],
+
+
+
+
+
     "Data Structures": [
         "Strings",
         "Lists",
         "List Comprehension",
         "Tuples & Sets",
         "Dictionaries",
-        "Nested Loops"
+        "Nested Loops",
+        "Arrays"
     ],
+
+
+
+
+
     "Advanced Topics": [
         "Break & Continue",
         "Exception Handling",
@@ -31,6 +47,12 @@
         "Map Filter Reduce",
         "Built-in Functions"
     ],
+
+
+
+
+
+
     "Object-Oriented Programming": [
         "Classes & Objects",
         "Inheritance",
@@ -39,4 +61,10 @@
         "Static Methods",
         "Magic Methods"
     ]
+
+
+
+
+
+    
 }
