@@ -106,6 +106,10 @@ const PythonFundamentals = () => {
                 <Route path="introduction-to-python" element={<PyIntroduction />} />
                 <Route path="python-installation" element={<PythonInstallation />} />
                 <Route path="running-python-code" element={<RunningPythonCode />} />
+
+
+
+                
                  {/* Python Basics */}
                 <Route path="variables-&-data-types" element={<VariablesDataTypes />} />
                 <Route path="operators" element={<Operators />} />
@@ -115,6 +119,11 @@ const PythonFundamentals = () => {
                 <Route path="conditional-statements" element={<ConditionalStatements />} />
                 <Route path="loops" element={<Loops />} />
                 <Route path="functions" element={<Functions />} />
+
+
+
+
+
                   {/* Object-Oriented Programming */}
                 <Route path="classes-&-objects" element={<ClassesObjects />} />
                 <Route path="inheritance" element={<Inheritance />} />
@@ -122,6 +131,12 @@ const PythonFundamentals = () => {
                 <Route path="polymorphism" element={<Polymorphism />} />
                 <Route path="static-methods" element={<StaticMethods />} />
                 <Route path="magic-methods" element={<MagicMethods />} />
+
+
+
+
+
+
                  {/* Data Structures */}
                 <Route path="strings" element={<Strings />} />
                 <Route path="lists" element={<Lists />} />

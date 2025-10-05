@@ -10,6 +10,9 @@ const pyRoutesAndTitles = {
     "/notes/python/python-installation": "Installing Python | Codify",
     "/notes/python/running-python-code": "Running Python Code | Codify",
 
+
+
+
     // Python Basics
     "/notes/python/variables-&-data-types": "Python Variables & Data Types | Codify",
     "/notes/python/operators": "Python Operators | Codify",
@@ -20,6 +23,10 @@ const pyRoutesAndTitles = {
     "/notes/python/loops": "Python Loops | Codify",
     "/notes/python/functions": "Python Functions | Codify",
 
+
+
+
+
     // Data Structures
     "/notes/python/strings": "Python Strings | Codify",
     "/notes/python/lists": "Python Lists | Codify",
@@ -29,6 +36,10 @@ const pyRoutesAndTitles = {
     "/notes/python/nested-loops": "Python Nested Loops | Codify",
     "/notes/python/array": "Python Arrays | Codify",
 
+
+
+
+
     // Advanced Topics
     "/notes/python/break-&-continue": "Python Break & Continue | Codify",
     "/notes/python/exception-handling": "Python Exception Handling | Codify",
@@ -37,6 +48,10 @@ const pyRoutesAndTitles = {
     "/notes/python/lambda-functions": "Python Lambda Functions | Codify",
     "/notes/python/map-filter-reduce": "Python Map, Filter, Reduce | Codify",
     "/notes/python/built-in-functions": "Python Built-in Functions | Codify",
+
+
+
+    
 
     // Object-Oriented Programming
     "/notes/python/classes-&-objects": "Python Classes & Objects | Codify",
