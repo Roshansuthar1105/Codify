@@ -20,7 +20,7 @@ function NavBar() {
   const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
+ // const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   const isDark = theme === "dark";
 
@@ -67,11 +67,6 @@ function NavBar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleColorSelector = () => setIsColorSelectorOpen(!isColorSelectorOpen);
-  const closeColorSelector = () => setIsColorSelectorOpen(false);
-
 
   return (
     <nav
