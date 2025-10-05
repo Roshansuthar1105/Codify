@@ -5,6 +5,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { cpp } from "@codemirror/lang-cpp";
 import { python } from "@codemirror/lang-python";
 import { keymap } from "@codemirror/view";
+import { java } from "@codemirror/lang-java";
 import axios from "axios";
 
 // LANGUAGE CONFIGURATION
@@ -19,6 +20,18 @@ const languageConfig = {
     id: 71,
     extension: python(),
     defaultCode: `# Welcome to the Python Playground!\n# This code runs on a secure server.\n\ndef greet(name):\n  return f"Hello, {name}!"\n\nprint(greet("Codify"))`,
+    executionModel: "server",
+  },
+  // added java Language
+  java: {
+    id: 62,
+    extension: java(),
+    defaultCode: `// Welcome to the Java Playground
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Codify");
+    }
+}`,
     executionModel: "server",
   },
   cpp: {
@@ -182,16 +195,16 @@ const UniversalCodePlayground = ({
   };
 
   // shortCut Key for clear console -> ctrl + i
-  useEffect(() =>{
-    function handle(e){
-      if(e.ctrlKey && e.key === 'i'){
+  useEffect(() => {
+    function handle(e) {
+      if (e.ctrlKey && e.key === "i") {
         e.preventDefault();
         clearConsole();
       }
     }
-    window.addEventListener("keydown" , handle);
-    return () => window.removeEventListener("keydown" , handle);
-  },[clearConsole]);
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
+  }, [clearConsole]);
 
   //shortCut key for run code --> ctrl + enter
   useEffect(() => {
@@ -246,13 +259,19 @@ const UniversalCodePlayground = ({
             <h3 className="text-sm font-semibold capitalize text-white">
               {currentLanguage.replace("pp", "++")} Editor
             </h3>
-            <button
-              onClick={runCode}
-              disabled={isLoading}
-              className="px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 disabled:bg-gray-500"
-            >
-              {isLoading ? "Running..." : "Run "}
-            </button>
+            <div className="relative group inline-block">
+              <button
+                onClick={runCode}
+                disabled={isLoading}
+                className="px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 disabled:bg-gray-500"
+              >
+                {isLoading ? "Running..." : "Run "}
+              </button>
+              {/* hover on run code */}
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-[14px] rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                Run code (ctrl + Enter)
+              </span>
+            </div>
           </div>
           <CodeMirror
             //Added className to change the cursor
@@ -281,12 +300,27 @@ const UniversalCodePlayground = ({
             </pre>
           )}
           {/* adding clear console */}
-          <button
-            className="px-3 py-2 m-2 font-semibold rounded-md bg-[#111720] text-white text-[16px] hover:bg-[#e63946] disabled:bg-gray-500"
-            onClick={clearConsole}
-          >
-            Clear Console
-          </button>
+          <div className="relative group inline-block">
+            <button
+              className="px-3 py-2 m-2 font-semibold rounded-md bg-[#111720] text-white text-[16px] hover:bg-[#e63946] disabled:bg-gray-500"
+              onClick={clearConsole}
+            >
+              Clear Console
+            </button>
+            {/* hover on clear console */}
+            <span
+              className="
+      absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+      px-2 py-1 text-[14px] rounded-md
+      bg-gray-900 text-white
+      opacity-0 group-hover:opacity-100
+      transition-opacity duration-200
+      whitespace-nowrap
+    "
+            >
+              Clear code (Ctrl + I)
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useTheme } from "../../context/ThemeContext";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion"; // Import motion for framer-motion animations
@@ -9,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Testimonials = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const isDark = theme === "dark";
   const scrollRef = useRef(null);
   const sectionRef = useRef(null);
@@ -283,6 +285,7 @@ const Testimonials = () => {
             Ready to join our success stories?
           </p>
           <motion.button
+          onClick={()=>navigate('/courses')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="bg-gradient-to-r from-primary to-secondary text-white py-2 sm:py-3 px-6 sm:px-8 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 text-sm sm:text-base"

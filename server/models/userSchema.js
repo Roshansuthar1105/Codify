@@ -149,6 +149,11 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true, // allows null for non-OAuth users
   },
+  githubId: {
+    type: String,
+    unique: true,
+    sparse: true, // allows null for non-OAuth users
+  },
   isOAuth: {
     type: Boolean,
     default: false,

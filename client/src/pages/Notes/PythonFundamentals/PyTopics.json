@@ -1,0 +1,42 @@
+{
+    "Introduction": [
+        "Introduction to Python",
+        "Python Installation",
+        "Running Python Code"
+    ],
+    "Python Basics": [
+        "Variables & Data Types",
+        "Operators",
+        "Input & Output",
+        "Type Casting",
+        "String Formatting",
+        "Conditional Statements",
+        "Loops",
+        "Functions"
+    ],
+    "Data Structures": [
+        "Strings",
+        "Lists",
+        "List Comprehension",
+        "Tuples & Sets",
+        "Dictionaries",
+        "Nested Loops"
+    ],
+    "Advanced Topics": [
+        "Break & Continue",
+        "Exception Handling",
+        "Modules & Imports",
+        "File Handling",
+        "Lambda Functions",
+        "Map Filter Reduce",
+        "Built-in Functions"
+    ],
+    "Object-Oriented Programming": [
+        "Classes & Objects",
+        "Inheritance",
+        "Encapsulation",
+        "Polymorphism",
+        "Static Methods",
+        "Magic Methods"
+    ]
+}

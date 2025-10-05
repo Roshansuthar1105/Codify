@@ -15,12 +15,13 @@ import roadmap from "../assets/json/rolebasedRoadmaps.json";
 import { useEffect, useState } from "react";
 import NewsletterSubscribeInput from "./NewsletterSubscribeInput";
 const Footer = () => {
-  const [visitorCount, setVisitorCount] = useState(null);
-
+  const [visitorCount, setVisitorCount] = useState(0);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/`)
-      .then(res => res.json())
-      .then(data => setVisitorCount(data.visitorCount))
+      .then(async res => {
+        const data = await res.json();
+        setVisitorCount(data.visitorCount); // Set state here
+      })
       .catch(err => console.error("Error fetching visitors:", err));
   }, []);
   const { theme } = useTheme();

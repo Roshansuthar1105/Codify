@@ -1,6 +1,6 @@
 {
-    "Introduction to Version Control": [
-        "What is Version Control?",
+    "Introduction": [
+        "What is Version Control",
         "Benefits of Version Control",
         "Centralized vs Distributed Version Control"
     ],
@@ -26,7 +26,7 @@
         "Deleting Branches (git branch -d)"
     ],
     "Remote Repositories": [
-        "What is a Remote Repository?",
+        "What is a Remote Repository",
         "git remote add",
         "git push and git pull",
         "git fetch",
