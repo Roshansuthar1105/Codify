@@ -28,11 +28,16 @@ import Encapsulation from './PyTopics/OOP/Encapsulation';
 import Polymorphism from './PyTopics/OOP/Polymorphism';
 import StaticMethods from './PyTopics/OOP/StaticMethods';
 import MagicMethods from './PyTopics/OOP/MagicMethods';
+
 // Data Structures
 import Strings from './PyTopics/DataStructures/Strings';
+import Lists from './PyTopics/DataStructures/Lists';
+import ListComprehension from './PyTopics/DataStructures/ListComprehension';
 import TuplesSets from './PyTopics/DataStructures/TuplesSets';
 import Dictionaries from './PyTopics/DataStructures/Dictionaries';
 import NestedLoops from './PyTopics/DataStructures/NestedLoops';
+import ArraysDoc from './PyTopics/DataStructures/ArraysDoc';
+
 
 
 
@@ -117,13 +122,15 @@ const PythonFundamentals = () => {
                 <Route path="polymorphism" element={<Polymorphism />} />
                 <Route path="static-methods" element={<StaticMethods />} />
                 <Route path="magic-methods" element={<MagicMethods />} />
-
                  {/* Data Structures */}
                 <Route path="strings" element={<Strings />} />
-                
+                <Route path="lists" element={<Lists />} />
+                <Route path="list-comprehension" element={<ListComprehension />} />
                 <Route path="tuples-&-sets" element={<TuplesSets />} />
                 <Route path="dictionaries" element={<Dictionaries />} />
                 <Route path="nested-loops" element={<NestedLoops />} />
+                <Route path="arrays" element={<ArraysDoc />} />
+
 
 
                 

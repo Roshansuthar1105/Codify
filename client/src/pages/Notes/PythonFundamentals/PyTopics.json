@@ -20,7 +20,8 @@
         "List Comprehension",
         "Tuples & Sets",
         "Dictionaries",
-        "Nested Loops"
+        "Nested Loops",
+        "Arrays"
     ],
     "Advanced Topics": [
         "Break & Continue",

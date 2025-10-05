@@ -27,6 +27,7 @@ const pyRoutesAndTitles = {
     "/notes/python/tuples-&-sets": "Python Tuples & Sets | Codify",
     "/notes/python/dictionaries": "Python Dictionaries | Codify",
     "/notes/python/nested-loops": "Python Nested Loops | Codify",
+    "/notes/python/array": "Python Arrays | Codify",
 
     // Advanced Topics
     "/notes/python/break-&-continue": "Python Break & Continue | Codify",
