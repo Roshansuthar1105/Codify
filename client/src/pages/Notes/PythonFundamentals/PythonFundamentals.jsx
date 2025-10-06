@@ -29,10 +29,13 @@ import Polymorphism from './PyTopics/OOP/Polymorphism';
 import StaticMethods from './PyTopics/OOP/StaticMethods';
 import MagicMethods from './PyTopics/OOP/MagicMethods';
 
+
 // Data Structures
 import Strings from './PyTopics/DataStructures/Strings';
 
 
+import Lists from './PyTopics/DataStructures/Lists';
+import ListComprehension from './PyTopics/DataStructures/ListComprehension';
 import TuplesSets from './PyTopics/DataStructures/TuplesSets';
 import Dictionaries from './PyTopics/DataStructures/Dictionaries';
 import NestedLoops from './PyTopics/DataStructures/NestedLoops';
@@ -143,7 +146,8 @@ const PythonFundamentals = () => {
                  
                  {/* Data Structures */}
                 <Route path="strings" element={<Strings />} />
-                
+                <Route path="lists" element={<Lists />} />
+                <Route path="list-comprehension" element={<ListComprehension />} />
                 <Route path="tuples-&-sets" element={<TuplesSets />} />
                 <Route path="dictionaries" element={<Dictionaries />} />
                 <Route path="nested-loops" element={<NestedLoops />} />

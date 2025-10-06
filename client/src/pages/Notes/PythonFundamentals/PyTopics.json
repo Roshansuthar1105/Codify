@@ -9,6 +9,11 @@
 
 
 
+
+
+
+
+
     "Python Basics": [
         "Variables & Data Types",
         "Operators",
@@ -19,6 +24,11 @@
         "Loops",
         "Functions"
     ],
+
+
+
+
+
 
 
 
@@ -57,6 +67,12 @@
 
 
 
+
+
+
+
+
+
     "Object-Oriented Programming": [
         "Classes & Objects",
         "Inheritance",
@@ -65,4 +81,10 @@
         "Static Methods",
         "Magic Methods"
     ]
+
+
+
+
+
+    
 }

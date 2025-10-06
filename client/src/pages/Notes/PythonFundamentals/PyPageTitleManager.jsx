@@ -68,10 +68,10 @@ const PyPageTitleManager = () => {
     const location = useLocation();
 
     useEffect(() => {
-        console.log(location.pathname)
+        console.log(location.pathname);
         const pageTitle = pyRoutesAndTitles[location.pathname] || "Codify";
         document.title = pageTitle;
-    }, [location]);
+    }, [location.pathname]);
 
     return null;
 };
