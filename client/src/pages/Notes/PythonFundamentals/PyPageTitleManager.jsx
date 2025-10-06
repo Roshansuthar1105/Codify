@@ -34,12 +34,11 @@ const pyRoutesAndTitles = {
     "/notes/python/tuples-&-sets": "Python Tuples & Sets | Codify",
     "/notes/python/dictionaries": "Python Dictionaries | Codify",
     "/notes/python/nested-loops": "Python Nested Loops | Codify",
- 
-    "notes/python/stacks":"Python Stacks | Codify",
-    "notes/python/queues":"Python Queues | Codify",
-    "notes/python/linked-lists":"Python Linked Lists | Codify",
- 
- 
+     "/notes/python/array": "Python Arrays | Codify",
+    "/notes/python/stacks": "Python Stacks | Codify",
+    "/notes/python/queues": "Python Queues | Codify",
+    "/notes/python/linked-lists": "Python Linked Lists | Codify",
+
  
  
     // Advanced Topics
