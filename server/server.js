@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import { createServer } from 'http'
 import cron from "node-cron";
 import axios from "axios";
 import authRouter from "./routes/authRouter.js";
@@ -8,11 +9,13 @@ import coursesRouter from "./routes/coursesRoute.js";
 import connectDB from "./utils/db.js";
 import cors from "cors";
 import errorMiddleware from "./middlewares/errorMiddlewares.js";
+import { createIO } from './utils/socket.js';
 import userRouter from "./routes/userRoute.js";
 import router from "./routes/router.js";
 import adminRouter from "./routes/adminRouter.js";
 import progressRouter from "./routes/progressRoute.js";
 import activityRouter from "./routes/activityRoute.js";
+import interviewRouter from './routes/interviewRoute.js';
 import leaderBoardRoute from "./routes/leaderBoardRoute.js";
 import bookmarkRouter from "./routes/bookmarkRoute.js";
 import questionRouter from "./routes/questionRoute.js";
@@ -59,6 +62,7 @@ app.use("/user", userRouter);
 app.use("/api/v1/courses", coursesRouter);
 app.use("/progress", progressRouter);
 app.use("/activity", activityRouter);
+app.use("/interview", interviewRouter);
 app.use("/", router);
 app.use("/admin", adminRouter);
 app.use("/api/v1", leaderBoardRoute);
@@ -71,13 +75,19 @@ app.use("/api", replyRouter);
 const PORT = process.env.PORT || 5050;
 
 app.use(errorMiddleware);
+
+const httpServer = createServer(app);
+
+// initialize Socket.IO
+createIO(httpServer, process.env.CLIENT_CORS);
+
 connectDB()
-  .then(
-    app.listen(PORT, () => {
-      console.log(`Server is running at localhost:${PORT}`);
+    .then(() => {
+        httpServer.listen(PORT, () => {
+            console.log(`Server is running at localhost:${PORT}`)
+        })
     })
-  )
-  .catch(() => console.error("error during connection with mongodb"));
+    .catch(() => console.error("error during connection with mongodb"));
 
 cron.schedule("*/14 * * * *", async () => {
   try {

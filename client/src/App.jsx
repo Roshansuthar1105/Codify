@@ -39,6 +39,7 @@ const QuestionDetail = lazy(() => import("./components/QuestionDetail.jsx"));
 const OAuthCallback = lazy(() => import("./pages/OAuthCallback"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const CodeEditor = lazy(() => import("./pages/CodeEditor"));
+const InterviewPrep = lazy(() => import("./pages/InterviewPrep.jsx"));
 
 // Notes sub-sections
 const JavaScriptFundamentals = lazy(() =>
@@ -110,6 +111,7 @@ function App() {
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/courses/:courseId" element={<CoursePlayer />} />
                   <Route path="/roadmap" element={<Roadmap />} />
+                  <Route path="/interview" element={<InterviewPrep />} />
                   <Route path="/contact" element={<ContactUs />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/login" element={<Login />} />

@@ -271,7 +271,7 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   <span className="text-xl">Questions</span>
                 </NavLink>
 
-                <NavLink
+<NavLink
                   to="/contact"
                   onClick={onClose}
                   className={({ isActive }) => `
@@ -289,6 +289,24 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                 >
                   <FaEnvelope className="text-xl" />{" "}
                   <span className="text-xl">Contact</span>
+                </NavLink>
+
+                <NavLink
+                  to="/interview"
+                  onClick={onClose}
+                  className={({ isActive }) => `
+                    px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                    ${isActive
+                      ? isDark
+                        ? 'bg-dark-bg-tertiary text-primary'
+                        : 'bg-light-bg-tertiary text-primary'
+                      : isDark
+                        ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
+                        : 'text-light-text-primary hover:bg-light-bg-tertiary'
+                    }
+                  `}
+                >
+                  <FaBook className='text-xl' /> <span className='text-xl'>Interview Prep</span>
                 </NavLink>
 
                 {isLoggedIn ? (

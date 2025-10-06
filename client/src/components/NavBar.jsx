@@ -21,7 +21,7 @@ function NavBar() {
   const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
- // const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
+  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   const isDark = theme === "dark";
 
@@ -56,9 +56,6 @@ function NavBar() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-
-  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   const toggleColorSelector = () =>
     setIsColorSelectorOpen(!isColorSelectorOpen);
@@ -101,71 +98,106 @@ function NavBar() {
             </NavLink>
           </div>
 
-          {/* Centered Links */}
-          <div className="hidden lg:flex flex-1 justify-center items-center space-x-6">
-            <NavLink
-              to="/courses"
-              className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
-                    ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
-                    : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
-                }`
-              }
-            >
-              <FaBookOpen className="w-5 h-5" />
-              <span>Courses</span>
-            </NavLink>
-
-            <NavLink
-              to="/roadmap"
-              className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
-                    ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
-                    : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
-                }`
-              }
-            >
-              <FaRoad className="w-5 h-5" />
-              <span>Roadmaps</span>
-            </NavLink>
-
-            <NavLink
-              to="/notes"
-              className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
-                    ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
-                    : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
-                }`
-              }
-            >
-              <FaStickyNote className="w-5 h-5" />
-              <span>Notes</span>
-            </NavLink>
-
-            <NavLink
-              to="/code-editor"
-              className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : isDark
-                    ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
-                    : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
-                }`
-              }
-            >
-              <FaCode className="w-5 h-5" />
-              <span>Code Editor</span>
-            </NavLink>
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex flex-1 justify-center px-4">
+            <div className="flex items-center space-x-8">
+              <NavLink
+                to="/"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/about"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                About
+              </NavLink>
+              <NavLink
+                to="/courses"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Courses
+              </NavLink>
+              <NavLink
+                to="/roadmap"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Roadmaps
+              </NavLink>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Contact
+              </NavLink>
+              <NavLink
+                to="/interview"
+                className={({ isActive }) => `
+                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive 
+                    ? 'bg-primary text-white' 
+                    : `${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} hover:bg-primary-400 hover:text-white`}
+                `}
+              >
+                Interview Prep
+              </NavLink>
+              <NavLink
+                to="/notes"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-primary text-white shadow-md"
+                      : isDark
+                      ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
+                      : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
+                  }`
+                }
+              >
+                <FaStickyNote className="w-5 h-5" />
+                <span>Notes</span>
+              </NavLink>
+              <NavLink
+                to="/code-editor"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-primary text-white shadow-md"
+                      : isDark
+                      ? "text-dark-text-primary hover:bg-light-bg-tertiary hover:text-light-text-primary"
+                      : "text-light-text-primary hover:bg-dark-bg-tertiary hover:text-dark-text-primary"
+                  }`
+                }
+              >
+                <FaCode className="w-5 h-5" />
+                <span>Code Editor</span>
+              </NavLink>
+            </div>
           </div>
 
           {/* Desktop Theme Controls */}
@@ -188,14 +220,8 @@ function NavBar() {
             />
           </div>
 
-
-
           {/* Mobile hamburger */}
-
-
-
           {/* Mobile Hamburger */}
-
           <button
             onClick={toggleMenu}
             className={`sm:hidden flex items-center justify-center p-2 rounded-lg border transition-colors ${
@@ -208,11 +234,8 @@ function NavBar() {
             <RiMenu3Fill className="w-6 h-6" />
           </button>
 
-
           {/* Profile button */}
-
           {/* Profile Button */}
-
           <button
             onClick={toggleMenu}
             className={`hidden sm:flex items-center space-x-2 sm:space-x-3 px-2 py-1 sm:px-4 sm:py-2 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
@@ -243,17 +266,16 @@ function NavBar() {
           </button>
         </div>
       </div>
-  
-      {/* Mobile menu */ }
-    <MobileMenu
-    isOpen={isMenuOpen}
-    onClose={toggleMenu}
-    isLoggedIn={isLoggedIn}
-    userdata={userdata}
-    />
-      </nav>
-    );
-  
+
+      {/* Mobile menu */}
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={toggleMenu}
+        isLoggedIn={isLoggedIn}
+        userdata={userdata}
+      />
+    </nav>
+  );
 }
 
 export default NavBar;

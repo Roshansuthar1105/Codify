@@ -243,6 +243,26 @@ server/
 
 ## 📚 API Documentation
 
+### 🧪 Interview Prep Mode
+- New route: /interview in the client
+- Features: Difficulty/topic selection, timer with auto-submit, in-browser test runner, hints, and post-solution feedback summary
+- Backend endpoints (JWT-protected):
+  - POST /interview/start
+  - POST /interview/hint
+  - POST /interview/submit
+  - GET /interview/history
+
+Setup notes:
+- Optional environment variables (server/.env):
+  - OPENAI_API_KEY=...
+  - GEMINI_API_KEY=...
+  If unset, a built-in fallback question bank is used.
+
+Usage:
+- Login, open "Interview Prep" from navbar, choose difficulty/topic, Start.
+- Write code in the editor and click "Run Tests". Submit before timer ends or it auto-submits.
+- See history at the bottom of the page.
+
 ### Authentication Endpoints
 
 - `POST /api/auth/register` - Register a new user
