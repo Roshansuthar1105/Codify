@@ -29,17 +29,20 @@ import Polymorphism from './PyTopics/OOP/Polymorphism';
 import StaticMethods from './PyTopics/OOP/StaticMethods';
 import MagicMethods from './PyTopics/OOP/MagicMethods';
 
+
 // Data Structures
 import Strings from './PyTopics/DataStructures/Strings';
+
+
 import Lists from './PyTopics/DataStructures/Lists';
 import ListComprehension from './PyTopics/DataStructures/ListComprehension';
 import TuplesSets from './PyTopics/DataStructures/TuplesSets';
 import Dictionaries from './PyTopics/DataStructures/Dictionaries';
 import NestedLoops from './PyTopics/DataStructures/NestedLoops';
 import ArraysDoc from './PyTopics/DataStructures/ArraysDoc';
-
-
-
+import StacksDoc from './PyTopics/DataStructures/StacksDoc';
+import LinkedListDoc from './PyTopics/DataStructures/LinkedListDoc';
+import QueuesDoc from './PyTopics/DataStructures/QueuesDoc';
 
 
 
@@ -106,9 +109,13 @@ const PythonFundamentals = () => {
                 <Route path="introduction-to-python" element={<PyIntroduction />} />
                 <Route path="python-installation" element={<PythonInstallation />} />
                 <Route path="running-python-code" element={<RunningPythonCode />} />
-
-
-
+                
+                
+                
+                
+                
+                
+                
                 
                  {/* Python Basics */}
                 <Route path="variables-&-data-types" element={<VariablesDataTypes />} />
@@ -119,11 +126,11 @@ const PythonFundamentals = () => {
                 <Route path="conditional-statements" element={<ConditionalStatements />} />
                 <Route path="loops" element={<Loops />} />
                 <Route path="functions" element={<Functions />} />
-
-
-
-
-
+                  
+                  
+                  
+                  
+                  
                   {/* Object-Oriented Programming */}
                 <Route path="classes-&-objects" element={<ClassesObjects />} />
                 <Route path="inheritance" element={<Inheritance />} />
@@ -132,11 +139,11 @@ const PythonFundamentals = () => {
                 <Route path="static-methods" element={<StaticMethods />} />
                 <Route path="magic-methods" element={<MagicMethods />} />
 
-
-
-
-
-
+                 
+                 
+                 
+                 
+                 
                  {/* Data Structures */}
                 <Route path="strings" element={<Strings />} />
                 <Route path="lists" element={<Lists />} />
@@ -144,11 +151,12 @@ const PythonFundamentals = () => {
                 <Route path="tuples-&-sets" element={<TuplesSets />} />
                 <Route path="dictionaries" element={<Dictionaries />} />
                 <Route path="nested-loops" element={<NestedLoops />} />
-                <Route path="arrays" element={<ArraysDoc />} />
+                 <Route path="arrays" element={<ArraysDoc />} />
 
 
-
-                
+                <Route path="stacks" element={<StacksDoc />} />
+                <Route path="queues" element={<QueuesDoc />} />
+                <Route path="linked-lists" element={<LinkedListDoc />} />
 
 
 

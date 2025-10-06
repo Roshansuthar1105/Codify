@@ -10,9 +10,9 @@ const pyRoutesAndTitles = {
     "/notes/python/python-installation": "Installing Python | Codify",
     "/notes/python/running-python-code": "Running Python Code | Codify",
 
-
-
-
+   
+   
+   
     // Python Basics
     "/notes/python/variables-&-data-types": "Python Variables & Data Types | Codify",
     "/notes/python/operators": "Python Operators | Codify",
@@ -23,23 +23,24 @@ const pyRoutesAndTitles = {
     "/notes/python/loops": "Python Loops | Codify",
     "/notes/python/functions": "Python Functions | Codify",
 
-
-
-
-
-    // Data Structures
+   
+   
+   
+   
+   // Data Structures
     "/notes/python/strings": "Python Strings | Codify",
     "/notes/python/lists": "Python Lists | Codify",
     "/notes/python/list-comprehension": "Python List Comprehension | Codify",
     "/notes/python/tuples-&-sets": "Python Tuples & Sets | Codify",
     "/notes/python/dictionaries": "Python Dictionaries | Codify",
     "/notes/python/nested-loops": "Python Nested Loops | Codify",
-    "/notes/python/array": "Python Arrays | Codify",
+     "/notes/python/array": "Python Arrays | Codify",
+    "/notes/python/stacks": "Python Stacks | Codify",
+    "/notes/python/queues": "Python Queues | Codify",
+    "/notes/python/linked-lists": "Python Linked Lists | Codify",
 
-
-
-
-
+ 
+ 
     // Advanced Topics
     "/notes/python/break-&-continue": "Python Break & Continue | Codify",
     "/notes/python/exception-handling": "Python Exception Handling | Codify",
@@ -48,11 +49,11 @@ const pyRoutesAndTitles = {
     "/notes/python/lambda-functions": "Python Lambda Functions | Codify",
     "/notes/python/map-filter-reduce": "Python Map, Filter, Reduce | Codify",
     "/notes/python/built-in-functions": "Python Built-in Functions | Codify",
-
-
-
     
-
+   
+   
+   
+   
     // Object-Oriented Programming
     "/notes/python/classes-&-objects": "Python Classes & Objects | Codify",
     "/notes/python/inheritance": "Python Inheritance | Codify",
@@ -66,10 +67,10 @@ const PyPageTitleManager = () => {
     const location = useLocation();
 
     useEffect(() => {
-        console.log(location.pathname)
+        console.log(location.pathname);
         const pageTitle = pyRoutesAndTitles[location.pathname] || "Codify";
         document.title = pageTitle;
-    }, [location]);
+    }, [location.pathname]);
 
     return null;
 };

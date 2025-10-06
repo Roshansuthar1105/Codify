@@ -9,6 +9,11 @@
 
 
 
+
+
+
+
+
     "Python Basics": [
         "Variables & Data Types",
         "Operators",
@@ -24,6 +29,11 @@
 
 
 
+
+
+
+
+
     "Data Structures": [
         "Strings",
         "Lists",
@@ -31,8 +41,12 @@
         "Tuples & Sets",
         "Dictionaries",
         "Nested Loops",
-        "Arrays"
+        "Arrays",
+        "Stacks",
+        "Queues",
+        "Linked Lists"
     ],
+
 
 
 
@@ -47,6 +61,12 @@
         "Map Filter Reduce",
         "Built-in Functions"
     ],
+
+
+
+
+
+
 
 
 
