@@ -1,0 +1,53 @@
+[
+  {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/rLf3jnHxSmU/maxresdefault.jpg",
+    "course_title": "C Programming for Beginners | Complete Course",
+    "creator_image": "Neso Academy",
+    "creator_name": "https://media.licdn.com/dms/image/v2/D5603AQE4FQQoAaND6Q/profile-displayphoto-shrink_200_200/B56ZRj1HqhHwAY-/0/1736841657936?e=2147483647&v=beta&t=JJpB4WDYGqw11veGoug3-b1pZuvtXY49gHvHcjv7g18",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=rLf3jnHxSmU&list=PLBlnK6fEyqRggZZgYpPMUxdY1CYkZtARR",
+    "description": "This is a complete C programming course by Neso Academy, covering all key topics from the basics of variables, data types, operators, and control statements to functions, arrays, pointers, structures, and file handling. Perfect for beginners and engineering students preparing for placements or exams."
+  },
+   {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/irqbmMNs2Bo/maxresdefault.jpg",
+    "course_title": "C Programming Tutorial for Beginners",
+    "creator_image": "https://silentrend.com/wp-content/uploads/2025/03/Aman-4.png",
+    "creator_name": "ApnaCollege",
+    "creator_youtube_link": "http://youtube.com/watch?v=irqbmMNs2Bo",
+    "description": "A step-by-step C programming course for beginners, taught by ApnaCollege. Covers all basics like loops, arrays, functions, pointers, and memory management with practical examples and exercises."
+  },
+  {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/rQoqCP7LX60/maxresdefault.jpg",
+    "course_title": "C Programming Full Course",
+    "creator_image": "https://images.indianexpress.com/2024/06/alakh-pandey.png",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=rQoqCP7LX60&list=PLxgZQoSe9cg1drBnejUaDD9GEJBGQ5hMt",
+    "description": "An intensive C programming course by CollegeWallah. Covers variables, control structures, loops, arrays, pointers, functions, and file handling in one comprehensive session. Ideal for absolute beginners."
+  },
+  {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/EjavYOFoJJ0/maxresdefault.jpg",
+    "course_title": "C Programming Language Tutorial",
+    "creator_image": "https://d502jbuhuh9wk.cloudfront.net/logos/65127839e4b0c7d1508fbaf9.png?v=2",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=EjavYOFoJJ0&list=PLdo5W4Nhv31a8UcMN9-35ghv8qyFWD9_SG",
+    "description": "Classic C programming tutorials by Jenny's Lectures. Covers all fundamental concepts with simple examples. Great for beginners who prefer a slow-paced, explanatory teaching style."
+  },
+    {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/p0QUmC2WJwM/maxresdefault.jpg",
+    "course_title": "C Programming Language Tutorial",
+    "creator_image": "https://yt3.googleusercontent.com/G_0IAqOglBkQz1-AFWsxxiRrT7DjPfrQksCMs-I82D6wCOrG1PCa9LjntW9zW5TodRLccBr6ew=s900-c-k-c0x00ffffff-no-rj",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=p0QUmC2WJwM",
+    "description": "Learn C programming tutorials by Prashant Sir. Covers many concepts, great to learn C programming from scratch."
+  },
+  {
+    "course_category": "Learn C Programming",
+    "course_image": "https://i.ytimg.com/vi/ZSPZob_1TOk/maxresdefault.jpg",
+    "course_title": "C Programming Language Tutorial",
+    "creator_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvoSklruFU7Pe1D-oqSe56gNJAWkwdv0YnTA&s",
+    "creator_name": "CodeWithHarry",
+    "creator_youtube_link": "https://www.youtube.com/watch?v=ZSPZob_1TOk",
+    "description": "C programming tutorials by Code with Array. Covers basics to advanced topics with practical examples. Great for beginners and those looking to strengthen their C skills."
+  }
+]
