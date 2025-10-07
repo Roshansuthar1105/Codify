@@ -49,6 +49,9 @@ import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
 import FileHandling from './PyTopics/AdvancedTopics/FileHandling';
 import LambdaFunctions from './PyTopics/AdvancedTopics/LambdaFunctions';
 import MapFilterReduce from './PyTopics/AdvancedTopics/MapFilterReduce';
+import BuiltinFunctions from './PyTopics/AdvancedTopics/BuiltinFunctions';
+import ExceptionHandling from './PyTopics/AdvancedTopics/ExceptionHandling';
+import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';  
 
 
 
@@ -171,7 +174,9 @@ const PythonFundamentals = () => {
                 <Route path="file-handling" element={<FileHandling />} />
                 <Route path="lambda-functions" element={<LambdaFunctions />} />
                 <Route path="map-filter-reduce" element={<MapFilterReduce />} />
-               
+                <Route path="built-in-functions" element={<BuiltinFunctions />} />
+                <Route path="exception-handling" element={<ExceptionHandling />} /> 
+              <Route path="break-&-continue" element={<BreakContinue />} />
 
 
 
