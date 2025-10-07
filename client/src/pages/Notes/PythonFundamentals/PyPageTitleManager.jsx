@@ -63,6 +63,9 @@ const pyRoutesAndTitles = {
     "/notes/python/polymorphism": "Python Polymorphism | Codify",
     "/notes/python/static-methods": "Python Static Methods | Codify",
     "/notes/python/magic-methods": "Python Magic Methods | Codify",
+    "/notes/python/abstract-classes": "Python Abstract Classes | Codify",
+    "/notes/python/interfaces-&-protocols": "Python Interfaces & Protocols | Codify",
+    "/notes/python/properties-&-getters-setters": "Python Properties & Getters/Setters | Codify",
 };
 
 const PyPageTitleManager = () => {

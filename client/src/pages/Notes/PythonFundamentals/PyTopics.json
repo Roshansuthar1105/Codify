@@ -82,7 +82,10 @@
         "Encapsulation",
         "Polymorphism",
         "Static Methods",
-        "Magic Methods"
+        "Magic Methods",
+        "Abstract Classes",
+        "Interfaces & Protocols",
+        "Properties & Getters/Setters"
     ]
 
 

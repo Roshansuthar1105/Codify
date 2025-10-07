@@ -28,7 +28,9 @@ import Encapsulation from './PyTopics/OOP/Encapsulation';
 import Polymorphism from './PyTopics/OOP/Polymorphism';
 import StaticMethods from './PyTopics/OOP/StaticMethods';
 import MagicMethods from './PyTopics/OOP/MagicMethods';
-
+import AbstractClasses from './PyTopics/OOP/AbstractClasses';
+import InterfacesProtocols from './PyTopics/OOP/InterfacesProtocols';
+import PropertiesAndGettersSetters from './PyTopics/OOP/PropertiesAndGettersSetters';
 
 // Data Structures
 import Strings from './PyTopics/DataStructures/Strings';
@@ -153,7 +155,9 @@ const PythonFundamentals = () => {
                 <Route path="polymorphism" element={<Polymorphism />} />
                 <Route path="static-methods" element={<StaticMethods />} />
                 <Route path="magic-methods" element={<MagicMethods />} />
-
+                <Route path="abstract-classes" element={<AbstractClasses />} /> 
+                <Route path="interfaces-&-protocols" element={<InterfacesProtocols />} />
+                <Route path="properties-&-getters-setters" element={<PropertiesAndGettersSetters />} />
                  
                  
                  
@@ -183,7 +187,7 @@ const PythonFundamentals = () => {
                 <Route path="exception-handling" element={<ExceptionHandling />} /> 
               <Route path="break-&-continue" element={<BreakContinue />} />
               <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
-              <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />  
+              <Route path="properties-&-getters/setters" element={<PropertiesAndGettersSetters />} />  
               
 
 
