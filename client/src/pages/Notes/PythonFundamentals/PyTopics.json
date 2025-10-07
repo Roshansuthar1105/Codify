@@ -44,7 +44,8 @@
         "Arrays",
         "Stacks",
         "Queues",
-        "Linked Lists"
+        "Linked Lists",
+        "Trees & Graphs"
     ],
 
 
@@ -59,7 +60,9 @@
         "File Handling",
         "Lambda Functions",
         "Map Filter Reduce",
-        "Built-in Functions"
+        "Built-in Functions",
+        "Multithreading & Multiprocessing",
+        "Decorators & Generators"
     ],
 
 

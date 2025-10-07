@@ -49,6 +49,8 @@ const pyRoutesAndTitles = {
     "/notes/python/lambda-functions": "Python Lambda Functions | Codify",
     "/notes/python/map-filter-reduce": "Python Map, Filter, Reduce | Codify",
     "/notes/python/built-in-functions": "Python Built-in Functions | Codify",
+    "/notes/python/multithreading-&-multiprocessing": "Python Multithreading & Multiprocessing | Codify",
+    "/notes/python/decorators-&-generators": "Python Decorators & Generators | Codify",
     
    
    

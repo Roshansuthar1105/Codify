@@ -43,6 +43,7 @@ import ArraysDoc from './PyTopics/DataStructures/ArraysDoc';
 import StacksDoc from './PyTopics/DataStructures/StacksDoc';
 import LinkedListDoc from './PyTopics/DataStructures/LinkedListDoc';
 import QueuesDoc from './PyTopics/DataStructures/QueuesDoc';
+import TreesAndGraphs from './PyTopics/DataStructures/TreesAndGraphs';
 
 // Advanced Topics
 import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
@@ -51,7 +52,10 @@ import LambdaFunctions from './PyTopics/AdvancedTopics/LambdaFunctions';
 import MapFilterReduce from './PyTopics/AdvancedTopics/MapFilterReduce';
 import BuiltinFunctions from './PyTopics/AdvancedTopics/BuiltinFunctions';
 import ExceptionHandling from './PyTopics/AdvancedTopics/ExceptionHandling';
-import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';  
+import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';
+import MultithreadingAndMultiprocessing from './PyTopics/AdvancedTopics/MultithreadingAndMultiprocessing';
+import DecoratorsAndGenerators from './PyTopics/AdvancedTopics/DecoratorsAndGenerators';  
+import { Trees } from 'lucide-react';
 
 
 
@@ -163,6 +167,7 @@ const PythonFundamentals = () => {
                 <Route path="dictionaries" element={<Dictionaries />} />
                 <Route path="nested-loops" element={<NestedLoops />} />
                  <Route path="arrays" element={<ArraysDoc />} />
+                 <Route path="trees-&-graphs" element={<TreesAndGraphs />} />
 
 
                 <Route path="stacks" element={<StacksDoc />} />
@@ -177,6 +182,9 @@ const PythonFundamentals = () => {
                 <Route path="built-in-functions" element={<BuiltinFunctions />} />
                 <Route path="exception-handling" element={<ExceptionHandling />} /> 
               <Route path="break-&-continue" element={<BreakContinue />} />
+              <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
+              <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />  
+              
 
 
 
