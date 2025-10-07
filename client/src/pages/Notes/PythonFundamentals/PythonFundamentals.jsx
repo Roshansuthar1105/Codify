@@ -44,6 +44,14 @@ import StacksDoc from './PyTopics/DataStructures/StacksDoc';
 import LinkedListDoc from './PyTopics/DataStructures/LinkedListDoc';
 import QueuesDoc from './PyTopics/DataStructures/QueuesDoc';
 
+// Advanced Topics
+import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
+import FileHandling from './PyTopics/AdvancedTopics/FileHandling';
+import LambdaFunctions from './PyTopics/AdvancedTopics/LambdaFunctions';
+import MapFilterReduce from './PyTopics/AdvancedTopics/MapFilterReduce';
+
+
+
 
 
 
@@ -157,6 +165,14 @@ const PythonFundamentals = () => {
                 <Route path="stacks" element={<StacksDoc />} />
                 <Route path="queues" element={<QueuesDoc />} />
                 <Route path="linked-lists" element={<LinkedListDoc />} />
+
+                 {/* Advanced Topics */}
+                <Route path="modules-&-imports" element={<ModulesImports />} />
+                <Route path="file-handling" element={<FileHandling />} />
+                <Route path="lambda-functions" element={<LambdaFunctions />} />
+                <Route path="map-filter-reduce" element={<MapFilterReduce />} />
+               
+
 
 
 
