@@ -54,7 +54,9 @@ import  ClosuresDoc from './PyTopics/IntermediateTopics/ClosuresDoc';
 import  CopyDoc  from './PyTopics/IntermediateTopics/CopyDoc';
 import RecursionDoc from './PyTopics/IntermediateTopics/RecursionDoc';
 import MutableImmutableDoc from './PyTopics/IntermediateTopics/MutableImmutableDoc';  
-
+import ScopeNamespacesDoc from './PyTopics/IntermediateTopics/ScopeNamespacesDoc';
+import FunctionAnnotationsDoc from './PyTopics/IntermediateTopics/FunctionAnnotationsDoc';
+import ZipEnumerateRangeDoc from './PyTopics/IntermediateTopics/ZipEnumerateRangeDoc';
 // Advanced Topics
 import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
 import FileHandling from './PyTopics/AdvancedTopics/FileHandling';
@@ -191,6 +193,9 @@ const PythonFundamentals = () => {
                 <Route path="copy-&-deepcopy" element={<CopyDoc />} />
                 <Route path="recursion" element={<RecursionDoc />} />
                 <Route path="mutable-&-immutable" element={<MutableImmutableDoc />} />
+                <Route path="scope-&-namespaces" element={<ScopeNamespacesDoc />} />
+                <Route path="function-annotations" element={<FunctionAnnotationsDoc />} />
+                <Route path="zip-enumerate-range" element={<ZipEnumerateRangeDoc />} />
 
 
                  {/* Advanced Topics */}

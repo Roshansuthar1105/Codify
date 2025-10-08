@@ -40,15 +40,16 @@ const pyRoutesAndTitles = {
     "/notes/python/linked-lists": "Python Linked Lists | Codify",
 
     // Intermediate Topics
-    "notes/python/iterators-&-iterables": "Python Iterators & Iterables | Codify",
+    "/notes/python/iterators-&-iterables": "Python Iterators & Iterables | Codify",
     "/notes/python/context-managers": "Python Context Managers | Codify",
-    "notes/pyhton/closures": "Python Closures | Codify",
-    "notes/python/copy-&-deepcopy": "Python Copy & Deepcopy | Codify",
-    "notes/python/recursion": "Python Recursion | Codify",
-    "notes/python/mutable-&-immutable": "Python Mutability & Immutability | Codify",
+    "/notes/pyhton/closures": "Python Closures | Codify",
+    "/notes/python/copy-&-deepcopy": "Python Copy & Deepcopy | Codify",
+    "/notes/python/recursion": "Python Recursion | Codify",
+    "/notes/python/mutable-&-immutable": "Python Mutability & Immutability | Codify",
+    "/notes/python/scope-&-namespaces": "Python Scope & Namespaces | Codify",
+    "/notes/python/zip-enumerate-range": "Python Zip, Enumerate, Range | Codify",
+    "/notes/python/function-annotations": "Python Function Annotations | Codify",
 
- 
- 
     // Advanced Topics
     "/notes/python/break-&-continue": "Python Break & Continue | Codify",
     "/notes/python/exception-handling": "Python Exception Handling | Codify",
