@@ -43,6 +43,9 @@ const pyRoutesAndTitles = {
     "notes/python/iterators-&-iterables": "Python Iterators & Iterables | Codify",
     "/notes/python/context-managers": "Python Context Managers | Codify",
     "notes/pyhton/closures": "Python Closures | Codify",
+    "notes/python/copy-&-deepcopy": "Python Copy & Deepcopy | Codify",
+    "notes/python/recursion": "Python Recursion | Codify",
+    "notes/python/mutable-&-immutable": "Python Mutability & Immutability | Codify",
 
  
  

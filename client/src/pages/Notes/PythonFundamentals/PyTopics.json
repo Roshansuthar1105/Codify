@@ -66,9 +66,9 @@
         "Iterators & Iterables",
         "Context Managers",
         "Closures",
-        "Recursion",
-        "Mutable vs Immutable Data Types",
-        "Deep Copy vs Shallow Copy"
+         "Copy & Deepcopy",
+            "Recursion",
+         "Mutable & Immutable"
     ],
 
 
