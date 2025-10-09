@@ -75,6 +75,14 @@ const pyRoutesAndTitles = {
     "/notes/python/abstract-classes": "Python Abstract Classes | Codify",
     "/notes/python/interfaces-&-protocols": "Python Interfaces & Protocols | Codify",
     "/notes/python/properties-&-getters-setters": "Python Properties & Getters/Setters | Codify",
+
+    // Memory Management
+    "/notes/python/garbage-collection": "Python Garbage Collection | Codify",
+    "/notes/python/memory-management": "Python Memory Management | Codify",
+    "/notes/python/heap-&-stack-memory": "Python Heap & Stack Memory | Codify",
+    "/notes/python/generational-garbage-collection": "Python Generational Garbage Collection | Codify",
+    "/notes/python/explicit-garbage-collection": "Python Explicit Garbage Collection | Codify",
+    "/notes/python/memory-profiling-tools": "Python Memory Profiling Tools | Codify",
 };
 
 const PyPageTitleManager = () => {
