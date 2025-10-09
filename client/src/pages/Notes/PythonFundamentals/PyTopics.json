@@ -68,7 +68,10 @@
         "Closures",
          "Copy & Deepcopy",
             "Recursion",
-         "Mutable & Immutable"
+         "Mutable & Immutable",
+         "Scope & Namespaces",
+         "Function Annotations",
+    "Zip,Enumerate,Range"
     ],
 
 
