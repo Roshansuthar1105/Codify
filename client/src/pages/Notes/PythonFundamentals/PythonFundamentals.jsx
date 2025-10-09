@@ -51,6 +51,9 @@ import TreesAndGraphs from './PyTopics/DataStructures/TreesAndGraphs';
 import IteratorsDoc from './PyTopics/IntermediateTopics/IteratorsDoc';
 import ContextManagersDoc from './PyTopics/IntermediateTopics/ContextManagersDoc';
 import  ClosuresDoc from './PyTopics/IntermediateTopics/ClosuresDoc';
+import  CopyDoc  from './PyTopics/IntermediateTopics/CopyDoc';
+import RecursionDoc from './PyTopics/IntermediateTopics/RecursionDoc';
+import MutableImmutableDoc from './PyTopics/IntermediateTopics/MutableImmutableDoc';  
 
 // Advanced Topics
 import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
@@ -185,6 +188,10 @@ const PythonFundamentals = () => {
                 <Route path="iterators-&-iterables" element={<IteratorsDoc />} />
                 <Route path="context-managers" element={<ContextManagersDoc />} />
                 <Route path="closures" element={<ClosuresDoc />} />
+                <Route path="copy-&-deepcopy" element={<CopyDoc />} />
+                <Route path="recursion" element={<RecursionDoc />} />
+                <Route path="mutable-&-immutable" element={<MutableImmutableDoc />} />
+
 
                  {/* Advanced Topics */}
                 <Route path="modules-&-imports" element={<ModulesImports />} />
