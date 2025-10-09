@@ -67,8 +67,18 @@ import ExceptionHandling from './PyTopics/AdvancedTopics/ExceptionHandling';
 import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';
 import MultithreadingAndMultiprocessing from './PyTopics/AdvancedTopics/MultithreadingAndMultiprocessing';
 import DecoratorsAndGenerators from './PyTopics/AdvancedTopics/DecoratorsAndGenerators';  
-import { Trees } from 'lucide-react';
 
+// Memory Management
+import MemoryManagementDoc from './PyTopics/MemoryManagement/MemoryManagementDoc';
+import GarbageCollectionDoc from './PyTopics/MemoryManagement/GarbageCollectionDoc';
+import HeapStackMemoryDoc from './PyTopics/MemoryManagement/HeapStackMemoryDoc';
+import GenerationalGarbageCollectionDoc from './PyTopics/MemoryManagement/GenerationalGarbageCollectionDoc';
+import ExplicitGarbageCollectionDoc from './PyTopics/MemoryManagement/ExplicitGarbageCollectionDoc';
+import MemoryProfilingToolsDoc from './PyTopics/MemoryManagement/MemoryProfilingToolsDoc';
+
+// Python Tools & Standard
+import PEP8Doc from './PyTopics/PythonToolsStandards/PEP8Doc';
+import DocstringsTypeHintsDoc from './PyTopics/PythonToolsStandards/DocstringsTypeHintsDoc';
 
 
 
@@ -209,10 +219,19 @@ const PythonFundamentals = () => {
               <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
               <Route path="properties-&-getters/setters" element={<PropertiesAndGettersSetters />} />  
               <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />
-              
 
+                {/* Memory Management */}
+              <Route path="memory-management" element={<MemoryManagementDoc />} />
+              <Route path="garbage-collection" element={<GarbageCollectionDoc />} />
+              <Route path="heap-&-stack-memory" element={<HeapStackMemoryDoc />} />
+              <Route path="generational-garbage-collection" element={<GenerationalGarbageCollectionDoc />} />
+              <Route path="explicit-garbage-collection" element={<ExplicitGarbageCollectionDoc />} />
+              <Route path="memory-profiling-tools" element={<MemoryProfilingToolsDoc />} />
 
-
+                {/* Python Tools & Standard */}
+                
+               <Route path="pep8" element={<PEP8Doc />} />
+                <Route path="docstrings-type-hints" element={<DocstringsTypeHintsDoc />} />
 
 
                
