@@ -67,7 +67,11 @@ import ExceptionHandling from './PyTopics/AdvancedTopics/ExceptionHandling';
 import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';
 import MultithreadingAndMultiprocessing from './PyTopics/AdvancedTopics/MultithreadingAndMultiprocessing';
 import DecoratorsAndGenerators from './PyTopics/AdvancedTopics/DecoratorsAndGenerators';  
-import { Trees } from 'lucide-react';
+
+// Memory Management
+import MemoryManagementDoc from './PyTopics/MemoryManagement/MemoryManagementDoc';
+import GarbageCollectionDoc from './PyTopics/MemoryManagement/GarbageCollectionDoc';
+import HeapStackMemoryDoc from './PyTopics/MemoryManagement/HeapStackMemoryDoc';
 
 
 
@@ -209,6 +213,11 @@ const PythonFundamentals = () => {
               <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
               <Route path="properties-&-getters/setters" element={<PropertiesAndGettersSetters />} />  
               <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />
+
+                {/* Memory Management */}
+              <Route path="memory-management" element={<MemoryManagementDoc />} />
+              <Route path="garbage-collection" element={<GarbageCollectionDoc />} />
+              <Route path="heap-&-stack-memory" element={<HeapStackMemoryDoc />} />
               
 
 
