@@ -39,6 +39,11 @@ const pyRoutesAndTitles = {
     "/notes/python/queues": "Python Queues | Codify",
     "/notes/python/linked-lists": "Python Linked Lists | Codify",
 
+    // Intermediate Topics
+    "notes/python/iterators-&-iterables": "Python Iterators & Iterables | Codify",
+    "/notes/python/context-managers": "Python Context Managers | Codify",
+    "notes/pyhton/closures": "Python Closures | Codify",
+
  
  
     // Advanced Topics

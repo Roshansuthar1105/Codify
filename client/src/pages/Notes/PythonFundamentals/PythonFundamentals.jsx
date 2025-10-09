@@ -47,6 +47,11 @@ import LinkedListDoc from './PyTopics/DataStructures/LinkedListDoc';
 import QueuesDoc from './PyTopics/DataStructures/QueuesDoc';
 import TreesAndGraphs from './PyTopics/DataStructures/TreesAndGraphs';
 
+// Intermediate Topics
+import IteratorsDoc from './PyTopics/IntermediateTopics/IteratorsDoc';
+import ContextManagersDoc from './PyTopics/IntermediateTopics/ContextManagersDoc';
+import  ClosuresDoc from './PyTopics/IntermediateTopics/ClosuresDoc';
+
 // Advanced Topics
 import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
 import FileHandling from './PyTopics/AdvancedTopics/FileHandling';
@@ -172,11 +177,14 @@ const PythonFundamentals = () => {
                 <Route path="nested-loops" element={<NestedLoops />} />
                  <Route path="arrays" element={<ArraysDoc />} />
                  <Route path="trees-&-graphs" element={<TreesAndGraphs />} />
-
-
-                <Route path="stacks" element={<StacksDoc />} />
+                 <Route path="stacks" element={<StacksDoc />} />
                 <Route path="queues" element={<QueuesDoc />} />
                 <Route path="linked-lists" element={<LinkedListDoc />} />
+
+                {/* Intermediate Topics */}
+                <Route path="iterators-&-iterables" element={<IteratorsDoc />} />
+                <Route path="context-managers" element={<ContextManagersDoc />} />
+                <Route path="closures" element={<ClosuresDoc />} />
 
                  {/* Advanced Topics */}
                 <Route path="modules-&-imports" element={<ModulesImports />} />
@@ -188,6 +196,7 @@ const PythonFundamentals = () => {
               <Route path="break-&-continue" element={<BreakContinue />} />
               <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
               <Route path="properties-&-getters/setters" element={<PropertiesAndGettersSetters />} />  
+              <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />
               
 
 

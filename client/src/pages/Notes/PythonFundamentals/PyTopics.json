@@ -48,10 +48,31 @@
         "Trees & Graphs"
     ],
 
+    "Object-Oriented Programming": [
+        "Classes & Objects",
+        "Inheritance",
+        "Encapsulation",
+        "Polymorphism",
+        "Static Methods",
+        "Magic Methods",
+        "Abstract Classes",
+        "Interfaces & Protocols",
+        "Properties & Getters/Setters"
+    ],
 
 
 
+     "Intermediate Topics": [
+        "Iterators & Iterables",
+        "Context Managers",
+        "Closures",
+        "Recursion",
+        "Mutable vs Immutable Data Types",
+        "Deep Copy vs Shallow Copy"
+    ],
 
+
+     
 
     "Advanced Topics": [
         "Break & Continue",
@@ -63,30 +84,22 @@
         "Built-in Functions",
         "Multithreading & Multiprocessing",
         "Decorators & Generators"
-    ],
-
-
-
-
-
-
-
-
-
-
-
-
-    "Object-Oriented Programming": [
-        "Classes & Objects",
-        "Inheritance",
-        "Encapsulation",
-        "Polymorphism",
-        "Static Methods",
-        "Magic Methods",
-        "Abstract Classes",
-        "Interfaces & Protocols",
-        "Properties & Getters/Setters"
     ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
