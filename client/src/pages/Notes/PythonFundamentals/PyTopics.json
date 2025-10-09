@@ -48,7 +48,7 @@
         "Trees & Graphs"
     ],
 
-    "Object-Oriented Programming": [
+    "Object-Oriented  Programming": [
         "Classes & Objects",
         "Inheritance",
         "Encapsulation",
@@ -91,7 +91,10 @@
     "Memory Management": [
         "Garbage Collection",
         "Memory Management",
-        "Heap & Stack Memory"
+        "Heap & Stack Memory",
+        "Generational Garbage Collection",
+        "Explicit Garbage Collection",
+        "Memory Profiling Tools"
         
     ]
 
