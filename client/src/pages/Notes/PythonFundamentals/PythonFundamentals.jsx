@@ -76,6 +76,9 @@ import GenerationalGarbageCollectionDoc from './PyTopics/MemoryManagement/Genera
 import ExplicitGarbageCollectionDoc from './PyTopics/MemoryManagement/ExplicitGarbageCollectionDoc';
 import MemoryProfilingToolsDoc from './PyTopics/MemoryManagement/MemoryProfilingToolsDoc';
 
+// Python Tools & Standard
+import PEP8Doc from './PyTopics/PythonToolsStandards/PEP8Doc';
+import DocstringsTypeHintsDoc from './PyTopics/PythonToolsStandards/DocstringsTypeHintsDoc';
 
 
 
@@ -224,10 +227,11 @@ const PythonFundamentals = () => {
               <Route path="generational-garbage-collection" element={<GenerationalGarbageCollectionDoc />} />
               <Route path="explicit-garbage-collection" element={<ExplicitGarbageCollectionDoc />} />
               <Route path="memory-profiling-tools" element={<MemoryProfilingToolsDoc />} />
-              
 
-
-
+                {/* Python Tools & Standard */}
+                
+               <Route path="pep8" element={<PEP8Doc />} />
+                <Route path="docstrings-type-hints" element={<DocstringsTypeHintsDoc />} />
 
 
                

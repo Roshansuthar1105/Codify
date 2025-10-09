@@ -83,6 +83,10 @@ const pyRoutesAndTitles = {
     "/notes/python/generational-garbage-collection": "Python Generational Garbage Collection | Codify",
     "/notes/python/explicit-garbage-collection": "Python Explicit Garbage Collection | Codify",
     "/notes/python/memory-profiling-tools": "Python Memory Profiling Tools | Codify",
+
+    // Python Tools & Standard
+    "/notes/python/pep8": "Python PEP8 | Codify",
+    "/notes/python/docstrings-type-hints": "Python Docstrings & Type Hints | Codify"
 };
 
 const PyPageTitleManager = () => {
