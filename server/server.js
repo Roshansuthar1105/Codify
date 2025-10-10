@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-dotenv.config();
 import express from "express";
 import cron from "node-cron";
 import axios from "axios";
@@ -24,6 +23,7 @@ import newsletterRouter from "./routes/newsletterRoute.js";
 import session from "express-session";
 import passport from "passport";
 import { configurePassport } from "./config/passport.js";
+dotenv.config();
 const app = express();
 // Allow all origins
 const corsOption = {
