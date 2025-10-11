@@ -1,0 +1,65 @@
+{
+    "Introduction": [
+        "What is Version Control",
+        "Benefits of Version Control",
+        "Centralized vs Distributed Version Control"
+    ],
+    "Getting Started with Git": [
+        "Installing Git",
+        "Configuring Git (username, email, editor)",
+        "Understanding Git Architecture",
+        "Initializing a Repository (git init)"
+    ],
+    "Basic Git Commands": [
+        "git status",
+        "git add",
+        "git commit",
+        "git log",
+        "git diff",
+        "git reset"
+    ],
+    "Branching and Merging": [
+        "Creating Branches (git branch, git checkout -b)",
+        "Merging Branches (git merge)",
+        "Fast-forward vs Three-way merge",
+        "Resolving Merge Conflicts",
+        "Deleting Branches (git branch -d)"
+    ],
+    "Remote Repositories": [
+        "What is a Remote Repository",
+        "git remote add",
+        "git push and git pull",
+        "git fetch",
+        "Tracking Branches"
+    ],
+    "Collaboration Workflows": [
+        "Cloning a Repository (git clone)",
+        "Forking Workflow",
+        "Pull Requests",
+        "Code Review Basics"
+    ],
+    "Undoing Changes": [
+        "git checkout vs git restore",
+        "git revert",
+        "git reset (soft, mixed, hard)"
+    ],
+    "Stashing and Tagging": [
+        "git stash save & git stash pop",
+        "git stash list",
+        "Creating Tags (git tag)",
+        "Annotated vs Lightweight Tags"
+    ],
+    "Advanced Git": [
+        "Rebasing (git rebase)",
+        "Cherry-picking (git cherry-pick)",
+        "Git Hooks",
+        "Interactive Rebase",
+        "Squashing Commits"
+    ],
+    "Git Best Practices": [
+        "Writing Good Commit Messages",
+        "Branch Naming Conventions",
+        "Keeping Repositories Clean",
+        "Avoiding Large Binary Files"
+    ]
+}

@@ -34,21 +34,20 @@ export default function QuestionsPage() {
 
   return (
     <div
-      className={`relative min-h-screen ${bgClass} ${textClass}`}
-      style={primaryColorStyle}
+      className={`relative min-h-screen-minus-nav overflow-hidden z-10 ${isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'}`}
     >
-      {/* Animated background grid + gradient */}
+      {/* Enhanced Background with grid overlay */}
       <motion.div
         variants={backgroundVariants}
         initial="hidden"
         animate="visible"
-        className={`absolute inset-0 z-8 bg-[size:30px_30px] ${gridPattern}`}
+        className={`absolute top-0 left-0 w-full h-full -z-10 bg-[size:30px_30px] ${isDark ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`}
       >
         {/* Gradient overlay */}
-        <div className={`absolute inset-0 ${gradientOverlay}`} />
+        <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-dark-bg-primary/90 via-transparent to-dark-bg-primary/50' : 'bg-gradient-to-br from-light-bg-primary/90 via-transparent to-light-bg-primary/50'}`}></div>
       </motion.div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-10 ">
         <PageHeader />
         <div className="mt-6">
           <QuestionsGrid />

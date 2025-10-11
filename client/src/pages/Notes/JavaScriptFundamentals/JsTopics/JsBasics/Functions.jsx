@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const Functions = () => {
     const examples = [
@@ -93,7 +93,7 @@ console.log(tripled);  // Output: [3, 6, 9, 12]`,
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Key Concept: </strong> 
+                        <strong className="font-semibold">Key Concept: </strong>
                         Functions in JavaScript are objects, which means they can have properties and methods, and can be passed around like any other value.
                     </p>
                 </div>

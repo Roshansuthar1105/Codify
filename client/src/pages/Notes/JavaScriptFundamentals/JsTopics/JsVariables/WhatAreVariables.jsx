@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 const WhatAreVariables = () => {
     const dataTypes = [
         {
@@ -42,7 +42,7 @@ const WhatAreVariables = () => {
             <div className="prose max-w-none">
                 <section className="mb-8">
                     <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                        In JavaScript, variables are used to store data. They are an essential part of any programming language, 
+                        In JavaScript, variables are used to store data. They are an essential part of any programming language,
                         as they allow you to store, retrieve, and manipulate data in your programs.
                     </p>
 
@@ -95,7 +95,7 @@ const WhatAreVariables = () => {
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">Data Types in JavaScript</h2>
                     <p className="text-gray-700 dark:text-gray-300 mb-6">
-                        JavaScript is a loosely typed language, meaning you don't need to specify the data type when declaring a variable. 
+                        JavaScript is a loosely typed language, meaning you don't need to specify the data type when declaring a variable.
                         The data type is determined automatically based on the value assigned to it.
                     </p>
 

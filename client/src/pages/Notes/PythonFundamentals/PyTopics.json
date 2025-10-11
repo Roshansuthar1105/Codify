@@ -1,0 +1,112 @@
+{
+    "Introduction": [
+        "Introduction to Python",
+        "Python Installation",
+        "Running Python Code"
+    ],
+
+
+
+
+
+
+
+
+
+
+    "Python Basics": [
+        "Variables & Data Types",
+        "Operators",
+        "Input & Output",
+        "Type Casting",
+        "String Formatting",
+        "Conditional Statements",
+        "Loops",
+        "Functions"
+    ],
+
+
+
+
+
+
+
+
+
+
+    "Data Structures": [
+        "Strings",
+        "Lists",
+        "List Comprehension",
+        "Tuples & Sets",
+        "Dictionaries",
+        "Nested Loops",
+        "Arrays",
+        "Stacks",
+        "Queues",
+        "Linked Lists",
+        "Trees & Graphs"
+    ],
+
+    "Object-Oriented Programming": [
+        "Classes & Objects",
+        "Inheritance",
+        "Encapsulation",
+        "Polymorphism",
+        "Static Methods",
+        "Magic Methods",
+        "Abstract Classes",
+        "Interfaces & Protocols",
+        "Properties & Getters/Setters"
+    ],
+
+
+
+     "Intermediate Topics": [
+        "Iterators & Iterables",
+        "Context Managers",
+        "Closures",
+         "Copy & Deepcopy",
+            "Recursion",
+         "Mutable & Immutable",
+         "Scope & Namespaces",
+         "Function Annotations",
+    "Zip,Enumerate,Range"
+    ],
+
+
+     
+
+    "Advanced Topics": [
+        "Break & Continue",
+        "Exception Handling",
+        "Modules & Imports",
+        "File Handling",
+        "Lambda Functions",
+        "Map Filter Reduce",
+        "Built-in Functions",
+        "Multithreading & Multiprocessing",
+        "Decorators & Generators"
+    ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+}

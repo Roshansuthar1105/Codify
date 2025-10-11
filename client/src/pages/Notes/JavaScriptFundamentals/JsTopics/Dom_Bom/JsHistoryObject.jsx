@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const JsHistoryObject = () => {
     const examples = [

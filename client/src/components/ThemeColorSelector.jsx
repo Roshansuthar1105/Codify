@@ -17,8 +17,8 @@ const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
       <button
         onClick={onToggle}
         className={`
-          flex items-center justify-center p-2 rounded-full
-          ${isDark ? "bg-dark-bg-tertiary text-dark-text-primary" : "bg-light-bg-tertiary text-light-text-primary"}
+          flex items-center justify-center p-2 rounded-full border backdrop-blur-sm
+          ${isDark ? "bg-dark-bg-tertiary text-dark-text-primary border-dark-border" : "bg-light-bg-tertiary text-light-text-primary border-light-border"}
           hover:bg-primary hover:text-white transition-colors duration-200
         `}
         aria-label="Change theme color"

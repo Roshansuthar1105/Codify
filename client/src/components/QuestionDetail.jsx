@@ -33,12 +33,12 @@ export default function QuestionDetail() {
   const { user: userdata } = useAuth();
   const Navigate = useNavigate();
   const messagesEndRef = useRef(null);
-  
+
   const question = questions.find((q) => q._id === questionId);
   const [replyText, setReplyText] = useState("");
   const [showReplyEditor, setShowReplyEditor] = useState(false);
   const [expandedReplies, setExpandedReplies] = useState(new Set());
-    // console.log(userdata)
+  // console.log(userdata)
   const currentThemeColor = availableColors[themeColor];
 
   const colors = isDark
@@ -116,7 +116,7 @@ export default function QuestionDetail() {
       }}
     >
       <BackgroundEffects />
-      
+
       {/* Header Skeleton */}
       <div className="max-w-4xl mx-auto mb-6 flex items-center gap-3">
         <motion.div
@@ -169,7 +169,7 @@ export default function QuestionDetail() {
           className="h-7 w-3/4 rounded mb-3"
           style={{ backgroundColor: colors.bgTertiary }}
         />
-        
+
         {/* Content skeleton */}
         <div className="space-y-2 mb-4">
           <div
@@ -232,7 +232,10 @@ export default function QuestionDetail() {
             <motion.div
               key={i}
               className="p-4 rounded-xl border animate-pulse"
-              style={{ backgroundColor: colors.bgCard, borderColor: colors.border }}
+              style={{
+                backgroundColor: colors.bgCard,
+                borderColor: colors.border,
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.5 + i * 0.1 }}
@@ -382,7 +385,7 @@ export default function QuestionDetail() {
       .join("")
       .toUpperCase()
       .slice(0, 2);
-    
+
   const getAvatarColor = (name) => {
     const colorKeys = Object.keys(availableColors);
     const index = name.length % colorKeys.length;
@@ -398,7 +401,7 @@ export default function QuestionDetail() {
       }}
     >
       <BackgroundEffects />
-      
+
       {/* Header */}
       <motion.div
         className="max-w-4xl mx-auto mb-6 flex items-center gap-3 relative z-10"
@@ -408,7 +411,9 @@ export default function QuestionDetail() {
         transition={{ duration: 0.5 }}
       >
         <button
-          className="p-2 rounded hover:opacity-80 transition-opacity"
+          className={`p-2 rounded hover:opacity-80 transition-opacity bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
+            isDark ? "border border-dark-border" : "border border-light-border"
+          }`}
           style={{ backgroundColor: colors.bgHover }}
           onClick={() => Navigate("/Questions")}
         >
@@ -419,11 +424,10 @@ export default function QuestionDetail() {
 
       {/* Question Card */}
       <motion.div
-        className="max-w-4xl mx-auto p-6 rounded-xl shadow-sm mb-8 relative z-10"
-        style={{
-          backgroundColor: colors.bgCard,
-          border: `1px solid ${colors.border}`,
-        }}
+        className={`max-w-4xl mx-auto p-6 rounded-xl shadow-sm mb-8 relative z-10 
+    bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
+      isDark ? "border border-dark-border" : "border border-light-border"
+    }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
@@ -500,9 +504,7 @@ export default function QuestionDetail() {
               size={16}
               fill={question.bookmarked ? colors.warning : "none"}
               style={{
-                color: question.bookmarked
-                  ? colors.warning
-                  : colors.textMuted,
+                color: question.bookmarked ? colors.warning : colors.textMuted,
               }}
             />
           </button>
@@ -545,6 +547,7 @@ export default function QuestionDetail() {
               <ReplyThread
                 reply={reply}
                 colors={colors}
+                isDark={isDark}
                 expandedReplies={expandedReplies}
                 setExpandedReplies={setExpandedReplies}
                 handleInlineReplySubmit={handleInlineReplySubmit}
@@ -570,7 +573,7 @@ export default function QuestionDetail() {
           {!showReplyEditor ? (
             <button
               onClick={() => setShowReplyEditor(true)}
-              className="w-full p-4 text-left rounded border hover:opacity-80 transition-opacity"
+              className="w-full p-4 text-left rounded border hover:opacity-80 transition-opacity bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 "
               style={{
                 backgroundColor: colors.bgCard,
                 borderColor: colors.border,
@@ -584,12 +587,7 @@ export default function QuestionDetail() {
               <textarea
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
-                className="w-full h-28 p-4 rounded border resize-none text-sm"
-                style={{
-                  backgroundColor: colors.bgCard,
-                  borderColor: colors.border,
-                  color: colors.textPrimary,
-                }}
+                className="w-full h-28 p-4 rounded border resize-none text-sm bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-950  dark:border-dark-border  border-light-border"
                 placeholder="Write your reply..."
               />
               <div className="flex justify-end gap-3 mt-3">
@@ -624,6 +622,7 @@ export default function QuestionDetail() {
 function ReplyThread({
   reply,
   colors,
+  isDark,
   expandedReplies,
   setExpandedReplies,
   handleInlineReplySubmit,
@@ -658,13 +657,14 @@ function ReplyThread({
 
   return (
     <div
-      className="p-4 rounded-xl border"
-      style={{ backgroundColor: colors.bgCard, borderColor: colors.border }}
+      className={`p-4 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000  border dark:border-dark-border border-light-border`}
     >
       <div className="flex items-start gap-3">
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium text-xs"
-          style={{ backgroundColor: getAvatarColor(reply.author?.name || "Anonymous") }}
+          style={{
+            backgroundColor: getAvatarColor(reply.author?.name || "Anonymous"),
+          }}
         >
           {getInitials(reply.author?.name || "Anonymous")}
         </div>
@@ -802,6 +802,7 @@ function ReplyThread({
                   key={child._id}
                   reply={child}
                   colors={colors}
+                  isDark={isDark}
                   expandedReplies={expandedReplies}
                   setExpandedReplies={setExpandedReplies}
                   handleInlineReplySubmit={handleInlineReplySubmit}
@@ -830,6 +831,7 @@ function ReplyThread({
                 })
               }
               colors={colors}
+              isDark={isDark}
             />
           )}
         </div>
@@ -839,7 +841,7 @@ function ReplyThread({
 }
 
 /* ---------------- Inline Reply Editor ---------------- */
-function InlineReplyEditor({ replyId, onSubmit, onCancel, colors }) {
+function InlineReplyEditor({ replyId, onSubmit, onCancel, colors, isDark }) {
   const [text, setText] = useState("");
 
   const handleSubmit = () => {
@@ -859,12 +861,11 @@ function InlineReplyEditor({ replyId, onSubmit, onCancel, colors }) {
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-full h-20 p-3 rounded border resize-none text-sm"
-        style={{
-          backgroundColor: colors.bgHover,
-          borderColor: colors.border,
-          color: colors.textPrimary,
-        }}
+        className={`w-full h-20 p-3 rounded border resize-none text-sm ${
+          isDark
+            ? "border-dark-border bg-dark-bg-secondary hover:bg-green-500/10 hover:border-green-500/50 text-dark-text-primary hover:text-green-400"
+            : "border-light-border bg-light-bg-secondary hover:bg-green-500/10 hover:border-green-500/50 text-light-text-primary hover:text-green-600"
+        }`}
         placeholder="Write your reply..."
         autoFocus
       />

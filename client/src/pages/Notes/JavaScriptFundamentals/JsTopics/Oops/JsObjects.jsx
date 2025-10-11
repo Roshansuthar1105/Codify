@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const JsObjects = () => {
     const creationMethods = [
@@ -192,7 +192,7 @@ console.log(person.greet()); // "Hello, my name is Diana."`
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Advanced Concepts</h2>
-                     <div className="space-y-6">
+                    <div className="space-y-6">
                         {advancedConcepts.map((feature, index) => (
                             <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{feature.title}</h3>

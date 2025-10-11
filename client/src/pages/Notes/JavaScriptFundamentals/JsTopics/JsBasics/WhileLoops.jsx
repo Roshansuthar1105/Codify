@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 import React from 'react';
 
 const WhileLoops = () => {
@@ -84,7 +84,7 @@ while (true) {
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Key Concept: </strong> 
+                        <strong className="font-semibold">Key Concept: </strong>
                         While loops check the condition before each iteration. If the condition is false initially, the loop won't execute at all.
                     </p>
                 </div>

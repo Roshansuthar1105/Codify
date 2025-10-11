@@ -7,15 +7,17 @@ import {
 } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 import { LoadingProvider } from "./components/loadingContext.jsx";
-import "react-toastify/ReactToastify.css";
-// Always loaded components
+import "react-toastify/dist/ReactToastify.css";
+import OfflineBanner from "./components/OfflineBanner";
+
+// Always-loaded components
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer.jsx";
 import Loader from "./components/Loader";
-
 import ScrollToTopButton from "./components/ScrollToTopButton.jsx";
 import Terms from "./pages/Terms.jsx";
-// Lazy loaded components
+
+// Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
@@ -29,13 +31,16 @@ const CoursePlayer = lazy(() => import("./pages/CoursePlayer"));
 const Roadmap = lazy(() => import("./pages/Roadmap"));
 const NotesPage = lazy(() => import("./pages/Notes/NotesPage"));
 const FallBackNotes = lazy(() => import("./pages/Notes/FallBackNotes.jsx"));
-const ContributorsGuide = lazy(() => import("./pages/ContributorGuide.jsx"))
-const ContributorsPage = lazy(() => import("./components/Contributor.jsx"))
+const ContributorsGuide = lazy(() => import("./pages/ContributorGuide.jsx"));
+const ContributorsPage = lazy(() => import("./components/Contributor.jsx"));
 const Bookmarks = lazy(() => import("./pages/Bookmarks"));
 const QuestionsPage = lazy(() => import("./pages/QuestionPage.jsx"));
 const QuestionDetail = lazy(() => import("./components/QuestionDetail.jsx"));
 const OAuthCallback = lazy(() => import("./pages/OAuthCallback"));
-// Notes components
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const CodeEditor = lazy(() => import("./pages/CodeEditor"));
+
+// Notes sub-sections
 const JavaScriptFundamentals = lazy(() =>
   import("./pages/Notes/JavaScriptFundamentals/JavaScriptFundamentals.jsx")
 );
@@ -45,11 +50,11 @@ const GitNotes = lazy(() =>
 const ReactPattern = lazy(() =>
   import("./pages/Notes/ReactPatterns/ReactPattern.jsx")
 );
-const PythonNotes = lazy(() =>
-  import("./pages/Notes/PythonBasics/PythonNotes.jsx")
+const PythonFundamentals = lazy(() =>
+  import("./pages/Notes/PythonFundamentals/PythonFundamentals.jsx")
 );
 
-// Admin components
+// Admin layout
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
 const AdminUsers = lazy(() => import("./layouts/AdminUsers"));
 const AdminContacts = lazy(() => import("./layouts/AdminContacts"));
@@ -59,26 +64,22 @@ const AddNewCourse = lazy(() =>
   import("./layouts/CourseLayout/AddNewCourse.jsx")
 );
 const CourseUpdate = lazy(() => import("./layouts/CourseLayout/CourseUpdate"));
-const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const CodeEditor = lazy(() => import("./components/CodeEditor..jsx"));
 
+/* Utility to scroll to top on route change */
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
   const isFirstLoadRef = useRef(true);
 
   useEffect(() => {
-    // Skip on initial mount to allow browser to restore scroll after refresh
     if (isFirstLoadRef.current) {
       isFirstLoadRef.current = false;
       return;
     }
-    // Scroll to top only on subsequent route changes
     window.scrollTo(0, 0);
-  }, [location.pathname]); // Trigger on route change
+  }, [location.pathname]);
 
   return children;
 };
-
 
 function App() {
   const { theme } = useTheme();
@@ -98,39 +99,54 @@ function App() {
             <header className="fixed top-0 z-50 w-full">
               <NavBar />
             </header>
-            <main className="flex-grow pt-14 sm:pt-16">
+
+            <OfflineBanner />
+
+            <main className="flex-grow pt-16">
               <Suspense fallback={<Loader />}>
                 <Routes>
-                  {/* Pages Routes */}
                   <Route path="/" element={<Home />} />
-                  <Route path="/oauth/callback" element={<OAuthCallback />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/terms" element={<Terms />} />
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/courses/:courseId" element={<CoursePlayer />} />
-                  <Route path="/editor" element={<CodeEditor />} />
                   <Route path="/roadmap" element={<Roadmap />} />
-                  <Route path="/bookmarks" element={<Bookmarks />} />
                   <Route path="/contact" element={<ContactUs />} />
-                  <Route path="/questions" element={<QuestionsPage />} />
-                  <Route path="/questions/:id" element={<QuestionDetail />} />
-
-                  {/* Notes Routes */}
-                  <Route path="/notes" element={<NotesPage />} />
-                  <Route path="/notes/javascript/*" element={<JavaScriptFundamentals />} />
-                  <Route path="/notes/python" element={<PythonNotes />} />
-                  <Route path="/notes/git" element={<GitNotes />} />
-                  <Route path="/notes/react" element={<ReactPattern />} />
-                  <Route path="/notes/:topic" element={<FallBackNotes />} />
-
-                  {/* Auth Routes */}
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/logout" element={<LogOut />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/oauth/callback" element={<OAuthCallback />} />
+                  <Route path="/terms" element={<Terms />} />
+
+                  {/* Code editor aliases */}
+                  <Route path="/code-editor" element={<CodeEditor />} />
+                  <Route path="/editor" element={<CodeEditor />} />
+                  <Route path="/ide" element={<CodeEditor />} />
+                  <Route path="/playground" element={<CodeEditor />} />
+
+                  {/* Notes section */}
+                  <Route path="/notes/*" element={<NotesPage />} />
+                  <Route
+                    path="/notes/javascript/*"
+                    element={<JavaScriptFundamentals />}
+                  />
+                  <Route
+                    path="/notes/python/*"
+                    element={<PythonFundamentals />}
+                  />
+                  <Route path="/notes/git/*" element={<GitNotes />} />
+                  <Route path="/notes/react/*" element={<ReactPattern />} />
+                  <Route path="/notes/:topic" element={<FallBackNotes />} />
+
+                  {/* Misc pages */}
+                  <Route path="/bookmarks" element={<Bookmarks />} />
+                  <Route path="/questions" element={<QuestionsPage />} />
+                  <Route path="/questions/:id" element={<QuestionDetail />} />
+                  <Route path="/contributors" element={<ContributorsPage />} />
+                  <Route path="/contributorGuide" element={<ContributorsGuide />} />
                   <Route path="/dashboard" element={<Dashboard />} />
 
-                  {/* Admin Routes */}
+                  {/* Admin routes */}
                   <Route path="/admin" element={<AdminLayout />}>
                     <Route path="users" element={<AdminUsers />} />
                     <Route path="users/:id/edit" element={<AdminUpdate />} />
@@ -143,16 +159,12 @@ function App() {
                     />
                   </Route>
 
-                  {/* Other Routes */}
-                  <Route path="/contributors" element={<ContributorsPage />} />
-                  <Route
-                    path="/contributorGuide"
-                    element={<ContributorsGuide />}
-                  />
+                  {/* Catch-all */}
                   <Route path="*" element={<ErrorPage />} />
                 </Routes>
               </Suspense>
             </main>
+
             <ScrollToTopButton />
             <Footer />
           </div>

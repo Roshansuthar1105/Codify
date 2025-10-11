@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Luckiest+Guy&family=Righteous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Playwrite+IS:wght@100..400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Luckiest+Guy&family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Playwrite+IS:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-
   --color-primary: #c8bfff;
   --color-primary-light: #d6cfff;
   --color-primary-dark: #b8adff;
@@ -24,16 +23,20 @@ body {
   cursor: url("/cursor.svg") 4 4, auto;
 }
 
-a, button {
+a,
+button,
+.button-cursor {
   cursor: url("/cursor-button.svg") 6 2, pointer;
 }
 
-input, textarea {
+input,
+textarea {
   cursor: url("/cursor-input.svg") 2 12, text;
 }
 
 .dark a,
-.dark button {
+.dark button,
+.dark .button-cursor {
   cursor: url("/cursor-white.svg") 6 2, pointer;
 }
 
@@ -142,7 +145,12 @@ html {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -194,7 +202,12 @@ html {
 
 /* Enhanced gradients */
 .gradient-border {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent)
+  );
   padding: 2px;
   border-radius: inherit;
 }
@@ -206,8 +219,9 @@ html {
 
 /* Smooth transitions for all elements */
 * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-

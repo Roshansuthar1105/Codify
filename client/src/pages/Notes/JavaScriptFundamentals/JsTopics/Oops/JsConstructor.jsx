@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const JsConstructor = () => {
     const constructorTypes = [
@@ -108,7 +108,7 @@ console.log(myVehicle.display());`
                         ))}
                     </div>
                 </section>
-                
+
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">What the `new` Keyword Does</h2>
                     <p className="text-gray-700 dark:text-gray-300 mb-4">
