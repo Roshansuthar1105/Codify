@@ -87,6 +87,12 @@
         "Built-in Functions",
         "Multithreading & Multiprocessing",
         "Decorators & Generators"
+    ],
+    "Memory Management": [
+        "Garbage Collection",
+        "Memory Management",
+        "Heap & Stack Memory"
+        
     ]
 
 
