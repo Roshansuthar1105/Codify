@@ -72,6 +72,9 @@ import DecoratorsAndGenerators from './PyTopics/AdvancedTopics/DecoratorsAndGene
 import MemoryManagementDoc from './PyTopics/MemoryManagement/MemoryManagementDoc';
 import GarbageCollectionDoc from './PyTopics/MemoryManagement/GarbageCollectionDoc';
 import HeapStackMemoryDoc from './PyTopics/MemoryManagement/HeapStackMemoryDoc';
+import GenerationalGarbageCollectionDoc from './PyTopics/MemoryManagement/GenerationalGarbageCollectionDoc';
+import ExplicitGarbageCollectionDoc from './PyTopics/MemoryManagement/ExplicitGarbageCollectionDoc';
+import MemoryProfilingToolsDoc from './PyTopics/MemoryManagement/MemoryProfilingToolsDoc';
 
 
 
@@ -218,6 +221,9 @@ const PythonFundamentals = () => {
               <Route path="memory-management" element={<MemoryManagementDoc />} />
               <Route path="garbage-collection" element={<GarbageCollectionDoc />} />
               <Route path="heap-&-stack-memory" element={<HeapStackMemoryDoc />} />
+              <Route path="generational-garbage-collection" element={<GenerationalGarbageCollectionDoc />} />
+              <Route path="explicit-garbage-collection" element={<ExplicitGarbageCollectionDoc />} />
+              <Route path="memory-profiling-tools" element={<MemoryProfilingToolsDoc />} />
               
 
 
