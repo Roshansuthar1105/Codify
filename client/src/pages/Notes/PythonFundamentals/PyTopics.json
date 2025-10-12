@@ -96,6 +96,10 @@
         "Explicit Garbage Collection",
         "Memory Profiling Tools"
         
+    ],
+    "Python Tools & Standard":[
+        "PEP8",
+        "Docstrings & Type Hints"
     ]
 
 
