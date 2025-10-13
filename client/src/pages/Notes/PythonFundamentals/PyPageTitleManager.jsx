@@ -89,6 +89,8 @@ const pyRoutesAndTitles = {
         "/notes/python/docstrings-type-hints": "Python Docstrings & Type Hints | Codify",
         "/notes/python/virtual-environments": "Python Virtual Environments | Codify",
         "/notes/python/testing": "Python Testing | Codify",
+        "/notes/python/package-management": "Python Package Management | Codify",
+"/notes/python/code-formatting-&-linting": "Python Code Formatting & Linting | Codify",
 };
 
 const PyPageTitleManager = () => {

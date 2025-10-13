@@ -81,6 +81,8 @@ import PEP8Doc from './PyTopics/PythonToolsStandards/PEP8Doc';
 import DocstringsTypeHintsDoc from './PyTopics/PythonToolsStandards/DocstringsTypeHintsDoc';
 import VirtualEnvironmentsDoc from './PyTopics/PythonToolsStandards/VirtualEnvironmentsDoc';
 import TestingDoc from './PyTopics/PythonToolsStandards/TestingDoc';
+import PackageManagementDoc from './PyTopics/PythonToolsStandards/PackageManagementDoc';
+import CodeFormattingLintingDoc from './PyTopics/PythonToolsStandards/CodeFormattingLintingDoc';
 
 
 
@@ -236,6 +238,8 @@ const PythonFundamentals = () => {
                 <Route path="docstrings-type-hints" element={<DocstringsTypeHintsDoc />} />
                 <Route path="virtual-environments" element={<VirtualEnvironmentsDoc />} />
                 <Route path="testing" element={<TestingDoc />} />
+                <Route path="package-management" element={<PackageManagementDoc />} />
+               <Route path="code-formatting-&-linting" element={<CodeFormattingLintingDoc />} />  
 
 
                
