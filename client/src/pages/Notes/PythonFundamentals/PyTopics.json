@@ -99,7 +99,9 @@
     ],
     "Python Tools & Standard":[
         "PEP8",
-        "Docstrings & Type Hints"
+        "Docstrings & Type Hints",
+        "Virtual Environments",
+        "Testing"
     ]
 
 
