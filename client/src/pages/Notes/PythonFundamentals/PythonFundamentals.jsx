@@ -79,6 +79,8 @@ import MemoryProfilingToolsDoc from './PyTopics/MemoryManagement/MemoryProfiling
 // Python Tools & Standard
 import PEP8Doc from './PyTopics/PythonToolsStandards/PEP8Doc';
 import DocstringsTypeHintsDoc from './PyTopics/PythonToolsStandards/DocstringsTypeHintsDoc';
+import VirtualEnvironmentsDoc from './PyTopics/PythonToolsStandards/VirtualEnvironmentsDoc';
+import TestingDoc from './PyTopics/PythonToolsStandards/TestingDoc';
 
 
 
@@ -232,6 +234,8 @@ const PythonFundamentals = () => {
                 
                <Route path="pep8" element={<PEP8Doc />} />
                 <Route path="docstrings-type-hints" element={<DocstringsTypeHintsDoc />} />
+                <Route path="virtual-environments" element={<VirtualEnvironmentsDoc />} />
+                <Route path="testing" element={<TestingDoc />} />
 
 
                

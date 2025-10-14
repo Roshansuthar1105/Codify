@@ -85,8 +85,10 @@ const pyRoutesAndTitles = {
     "/notes/python/memory-profiling-tools": "Python Memory Profiling Tools | Codify",
 
     // Python Tools & Standard
-    "/notes/python/pep8": "Python PEP8 | Codify",
-    "/notes/python/docstrings-type-hints": "Python Docstrings & Type Hints | Codify"
+        "/notes/python/pep8": "Python PEP8 | Codify",
+        "/notes/python/docstrings-type-hints": "Python Docstrings & Type Hints | Codify",
+        "/notes/python/virtual-environments": "Python Virtual Environments | Codify",
+        "/notes/python/testing": "Python Testing | Codify",
 };
 
 const PyPageTitleManager = () => {
