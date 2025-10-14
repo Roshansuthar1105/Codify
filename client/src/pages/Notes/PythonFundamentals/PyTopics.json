@@ -101,7 +101,9 @@
         "PEP8",
         "Docstrings & Type Hints",
         "Virtual Environments",
-        "Testing"
+        "Testing",
+        "Package Management",
+    "Code Formatting & Linting"
     ]
 
 
