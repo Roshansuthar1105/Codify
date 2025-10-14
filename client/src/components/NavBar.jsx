@@ -204,27 +204,15 @@ function NavBar() {
             ))}
           </div>
 
-          {/* Right Side - Theme Controls & Profile */}
+          {/* Right Side - Controls & Profile */}
           <div className="flex items-center space-x-3">
-            {/* Desktop Theme Controls */}
-            <div className="hidden lg:flex items-center gap-3">
-              <ThemeSwitcher />
-              <ThemeColorSelector
-                isOpen={isColorSelectorOpen}
-                onToggle={toggleColorSelector}
-                onClose={closeColorSelector}
-              />
-            </div>
-
-            {/* Mobile Theme Controls */}
-            <div className="flex lg:hidden items-center gap-2">
-              <ThemeSwitcher />
-              <ThemeColorSelector
-                isOpen={isColorSelectorOpen}
-                onToggle={toggleColorSelector}
-                onClose={closeColorSelector}
-              />
-            </div>
+            {/* Single Instance for Both Desktop & Mobile */}
+            <ThemeSwitcher />
+            <ThemeColorSelector
+              isOpen={isColorSelectorOpen}
+              onToggle={toggleColorSelector}
+              onClose={closeColorSelector}
+            />
 
             {/* Mobile hamburger - softer design */}
             <button
