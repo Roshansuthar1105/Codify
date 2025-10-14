@@ -3,6 +3,8 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import User from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function configurePassport() {
   // Google Login
@@ -111,7 +113,7 @@ export function configurePassport() {
           const verifiedEmail = emails.find(e => e.verified && e.value)?.value;
           const primaryEmail = emails.find(e => e.primary && e.value)?.value;
           const anyEmail = emails.find(e => e.value)?.value;
-          
+
           const email = verifiedEmail || primaryEmail || anyEmail;
 
           if (!email) {
