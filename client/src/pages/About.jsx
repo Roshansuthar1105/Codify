@@ -22,6 +22,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function About() {
+  <style>{`
+        .text-center:hover {
+          background-color: white; /* CSS uses hyphen-case, not camelCase */
+        }
+      `}
+  </style>
   const { userdata } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -317,35 +323,39 @@ function About() {
 
         {/* Stats Section */}
         <div
-          className={`fade-section p-8 sm:p-10 rounded-2xl mb-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
-            isDark ? "border border-dark-border" : "border border-light-border"
-          } shadow-lg`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-primary text-3xl mb-3 flex justify-center">
-                  {stat.icon}
-                </div>
-                <h3
-                  className="stat-value text-3xl font-bold mb-1"
-                  data-target={stat.value}
-                >
-                  0
-                </h3>
-                <p
-                  className={`${
-                    isDark
-                      ? "text-dark-text-secondary"
-                      : "text-light-text-secondary"
-                  }`}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+  className={`fade-section p-8 sm:p-10 rounded-2xl mb-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
+    isDark ? "border border-dark-border" : "border border-light-border"
+  } shadow-lg`}
+>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    {stats.map((stat, index) => (
+      <div
+        key={index}
+        className="text-center rounded-lg p-6 transition transform hover:scale-105 hover:shadow-xl hover:bg-blue-100 dark:hover:bg-secondary-900 cursor-pointer"
+      >
+        <div className="text-primary text-3xl mb-3 flex justify-center">
+          {stat.icon}
         </div>
+        <h3
+          className="stat-value text-3xl font-bold mb-1"
+          data-target={stat.value}
+        >
+          0
+        </h3>
+        <p
+          className={`${
+            isDark
+              ? "text-dark-text-secondary"
+              : "text-light-text-secondary"
+          }`}
+        >
+          {stat.label}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
 
         {/* Tabs Section */}
         <div className="fade-section mb-20">
@@ -558,7 +568,7 @@ function About() {
                     disableOnInteraction: false,
                   }}
                   loop={true}
-                  className="pb-10 mt-6 flex justify-center w-[700px]"
+                  className="pb-10 mt-6 flex justify-center lg:w-[700px]"
                 >
                   {teamMembers.map((member, index) => (
                     <SwiperSlide

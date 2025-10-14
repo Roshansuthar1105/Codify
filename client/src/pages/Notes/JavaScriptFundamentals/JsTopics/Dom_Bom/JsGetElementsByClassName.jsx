@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const JsGetElementsByClassName = () => {
     const examples = [
@@ -50,7 +50,7 @@ const sectionTwoText = sectionTwo.getElementsByClassName('text');
 sectionTwoText[0].style.fontWeight = 'bold'; // Makes only the second paragraph bold`,
             explanation: 'You can call `getElementsByClassName` on any element, not just `document`, to find only the descendant elements that have the specified class name.'
         },
-         {
+        {
             title: 'Selecting Elements with Multiple Classes',
             code: `// HTML:
 // <div class="box big">Big box</div>

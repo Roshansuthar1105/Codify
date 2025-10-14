@@ -1,58 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, Outlet } from 'react-router-dom';
-import JavaScriptNotesSidebar from './components/JavaScriptNotesSideBar';
-import JsHeroPage from './components/JsHeroPage';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import NotesSidebar from '../NotesSidebar';
+import JsHeroPage from './JsHeroPage';
 import Loader from '../../../components/Loader';
 import Breadcrumb from '../../../components/Breadcrumb';
 import useMobile from '../../../hooks/useMobile';
+import JsPageTitleManager from './JsPageTitleManager';
+import categories from './JsTopics.json';
 
-// Lazy load the note components --------------------------------------
+// Import note components
+
 // Introduction
-const JsIntroduction = React.lazy(() => import('./JsTopics/Introduction/JsIntroduction'));
-const JsExecution = React.lazy(() => import('./JsTopics/Introduction/JsExecution'));
-const NodeJsInstallation = React.lazy(() => import('./JsTopics/Introduction/NodeJsInstallation'));
+import JsIntroduction from './JsTopics/Introduction/JsIntroduction';
+import JsExecution from './JsTopics/Introduction/JsExecution';
+import NodeJsInstallation from './JsTopics/Introduction/NodeJsInstallation';
 
 // JavaScript Variables
-const WhatAreVariables = React.lazy(() => import('./JsTopics/JsVariables/WhatAreVariables'));
-const VarLetConst = React.lazy(() => import('./JsTopics/JsVariables/VarLetConst'));
-const PrimitivesAndObjects = React.lazy(() => import('./JsTopics/JsVariables/PrimitivesAndObjects'));
-const VariableNamingRules = React.lazy(() => import('./JsTopics/JsVariables/VariableNamingRules'));
-const OperatorsAndExpressions = React.lazy(() => import('./JsTopics/JsVariables/OperatorsAndExpressions'));
+import WhatAreVariables from './JsTopics/JsVariables/WhatAreVariables';
+import VarLetConst from './JsTopics/JsVariables/VarLetConst';
+import PrimitivesAndObjects from './JsTopics/JsVariables/PrimitivesAndObjects';
+import VariableNamingRules from './JsTopics/JsVariables/VariableNamingRules';
+import OperatorsAndExpressions from './JsTopics/JsVariables/OperatorsAndExpressions';
 
 // JavaScript Basics
-const IfElseConditionals = React.lazy(() => import('./JsTopics/JsBasics/IfElseConditionals'));
-const IfElseLadder = React.lazy(() => import('./JsTopics/JsBasics/IfElseLadder'));
-const SwitchCase = React.lazy(() => import('./JsTopics/JsBasics/SwitchCase'));
-const TernaryOperator = React.lazy(() => import('./JsTopics/JsBasics/TernaryOperator'));
-const ForLoops = React.lazy(() => import('./JsTopics/JsBasics/ForLoops'));
-const WhileLoops = React.lazy(() => import('./JsTopics/JsBasics/WhileLoops'));
-const Functions = React.lazy(() => import('./JsTopics/JsBasics/Functions'));
+import IfElseConditionals from './JsTopics/JsBasics/IfElseConditionals';
+import IfElseLadder from './JsTopics/JsBasics/IfElseLadder';
+import SwitchCase from './JsTopics/JsBasics/SwitchCase';
+import TernaryOperator from './JsTopics/JsBasics/TernaryOperator';
+import ForLoops from './JsTopics/JsBasics/ForLoops';
+import WhileLoops from './JsTopics/JsBasics/WhileLoops';
+import Functions from './JsTopics/JsBasics/Functions';
 
 // JavaScript Objects
-const Strings = React.lazy(() => import('./JsTopics/JsObjects/StringsInJS'));
-const ArraysAndMethods = React.lazy(() => import('./JsTopics/JsObjects/ArraysAndMethods'));
-const LoopsWithArrays = React.lazy(() => import('./JsTopics/JsObjects/LoopsWithArrays'));
-const MapFilterAndReduce = React.lazy(() => import('./JsTopics/JsObjects/MapFilterReduce'));
-const DateInJs = React.lazy(() => import('./JsTopics/JsObjects/DateInJS'));
-const MathInJs = React.lazy(() => import('./JsTopics/JsObjects/MathInJS'));
-const NumberinJs = React.lazy(() => import('./JsTopics/JsObjects/NumberInJS'));
-const BooleanInJs = React.lazy(() => import('./JsTopics/JsObjects/BooleanInJS'));
+import Strings from './JsTopics/JsObjects/StringsInJS';
+import ArraysAndMethods from './JsTopics/JsObjects/ArraysAndMethods';
+import LoopsWithArrays from './JsTopics/JsObjects/LoopsWithArrays';
+import MapFilterAndReduce from './JsTopics/JsObjects/MapFilterReduce';
+import DateInJs from './JsTopics/JsObjects/DateInJS';
+import MathInJs from './JsTopics/JsObjects/MathInJS';
+import NumberInJs from './JsTopics/JsObjects/NumberInJS';
+import BooleanInJs from './JsTopics/JsObjects/BooleanInJS';
 
 // JavaScript DOM and BOM
-const JsWindowObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsWindowObject'));
-const JsHistoryObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsHistoryObject'));
-const JsNavigatorObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsNavigatorObject'));
-const JsScreenObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsScreenObject'));
-const JsDocumentObject = React.lazy(() => import('./JsTopics/Dom_Bom/JsDocumentObject'));
-const JsGetElementById = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementById'));
-const JsGetElementsByClassName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByClassName'));
-const JsGetElementsByName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByName'));
-const JsGetElementsByTagName = React.lazy(() => import('./JsTopics/Dom_Bom/JsGetElementsByTagName'));
-const JsInnerHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsInnerHTML'));
-const JsOuterHTML = React.lazy(() => import('./JsTopics/Dom_Bom/JsOuterHTML'));
+import JsWindowObject from './JsTopics/Dom_Bom/JsWindowObject';
+import JsHistoryObject from './JsTopics/Dom_Bom/JsHistoryObject';
+import JsNavigatorObject from './JsTopics/Dom_Bom/JsNavigatorObject';
+import JsScreenObject from './JsTopics/Dom_Bom/JsScreenObject';
+import JsDocumentObject from './JsTopics/Dom_Bom/JsDocumentObject';
+import JsGetElementById from './JsTopics/Dom_Bom/JsGetElementById';
+import JsGetElementsByClassName from './JsTopics/Dom_Bom/JsGetElementsByClassName';
+import JsGetElementsByName from './JsTopics/Dom_Bom/JsGetElementsByName';
+import JsGetElementsByTagName from './JsTopics/Dom_Bom/JsGetElementsByTagName';
+import JsInnerHTML from './JsTopics/Dom_Bom/JsInnerHTML';
+import JsOuterHTML from './JsTopics/Dom_Bom/JsOuterHTML';
 
-
-// Lazy load the note components --------------------------------------
+// JavaScript OOPS
+import JsClass from './JsTopics/Oops/JsClass';
+import JsObjects from './JsTopics/Oops/JsObjects';
+import JsStaticMethod from './JsTopics/Oops/JsStaticMethod';
+import JsConstructor from './JsTopics/Oops/JsConstructor';
+import JsEncapsulation from './JsTopics/Oops/JsEncapsulation';
+import JsInheritance from './JsTopics/Oops/JsInheritance';
+import JsPolymorphism from './JsTopics/Oops/JsPolymorphism';
+import JsAbstraction from './JsTopics/Oops/JsAbstraction';
 
 
 const JavaScriptFundamentals = () => {
@@ -94,13 +104,16 @@ const JavaScriptFundamentals = () => {
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           md:w-64 w-64
         `}>
-          <JavaScriptNotesSidebar onNavigate={toggleSidebar} />
+          <NotesSidebar categories={categories} title={"JavaScript NOTES"} basePath={"/notes/javascript"} onNavigate={toggleSidebar} />
         </div>
 
         {/* Main Content */}
         <main className={`flex-1 overflow-y-auto transition-all duration-300 ${isSidebarOpen ? 'ml-0' : 'md:ml-0'}`}>
           {/* Breadcrumb */}
           <Breadcrumb isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} className={"p-4"} />
+
+          {/* Page Title Manager */}
+          <JsPageTitleManager />
 
           {/* ROUTES OF THE SUB NOTES */}
           <div className="p-4 md:p-8">
@@ -109,8 +122,8 @@ const JavaScriptFundamentals = () => {
                 <Route index element={<JsHeroPage />} />
 
                 {/* Introduction */}
-                <Route path="js-introduction" element={<JsIntroduction />} />
-                <Route path="js-execution" element={<JsExecution />} />
+                <Route path="introduction" element={<JsIntroduction />} />
+                <Route path="execution" element={<JsExecution />} />
                 <Route path="node.js-installation" element={<NodeJsInstallation />} />
 
                 {/* Javascript variables */}
@@ -136,7 +149,7 @@ const JavaScriptFundamentals = () => {
                 <Route path="map-filter-reduce" element={<MapFilterAndReduce />} />
                 <Route path="date" element={<DateInJs />} />
                 <Route path="math" element={<MathInJs />} />
-                <Route path="number" element={<NumberinJs />} />
+                <Route path="number" element={<NumberInJs />} />
                 <Route path="boolean" element={<BooleanInJs />} />
 
                 {/* DOM and BOM */}
@@ -152,11 +165,16 @@ const JavaScriptFundamentals = () => {
                 <Route path="innerHTML" element={<JsInnerHTML />} />
                 <Route path="outerHTML" element={<JsOuterHTML />} />
 
-
-
-
-
                 {/* OOPS */}
+                <Route path="class" element={<JsClass />} />
+                <Route path="objects" element={<JsObjects />} />
+                <Route path="static-method" element={<JsStaticMethod />} />
+                <Route path="constructor" element={<JsConstructor />} />
+                <Route path="encapsulation" element={<JsEncapsulation />} />
+                <Route path="inheritance" element={<JsInheritance />} />
+                <Route path="polymorphism" element={<JsPolymorphism />} />
+                <Route path="abstraction" element={<JsAbstraction />} />
+
 
               </Routes>
             </React.Suspense>

@@ -1,4 +1,4 @@
-import CodeBlock from '../../components/CodeBlock';
+import CodeBlock from '../../../components/CodeBlock';
 
 const StringsInJS = () => {
     const examples = [
@@ -119,7 +119,7 @@ console.log(greet('Alice'));  // Hello, Alice!`,
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Key Concept: </strong> 
+                        <strong className="font-semibold">Key Concept: </strong>
                         In JavaScript, strings are primitive values, but they can be treated like objects because JavaScript provides wrapper objects (String) with methods and properties for working with strings.
                     </p>
                 </div>

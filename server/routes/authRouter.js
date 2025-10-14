@@ -1,5 +1,5 @@
 import  express  from "express";
-import * as controllers from "../controllers//authController.js"
+import * as controllers from "../controllers/authController.js"
 import validate from "../middlewares/validateMiddleware.js";
 import {signUpSchema,loginSchema,contactSchema} from "../validations/authValidation.js";
 import passport from "passport";
@@ -26,5 +26,11 @@ authRouter.get(
 );
 authRouter.get("/google/signup/callback", controllers.googleSignup);
 
+// GitHub OAuth (Merged Login + Signup)
+authRouter.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+authRouter.get("/github/callback", controllers.githubAuth);
 
 export default authRouter;

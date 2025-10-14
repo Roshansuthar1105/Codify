@@ -1,11 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
-import { oneDark } from '@codemirror/theme-one-dark';
-import { javascript } from '@codemirror/lang-javascript';
-import { cpp } from '@codemirror/lang-cpp';
-import { python } from '@codemirror/lang-python';
-import axios from 'axios';
-
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { oneDark } from "@codemirror/theme-one-dark";
+import { javascript } from "@codemirror/lang-javascript";
+import { cpp } from "@codemirror/lang-cpp";
+import { python } from "@codemirror/lang-python";
+import { keymap } from "@codemirror/view";
+import { java } from "@codemirror/lang-java";
+import axios from "axios";
 
 // LANGUAGE CONFIGURATION
 const languageConfig = {
@@ -13,28 +14,39 @@ const languageConfig = {
     id: 93,
     extension: javascript({ jsx: true }),
     defaultCode: `// Welcome to the JavaScript Playground!\n// Code here runs directly in your browser.\n\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\n\nconsole.log(greet('Codify'));`,
-    executionModel: 'client',
+    executionModel: "client",
   },
   python: {
     id: 71,
     extension: python(),
     defaultCode: `# Welcome to the Python Playground!\n# This code runs on a secure server.\n\ndef greet(name):\n  return f"Hello, {name}!"\n\nprint(greet("Codify"))`,
-    executionModel: 'server',
+    executionModel: "server",
+  },
+  // added java Language
+  java: {
+    id: 62,
+    extension: java(),
+    defaultCode: `// Welcome to the Java Playground
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Codify");
+    }
+}`,
+    executionModel: "server",
   },
   cpp: {
     id: 54,
     extension: cpp(),
     defaultCode: `// Welcome to the C++ Playground!\n// This code is compiled and run on a secure server.\n\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++!";\n    return 0;\n}`,
-    executionModel: 'server',
+    executionModel: "server",
   },
   c: {
     id: 50,
     extension: cpp(),
     defaultCode: `// Welcome to the C Playground!\n// This code is compiled and run on a secure server.\n\n#include <stdio.h>\n\nint main() {\n    printf("Hello, C!");\n    return 0;\n}`,
-    executionModel: 'server',
+    executionModel: "server",
   },
 };
-
 
 // HELPER FUNCTION FOR JAVASCRIPT SANDBOX
 
@@ -61,6 +73,9 @@ function createSandboxHtml(isDark) {
   };
   console.log = log; console.error = (...args) => write(String(...args), 'error'); console.warn = log;
   window.addEventListener('message', (ev) => {
+    if (ev.data.type === "clear-console") {
+      outputEl.innerHTML = ""; 
+    }
     if(!ev || !ev.data || ev.data.type !== 'run-code') return;
     outputEl.innerHTML = '';
     try {
@@ -75,48 +90,56 @@ function createSandboxHtml(isDark) {
 </script></body></html>`;
 }
 
-
 // Code Editor
 
-const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true }) => {
+const UniversalCodePlayground = ({
+  defaultLanguage = "javascript",
+  isDark = true,
+}) => {
   const [currentLanguage, setCurrentLanguage] = useState(defaultLanguage);
   const [code, setCode] = useState(languageConfig[defaultLanguage].defaultCode);
-  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const config = languageConfig[currentLanguage];
 
   useEffect(() => {
     setCode(languageConfig[currentLanguage].defaultCode);
-    setOutput('');
+    setOutput("");
   }, [currentLanguage]);
 
   const iframeRef = useRef(null);
   const sandboxUrl = useMemo(() => {
-    if (config.executionModel !== 'client') return null;
+    if (config.executionModel !== "client") return null;
     // CHANGED: Pass the `isDark` prop to the sandbox creator
     const html = createSandboxHtml(isDark);
-    const blob = new Blob([html], { type: 'text/html' });
+    const blob = new Blob([html], { type: "text/html" });
     return URL.createObjectURL(blob);
-  }, [config.executionModel, isDark]); 
+  }, [config.executionModel, isDark]);
 
   const runCode = async () => {
-    if (config.executionModel === 'client') {
+    if (config.executionModel === "client") {
       const iframe = iframeRef.current;
       if (!iframe || !iframe.contentWindow) return;
       iframe.src = sandboxUrl;
-      const send = () => iframe.contentWindow.postMessage({ type: 'run-code', code }, '*');
+      const send = () =>
+        iframe.contentWindow.postMessage({ type: "run-code", code }, "*");
       setTimeout(send, 50);
       return;
     }
     setIsLoading(true);
-    setOutput('Executing...');
-    const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY || 'YOUR_RAPIDAPI_KEY_HERE';
+    setOutput("Executing...");
+    const API_KEY =
+      import.meta.env.VITE_RAPIDAPI_KEY || "YOUR_RAPIDAPI_KEY_HERE";
     const options = {
-      method: 'POST',
-      url: 'https://judge0-ce.p.rapidapi.com/submissions',
-      params: { base64_encoded: 'false', fields: '*' },
-      headers: { 'content-type': 'application/json', 'X-RapidAPI-Key': API_KEY, 'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com' },
+      method: "POST",
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: { base64_encoded: "false", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+      },
       data: { language_id: config.id, source_code: code },
     };
     try {
@@ -126,21 +149,91 @@ const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true
         try {
           const resultResponse = await axios.get(
             `https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=false`,
-            { headers: { 'X-RapidAPI-Key': API_KEY, 'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com' } }
+            {
+              headers: {
+                "X-RapidAPI-Key": API_KEY,
+                "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+              },
+            }
           );
           const result = resultResponse.data;
           if (result.stdout) setOutput(result.stdout);
           else if (result.stderr) setOutput(`Error:\n${result.stderr}`);
-          else if (result.compile_output) setOutput(`Compilation Error:\n${result.compile_output}`);
-          else setOutput('Execution finished with no output.');
-        } catch (err) { setOutput(`Error fetching result: ${err.message}`); }
-        finally { setIsLoading(false); }
+          else if (result.compile_output)
+            setOutput(`Compilation Error:\n${result.compile_output}`);
+          else setOutput("Execution finished with no output.");
+        } catch (err) {
+          setOutput(`Error fetching result: ${err.message}`);
+        } finally {
+          setIsLoading(false);
+        }
       }, 3000);
     } catch (error) {
-      setOutput(`API request error: ${error.response?.data?.message || error.message}`);
+      setOutput(
+        `API request error: ${error.response?.data?.message || error.message}`
+      );
       setIsLoading(false);
     }
   };
+
+  //clear console
+  const clearConsole = () => {
+    if (
+      config.executionModel === "client" &&
+      iframeRef.current?.contentWindow
+    ) {
+      // Tell the iframe to clear itself
+      iframeRef.current.contentWindow.postMessage(
+        { type: "clear-console" },
+        "*"
+      );
+      console.log("My output");
+    } else {
+      // For server languages: just clear the React state
+      setOutput("");
+    }
+  };
+
+  // shortCut Key for clear console -> ctrl + i
+  useEffect(() => {
+    function handle(e) {
+      if (e.ctrlKey && e.key === "i") {
+        e.preventDefault();
+        clearConsole();
+      }
+    }
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
+  }, [clearConsole]);
+
+  //shortCut key for run code --> ctrl + enter
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        runCode();
+      }
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [runCode]);
+
+  const ctrlEnterKeymap = keymap.of([
+    {
+      key: "Ctrl-Enter", // for windows
+      run: () => {
+        runCode();
+        return true;
+      },
+    },
+    {
+      key: "Cmd-Enter", // for macOS
+      run: () => {
+        runCode();
+        return true;
+      },
+    },
+  ]);
 
   return (
     <div className="rounded-lg overflow-hidden border border-gray-700">
@@ -152,11 +245,11 @@ const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true
             onClick={() => setCurrentLanguage(lang)}
             className={`px-3 py-1 text-sm rounded-md transition-colors ${
               currentLanguage === lang
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                ? "bg-blue-600 text-white"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
           >
-            {lang.charAt(0).toUpperCase() + lang.slice(1).replace('pp', '++')}
+            {lang.charAt(0).toUpperCase() + lang.slice(1).replace("pp", "++")}
           </button>
         ))}
       </div>
@@ -164,15 +257,21 @@ const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true
         <div className="p-2 bg-[#0b0f17]">
           <div className="flex items-center justify-between pb-2">
             <h3 className="text-sm font-semibold capitalize text-white">
-              {currentLanguage.replace('pp', '++')} Editor
+              {currentLanguage.replace("pp", "++")} Editor
             </h3>
-            <button
-              onClick={runCode}
-              disabled={isLoading}
-              className="px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 disabled:bg-gray-500"
-            >
-              {isLoading ? 'Running...' : 'Run '}
-            </button>
+            <div className="relative group inline-block">
+              <button
+                onClick={runCode}
+                disabled={isLoading}
+                className="px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 disabled:bg-gray-500"
+              >
+                {isLoading ? "Running..." : "Run "}
+              </button>
+              {/* hover on run code */}
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-[14px] rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                Run code (ctrl + Enter)
+              </span>
+            </div>
           </div>
           <CodeMirror
             //Added className to change the cursor
@@ -180,14 +279,14 @@ const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true
             value={code}
             height="400px"
             theme={oneDark}
-            extensions={[config.extension]}
+            extensions={[config.extension, ctrlEnterKeymap]}
             basicSetup={{ lineNumbers: true }}
             onChange={(val) => setCode(val)}
           />
         </div>
         <div className="p-2 bg-[#1e293b]">
           <h3 className="text-sm font-semibold pb-2 text-white">Output</h3>
-          {config.executionModel === 'client' ? (
+          {config.executionModel === "client" ? (
             <iframe
               ref={iframeRef}
               title="playground-sandbox"
@@ -200,6 +299,28 @@ const UniversalCodePlayground = ({ defaultLanguage = 'javascript', isDark = true
               {output}
             </pre>
           )}
+          {/* adding clear console */}
+          <div className="relative group inline-block">
+            <button
+              className="px-3 py-2 m-2 font-semibold rounded-md bg-[#111720] text-white text-[16px] hover:bg-[#e63946] disabled:bg-gray-500"
+              onClick={clearConsole}
+            >
+              Clear Console
+            </button>
+            {/* hover on clear console */}
+            <span
+              className="
+      absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+      px-2 py-1 text-[14px] rounded-md
+      bg-gray-900 text-white
+      opacity-0 group-hover:opacity-100
+      transition-opacity duration-200
+      whitespace-nowrap
+    "
+            >
+              Clear code (Ctrl + I)
+            </span>
+          </div>
         </div>
       </div>
     </div>

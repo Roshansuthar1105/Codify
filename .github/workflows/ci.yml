@@ -1,0 +1,64 @@
+name: CI Pipeline
+on: [ pull_request, push]
+jobs:
+  Frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5.0.0
+      with:
+        path: .
+    - name: Setup Node
+      uses: actions/setup-node@v5.0.0
+    - name: Install Dependencies
+      run: npm install
+    - name: Check Health
+      env:
+        VITE_SERVER_API : http://localhost:5050   
+        VITE_YOUTUBE_API : dummy
+        VITE_GITHUB_TOKEN : dummy
+        VITE_RAPIDAPI_KEY : dummy
+      run: |
+         cd client
+         npm install
+         npm run dev || exit 1 &      
+         sleep  15           
+         curl -f http://localhost:5173 || exit 1
+         pkill -f "node"
+  Backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5.0.0
+      with:
+        path: .
+    - name: Setup Node
+      uses: actions/setup-node@v5.0.0
+    - name: Install Dependencies
+      run: npm install
+    - name: Check Server Directory
+      run: |
+        cd server
+        ls
+    - name: Check Health
+      env:
+       MONGODB_URI : "mongodb+srv://publicuser:public_codify@cluster0.5bysaia.mongodb.net/"
+       PORT: 5050
+       JWT_SECRET : your_jwt_secret
+       CLIENT_CORS : "*" 
+       EMAIL_USER : demo@gmail.com
+       EMAIL_PASS : demo1234
+       GOOGLE_CLIENT_ID : dummy
+       GOOGLE_CLIENT_SECRET : dummy
+       GOOGLE_LOGIN_CALLBACK_URL : http://localhost:5050/api/v1/auth/google/login/callback
+       GOOGLE_SIGNUP_CALLBACK_URL : http://localhost:5050/api/v1/auth/google/signup/callback
+       FRONTEND_URL : http://localhost:5173  
+       YOUTUBE_API_KEY : dummy
+      run: |
+         cd server
+         npm install
+         npm run server || exit 1 &
+         sleep 15
+         curl -f http://localhost:5050 || exit 1
+         pkill -f "node"
+            

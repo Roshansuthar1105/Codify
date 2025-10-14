@@ -12,8 +12,18 @@ import {
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import roadmap from "../assets/json/rolebasedRoadmaps.json";
+import { useEffect, useState } from "react";
 import NewsletterSubscribeInput from "./NewsletterSubscribeInput";
 const Footer = () => {
+  const [visitorCount, setVisitorCount] = useState(0);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/`)
+      .then(async res => {
+        const data = await res.json();
+        setVisitorCount(data.visitorCount); // Set state here
+      })
+      .catch(err => console.error("Error fetching visitors:", err));
+  }, []);
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const reqdroadmaps = roadmap.filter((item) =>
@@ -291,6 +301,22 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
+               <li>
+                <Link
+                  to="/terms"
+                  className={`
+                    ${
+                      isDark
+                        ? "text-dark-text-secondary"
+                        : "text-light-text-secondary"
+                    } 
+                    hover:text-primary transition-colors flex items-center
+                  `}
+                >
+                  <span className="mr-2 text-primary text-xs">▸</span>
+                  Terms of Service
+                </Link>
+              </li>
               <li>
                 <Link
                   to="/contact"
@@ -434,9 +460,15 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Visitor Count */}
+        <div className={`text-center pt-6`}>
+          <p className={`text-sm font-semibold text-primary`}>
+            👀 Total Visitors: {visitorCount !== null ? visitorCount : "Loading..."}
+          </p>
+        </div>
         {/* Copyright */}
         <div
-          className={`text-center pt-6 border-t ${
+          className={`text-center pt-2 border-t ${
             isDark ? "border-gray-600/30" : "border-white/30"
           }`}
         >

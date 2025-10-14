@@ -108,8 +108,8 @@ function NavBar() {
       >
         <div
           className={`absolute inset-0 ${isDark
-              ? "bg-gradient-to-br from-dark-bg-primary/95 via-transparent to-dark-bg-primary/60"
-              : "bg-gradient-to-br from-light-bg-primary/95 via-transparent to-light-bg-primary/60"
+            ? "bg-gradient-to-br from-dark-bg-primary/95 via-transparent to-dark-bg-primary/60"
+            : "bg-gradient-to-br from-light-bg-primary/95 via-transparent to-light-bg-primary/60"
             }`}
         ></div>
       </div>
@@ -165,8 +165,8 @@ function NavBar() {
                     {/* Subtle background glow */}
                     <div
                       className={`absolute inset-0 rounded-xl transition-all duration-400 ${isActive
-                          ? "bg-gradient-to-br from-primary/20 to-transparent opacity-100"
-                          : "bg-gradient-to-br from-primary/15 to-transparent opacity-0 group-hover:opacity-100"
+                        ? "bg-gradient-to-br from-primary/20 to-transparent opacity-100"
+                        : "bg-gradient-to-br from-primary/15 to-transparent opacity-0 group-hover:opacity-100"
                         }`}
                     />
 
@@ -186,16 +186,16 @@ function NavBar() {
                     {/* Minimal active indicator */}
                     <div
                       className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 rounded-full transition-all duration-300 ${isActive
-                          ? "w-8 bg-white/70"
-                          : "w-0 group-hover:w-6 bg-primary/50"
+                        ? "w-8 bg-white/70"
+                        : "w-0 group-hover:w-6 bg-primary/50"
                         }`}
                     />
 
                     {/* Soft hover highlight */}
                     <div
                       className={`absolute inset-0 rounded-xl transition-all duration-300 ${isActive
-                          ? "bg-white/5"
-                          : "bg-transparent group-hover:bg-white/5"
+                        ? "bg-white/5"
+                        : "bg-transparent group-hover:bg-white/5"
                         }`}
                     />
                   </>

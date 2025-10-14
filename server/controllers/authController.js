@@ -1,6 +1,7 @@
 import User from "../models/userSchema.js";
 import Feedback from "../models/feedbackSchema.js";
 import Course from "../models/courseSchema.js";
+import Visitor from "../models/visitorCounterSchema.js"; 
 import bcryptjs from "bcryptjs";
 import { generateOTP } from "../utils/generateOTP.js";
 import { sendEmail } from "../utils/sendEmail.js";
@@ -11,7 +12,16 @@ import passport from "passport";
 
 const homePage = async (req, res) => {
   try {
-    res.status(202).json({ message: "home page" });
+    let counter = await Visitor.findOne({ name: "visitors"});
+    if (!counter) {
+      counter = await Visitor.create({ name: "visitors", count: 1});
+    } else {
+      counter.count += 1;
+      await counter.save();
+    }
+    //console.log("Visitor count:", counter.count); //check in terminal
+    res.status(200).json({ visitorCount: counter.count });
+    //res.status(202).json({ message: "home page" });
   } catch (error) {
     res.status(404).json({ error });
   }
@@ -266,6 +276,179 @@ const googleSignup = async (req, res, next) => {
   }
 };
 
+// GitHub Auth (Merged Login + Signup)
+const githubAuth = (req, res, next) => {
+  passport.authenticate("github", async (err, data, info) => {
+    try {
+      if (err) {
+        console.error("GitHub Auth Error:", err);
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+      }
+
+      if (!data) {
+        const errorMsg = encodeURIComponent(info?.message || "Authentication failed");
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=${errorMsg}`);
+      }
+
+      const { user, token, isNewUser } = data;
+
+      // Send welcome email for new users
+      if (isNewUser) {
+        try {
+          const forgotPasswordLink = `${process.env.FRONTEND_URL}/forgot-password`;
+          const githubUsername = user.username || "there";
+
+          await sendEmail(
+            user.email,
+            "Welcome to Codify - Set Your Password",
+            `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <style>
+                  body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                  }
+                  .container {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border-radius: 10px;
+                    padding: 30px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                  }
+                  .content {
+                    background: white;
+                    border-radius: 8px;
+                    padding: 30px;
+                    margin-top: 20px;
+                  }
+                  .header {
+                    color: white;
+                    text-align: center;
+                    margin-bottom: 20px;
+                  }
+                  .header h1 {
+                    margin: 0;
+                    font-size: 28px;
+                  }
+                  .welcome-text {
+                    font-size: 16px;
+                    color: #555;
+                    margin-bottom: 20px;
+                  }
+                  .button {
+                    display: inline-block;
+                    padding: 12px 30px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    margin: 20px 0;
+                  }
+                  .footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 14px;
+                    color: white;
+                  }
+                  .features {
+                    background: #f8f9fa;
+                    border-radius: 5px;
+                    padding: 15px;
+                    margin: 20px 0;
+                  }
+                  .features ul {
+                    margin: 10px 0;
+                    padding-left: 20px;
+                  }
+                  .features li {
+                    margin: 8px 0;
+                  }
+                  .github-icon {
+                    width: 50px;
+                    height: 50px;
+                    margin: 10px auto;
+                    display: block;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <div class="header">
+                    <h1>🎉 Welcome to Codify!</h1>
+                  </div>
+                  
+                  <div class="content">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
+                         alt="GitHub" class="github-icon">
+                    
+                    <p class="welcome-text">
+                      Hi <strong>${githubUsername}</strong>,
+                    </p>
+                    
+                    <p class="welcome-text">
+                      Welcome to <strong>Codify</strong>! 🚀 We're excited to have you join our community 
+                      of learners and developers.
+                    </p>
+                    
+                    <div class="features">
+                      <p><strong>You now have access to:</strong></p>
+                      <ul>
+                        <li>📚 Comprehensive coding courses</li>
+                        <li>🗺️ Interactive learning roadmaps</li>
+                        <li>🔖 Bookmark your favorite content</li>
+                        <li>📝 Track your learning progress</li>
+                      </ul>
+                    </div>
+                    
+                    <p class="welcome-text">
+                      <strong>Important:</strong> Since you signed up using GitHub, you don't have a 
+                      password yet. You can set one anytime to enable login with email & password:
+                    </p>
+                    
+                    <center>
+                      <a href="${forgotPasswordLink}" class="button">
+                        Set Your Password
+                      </a>
+                    </center>
+                    
+                    <p class="welcome-text" style="font-size: 14px; color: #777; margin-top: 20px;">
+                      This will allow you to log in using either GitHub or your email & password.
+                    </p>
+                  </div>
+                  
+                  <div class="footer">
+                    <p>Happy Learning! 💻</p>
+                    <p><strong>— The Codify Team</strong></p>
+                  </div>
+                </div>
+              </body>
+              </html>
+            `,
+            `Hi ${githubUsername}, welcome to Codify! You can set a password anytime at: ${forgotPasswordLink}`
+          );
+
+          console.log(`✅ Welcome email sent to ${user.email}`);
+        } catch (emailError) {
+          console.error("❌ Failed to send GitHub welcome email:", emailError);
+          // Don't block the auth flow if email fails
+        }
+      }
+
+      // Redirect with token
+      return res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?token=${token}`);
+    } catch (error) {
+      console.error("Error in githubAuth:", error);
+      return res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+    }
+  })(req, res, next);
+};
+
 export {
   homePage,
   regPage,
@@ -280,4 +463,5 @@ export {
   forgotPasswordCheck,
   googleLogin,
   googleSignup,
+  githubAuth
 };

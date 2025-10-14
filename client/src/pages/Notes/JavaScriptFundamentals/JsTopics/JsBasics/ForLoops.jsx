@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const ForLoops = () => {
     const examples = [
@@ -94,7 +94,7 @@ for (let i = 1; i <= 5; i++) {
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Key Concept: </strong> 
+                        <strong className="font-semibold">Key Concept: </strong>
                         JavaScript provides multiple loop types - standard `for`, `for...in` for objects, and `for...of` for iterables. Choose the right one for your specific use case.
                     </p>
                 </div>

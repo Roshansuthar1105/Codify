@@ -786,7 +786,7 @@ const Roadmap = () => {
 
                       {/* Role icon with enhanced animation */}
                       <motion.div
-                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg mb-4 flex items-center justify-center ${isDark ? 'bg-dark-bg-primary' : 'bg-light-bg-primary'}`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg mb-4 flex items-center justify-center `}
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.5 }}
                       >

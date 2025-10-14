@@ -26,6 +26,28 @@ const courses = async(req,res)=>{
       res.status(400).send(`fetching courses error :  ${error}`);
     }
 }
+// Get courses by category
+const getCoursesByCategory = async (req, res) => {
+    try {
+        const { courseCategory } = req.params;
+        const lowerCategory = courseCategory.toLowerCase();  //converting to lowercase to match DB entries
+        //console.log("Backend: Fetching courses for category ->", lowerCategory); //check category received
+        const response = await Course.find({ course_category: lowerCategory });
+        //console.log("Backend: Courses found ->", response.length); //check how many courses are returned
+        return res.status(200).json({
+            success: true,
+            count: response.length,
+            data: response
+        });
+    } catch (error) {
+        console.error("Error fetching courses by category:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
 
 // Enroll in a course
 const enrollCourse = async (req, res) => {
@@ -100,4 +122,4 @@ const downloadCourseSummary = async (req, res) => {
     }
 };
 
-export { courses as default, enrollCourse, ytCourses, downloadCourseSummary };
+export { courses as default, enrollCourse, ytCourses, downloadCourseSummary,getCoursesByCategory };

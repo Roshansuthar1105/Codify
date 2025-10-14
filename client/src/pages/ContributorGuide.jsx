@@ -18,7 +18,7 @@ const ContributorGuide = () => {
     {
       id: 'clone',
       title: 'Clone your fork',
-      command: 'git clone https://github.com/Roshansuthar1105/Codify',
+      command: 'git clone https://github.com/<YOUR-USERNAME>/Codify',
       description: 'Replace YOUR-USERNAME with your GitHub username and REPO-NAME with the repository name'
     },
     {

@@ -1,4 +1,4 @@
-import CodeBlock from "../../components/CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 
 const TernaryOperator = () => {
     const examples = [
@@ -65,7 +65,7 @@ console.log(getFee(1));     // Output: "$2.00" (truthy value)`,
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Syntax: </strong> 
+                        <strong className="font-semibold">Syntax: </strong>
                         <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">condition ? expressionIfTrue : expressionIfFalse</code>
                     </p>
                 </div>

@@ -133,21 +133,30 @@ export const upvoteQuestion = async (req, res) => {
     const { id } = req.params;
     const userId = req.user._id;
 
-    // Remove from downvotes if exists
-    let update = {
-      $addToSet: { upvotedBy: userId },
-      $pull: { downvotedBy: userId },
-    };
-
-    // Atomically adjust counters
     const question = await Question.findById(id);
-    if (!question) return res.status(404).json({ message: "Question not found" });
+    if (!question)
+      return res.status(404).json({ message: "Question not found" });
 
-    if (!question.upvotedBy.includes(userId)) {
-      update.$inc = { upvotes: 1 };
+    let update = {};
+    let inc = {};
+
+    if (question.upvotedBy.includes(userId)) {
+      // remove upvote
+      update.$pull = { upvotedBy: userId };
+      inc.upvotes = -1;
+    } else {
+      // add upvote and remove downvote
+      update.$addToSet = { upvotedBy: userId };
+      update.$pull = { downvotedBy: userId };
+      inc.upvotes = 1;
+
+      if (question.downvotedBy.includes(userId)) {
+        inc.downvotes = -1;
+      }
     }
-    if (question.downvotedBy.includes(userId)) {
-      update.$inc = { ...(update.$inc || {}), downvotes: -1 };
+
+    if (Object.keys(inc).length > 0) {
+      update.$inc = inc;
     }
 
     const updated = await Question.findByIdAndUpdate(id, update, { new: true })
@@ -169,19 +178,30 @@ export const downvoteQuestion = async (req, res) => {
     const { id } = req.params;
     const userId = req.user._id;
 
-    let update = {
-      $addToSet: { downvotedBy: userId },
-      $pull: { upvotedBy: userId },
-    };
-
     const question = await Question.findById(id);
-    if (!question) return res.status(404).json({ message: "Question not found" });
+    if (!question)
+      return res.status(404).json({ message: "Question not found" });
 
-    if (!question.downvotedBy.includes(userId)) {
-      update.$inc = { downvotes: 1 };
+    let update = {};
+    let inc = {};
+
+    if (question.downvotedBy.includes(userId)) {
+      // remove downvote
+      update.$pull = { downvotedBy: userId };
+      inc.downvotes = -1;
+    } else {
+      // add downvote and remove upvote
+      update.$addToSet = { downvotedBy: userId };
+      update.$pull = { upvotedBy: userId };
+      inc.downvotes = 1;
+
+      if (question.upvotedBy.includes(userId)) {
+        inc.upvotes = -1;
+      }
     }
-    if (question.upvotedBy.includes(userId)) {
-      update.$inc = { ...(update.$inc || {}), upvotes: -1 };
+
+    if (Object.keys(inc).length > 0) {
+      update.$inc = inc;
     }
 
     const updated = await Question.findByIdAndUpdate(id, update, { new: true })

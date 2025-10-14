@@ -1,5 +1,5 @@
 import { Check, X } from 'lucide-react';
-import CodeBlock from '../../components/CodeBlock';
+import CodeBlock from '../../../components/CodeBlock';
 
 const VarLetConst = () => {
     const comparisonTable = [
@@ -103,7 +103,7 @@ const VarLetConst = () => {
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Key Differences</h2>
-                    
+
                     <div className="space-y-6">
                         <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
                             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">1. Scope</h3>

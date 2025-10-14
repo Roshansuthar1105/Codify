@@ -1,4 +1,4 @@
-import CodeBlock from '../../components/CodeBlock';
+import CodeBlock from '../../../components/CodeBlock';
 
 const ArraysAndMethods = () => {
     const examples = [
@@ -141,7 +141,7 @@ const index = [10, 20, 30].findIndex(num => num > 15);  // 1`,
 
                 <div className="mb-6 bg-white dark:bg-black p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-gray-600 transition-colors">
                     <p className="text-primary-500 dark:text-primary-400">
-                        <strong className="font-semibold">Key Concept: </strong> 
+                        <strong className="font-semibold">Key Concept: </strong>
                         Arrays in JavaScript are actually objects with special behaviors and properties. They are zero-indexed and can be dynamically resized.
                     </p>
                 </div>
