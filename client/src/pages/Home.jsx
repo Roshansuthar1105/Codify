@@ -252,9 +252,9 @@ function Home() {
               }`}
           >
             Master Coding with
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent mt-2 py-1 sm:py-2">
+<span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent mt-2 py-1 sm:py-2">
               Interactive Learning
-            </span>
+            </span>
           </motion.h1>
 
           {/* Subtitle */}
