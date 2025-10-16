@@ -375,3 +375,11 @@ Feel free to open issues or discussions if you have any feedback, feature sugges
 **Ready to show off your coding achievements? Get started with Codify today! 🚀**
 
 [⬆️ Back to Top](#readme)
+
+DEMO ❤️
+
+
+
+https://github.com/user-attachments/assets/f2f6c421-25a9-492b-8cb7-20ca01500c59
+
+
