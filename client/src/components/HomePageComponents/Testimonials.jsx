@@ -288,7 +288,7 @@ const Testimonials = () => {
             onClick={() => navigate("/courses")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => navigate("/roadmap")}
+            
             className="bg-gradient-to-r from-primary to-secondary text-white py-2 sm:py-3 px-6 sm:px-8 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
           >
             Start Your Journey
