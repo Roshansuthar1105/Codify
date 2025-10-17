@@ -8,6 +8,15 @@ import useMobile from '../../../hooks/useMobile';
 import NodeJSPageTitleManager from './NodeJSPageTitleManager';
 import categories from './NodeJSTopics.json';
 
+// introduction;
+
+import IntroductionToNodeJS from './NodeJSTopics/Introduction/IntroductionToNodeJS';
+import NodeJSInstallation from './NodeJSTopics/Introduction/NodeJSInstallation';
+import NodeJSEnvironmentSetup from'./NodeJSTopics/Introduction/NodeJSEnvironmentSetup.jsx';
+
+
+
+
 
 
 const NodeJSFundamentals = () => {
@@ -80,6 +89,10 @@ const NodeJSFundamentals = () => {
             <React.Suspense fallback={<Loader />}>
               <Routes>
                 <Route index element={<NodeJSHeroPage />} />
+                {/* introduction */}
+                <Route path="introduction-to-node.js" element={<IntroductionToNodeJS />} />
+                <Route path="node.js-installation" element={<NodeJSInstallation />} />
+                 <Route path="node.js-environment-setup" element={<NodeJSEnvironmentSetup />} /> 
 
                
               </Routes>
