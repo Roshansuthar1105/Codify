@@ -4,7 +4,7 @@ export const reactTopics = [
     topics: [
       "Introduction to React Patterns",
       "What is React",
-      "Functional Components",
+      "Functional components",
       "State Colocation",
       "Controlled vs Uncontrolled Components",
       "Context API",
