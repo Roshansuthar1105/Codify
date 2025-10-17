@@ -9,6 +9,7 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
+import ControlAndUn from "./ReactNotes/ControlAndUn";
 
 const iconMap = {
   "React Basics": <FiBook />,
@@ -17,6 +18,7 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
+  "Controlled vs Uncontrolled Components": <ControlAndUn />,
   // add all other topics here
 };
 
