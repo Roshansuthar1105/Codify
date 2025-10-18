@@ -14,7 +14,8 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 console.log("entered route");
 // Question Routes
-router.get("/getAll",authMiddleware, getAllQuestions);          // GET /questions
+// Public: allow fetching questions without auth
+router.get("/getAll", getAllQuestions);          // GET /questions
 router.get("/getOne/:id",authMiddleware, getQuestionById);       // GET /questions/:id
 router.post("/create", authMiddleware,createQuestion);          // POST /questions
 router.patch("/update/:id",authMiddleware, updateQuestion);      // PATCH /questions/:id

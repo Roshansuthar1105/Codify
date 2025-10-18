@@ -14,10 +14,19 @@ export default function OAuthCallback() {
     const error = params.get("error");
 
     if (token) {
-      storeTokenInLS(token);
-      localStorage.setItem("isLoggedIn", "true");
-      toast.success("Logged in successfully");
-      navigate("/", { replace: true });
+      try {
+        storeTokenInLS(token);
+        localStorage.setItem("isLoggedIn", "true");
+        toast.success("Logged in successfully");
+        // Small delay to ensure token is stored before navigation
+        setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 100);
+      } catch (err) {
+        console.error("Error storing token:", err);
+        toast.error("Failed to store authentication token");
+        navigate("/login", { replace: true });
+      }
     } else if (error) {
       toast.error(decodeURIComponent(error));
       navigate("/login", { replace: true });

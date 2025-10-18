@@ -11,9 +11,19 @@ export const AuthProvider = ({ children }) => {
   let isLoggedIn = !!token;
   let authorizationToken = `Bearer ${token}`;
   const storeTokenInLS = (serverToken) => {
-    setToken(serverToken);
-    isLoggedIn = true;
-    return localStorage.setItem("token", serverToken);
+    if (!serverToken) {
+      console.error("No token provided to storeTokenInLS");
+      return false;
+    }
+    try {
+      setToken(serverToken);
+      localStorage.setItem("token", serverToken);
+      isLoggedIn = true;
+      return true;
+    } catch (error) {
+      console.error("Error storing token:", error);
+      return false;
+    }
   };
   const LogoutUser = () => {
     isLoggedIn = false;

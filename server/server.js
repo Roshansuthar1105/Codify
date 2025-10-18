@@ -24,6 +24,15 @@ import session from "express-session";
 import passport from "passport";
 import { configurePassport } from "./config/passport.js";
 dotenv.config();
+
+// Check for required environment variables
+const requiredEnvVars = ['JWT_SECRET', 'FRONTEND_URL'];
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+if (missingEnvVars.length > 0) {
+  console.warn('⚠️  Missing environment variables:', missingEnvVars.join(', '));
+  console.warn('⚠️  Some features may not work properly. Please check your .env file.');
+}
+
 const app = express();
 // Allow all origins
 const corsOption = {
