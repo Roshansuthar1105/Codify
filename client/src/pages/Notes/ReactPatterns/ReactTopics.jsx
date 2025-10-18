@@ -3,7 +3,7 @@ export const reactTopics = [
     category: "React Basics",
     topics: [
       "Introduction to React Patterns",
-      "What is React",
+      "What is react",
       "Functional Components",
       "State Colocation",
       "Controlled vs Uncontrolled Components",
