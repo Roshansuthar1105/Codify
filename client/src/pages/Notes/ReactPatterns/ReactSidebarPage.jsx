@@ -11,9 +11,13 @@ import {
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
 
 
+import ControlAndUn from "./ReactNotes/ControlAndUn";
+
+
 import StateCol from "./ReactNotes/StateCol";
 
 import FunctionComp from "./ReactNotes/FunctionComp";
+
 
 
 import ReactIntroduction from "./ReactNotes/ReactIntroduction";
@@ -28,9 +32,13 @@ const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
 
 
+  "Controlled vs Uncontrolled Components": <ControlAndUn />,
+
+
   "State Colocation" : <StateCol />,
 
   "Functional components": <FunctionComp />,
+
 
 
   "What is react" : <ReactIntroduction/>
