@@ -42,20 +42,36 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 // ✅ Register service worker for PWA support
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    // Use the correct base path based on environment
-    const swUrl = `${window.location.origin}/service-worker.js`;
-    navigator.serviceWorker
-      .register(swUrl)
-      .then((registration) => {
-        console.log("Service Worker registered with scope:", registration.scope);
-      })
-      .catch((error) => {
-        console.error("Service Worker registration failed:", error);
-        // Fallback to relative path
-        navigator.serviceWorker.register('./service-worker.js').then(fallbackRegistration => {
-          console.log("Service Worker registered with fallback:", fallbackRegistration.scope);
+  // Only register in production (Netlify, etc.)
+  if (import.meta.env.MODE === "production") {
+    window.addEventListener("load", () => {
+      const swUrl = `${window.location.origin}/service-worker.js`;
+      navigator.serviceWorker
+        .register(swUrl)
+        .then((registration) => {
+          console.log("✅ Service Worker registered with scope:", registration.scope);
+        })
+        .catch((error) => {
+          console.error("❌ Service Worker registration failed:", error);
+          // Optional fallback
+          navigator.serviceWorker
+            .register("./service-worker.js")
+            .then((fallbackRegistration) => {
+              console.log("✅ Fallback SW registered with scope:", fallbackRegistration.scope);
+            })
+            .catch((err) => console.error("Fallback SW failed:", err));
         });
-      });
-  });
+    });
+  } else {
+    // 🚫 Disable SW & clear caches in development (e.g., localhost:5173)
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      for (const reg of regs) {
+        reg.unregister();
+      }
+    });
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((key) => caches.delete(key)))
+    );
+    console.log("⚙️ Service Worker disabled in development (localhost:5173)");
+  }
 }
