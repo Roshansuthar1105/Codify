@@ -9,7 +9,11 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
+
 import StateCol from "./ReactNotes/StateCol";
+
+import ReactIntroduction from "./ReactNotes/ReactIntroduction";
+
 
 const iconMap = {
   "React Basics": <FiBook />,
@@ -18,7 +22,11 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
+
   "State Colocation" : <StateCol />,
+
+  "What is react" : <ReactIntroduction/>
+
   // add all other topics here
 };
 
