@@ -48,7 +48,7 @@ const notesData = [
         "content": "Static typing for JavaScript, interfaces, generics, and advanced type system features",
         "icon": Type,
         "link": "/notes/typescript",
-        "customDocs": false
+        "customDocs": true
     },
     {
         "name": "Database Systems",
