@@ -10,7 +10,11 @@ import {
 } from "react-icons/fi";
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
 
+
+import StateCol from "./ReactNotes/StateCol";
+
 import FunctionComp from "./ReactNotes/FunctionComp";
+
 
 import ReactIntroduction from "./ReactNotes/ReactIntroduction";
 
@@ -23,7 +27,11 @@ const iconMap = {
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
 
+
+  "State Colocation" : <StateCol />,
+
   "Functional components": <FunctionComp />,
+
 
   "What is react" : <ReactIntroduction/>
 
