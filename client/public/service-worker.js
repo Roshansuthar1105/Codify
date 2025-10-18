@@ -4,7 +4,7 @@ const CACHE_NAME = 'app-cache-v1';
 // Only cache essential files that definitely exist
 const urlsToCache = ['/', '/index.html'];
 
-// 🧩 Disable SW entirely in development (localhost or 5173)
+// Disable SW entirely in development (localhost or 5173)
 if (
   self.location.hostname === 'localhost' ||
   self.location.port === '5173'
@@ -16,7 +16,7 @@ if (
   return;
 }
 
-// ✅ Install
+// Install
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing');
   self.skipWaiting();
@@ -49,7 +49,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// ✅ Fetch (Cache-first, then network fallback)
+// Fetch (Cache-first, then network fallback)
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   if (event.request.url.startsWith('chrome-extension://')) return;
@@ -89,7 +89,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// ✅ Activate
+// Activate
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating');
   event.waitUntil(

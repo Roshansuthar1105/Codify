@@ -1,0 +1,45 @@
+{
+    "Introduction": [
+        "Introduction to Node.js",
+        "Node.js Installation",
+        "Node.js Environment Setup"
+    ],
+    "Node.js Basics": [
+        "Modules and NPM",
+        "File System",
+        "Path Module",
+        "Event Loop",
+        "Callbacks, Promises & Async",
+        "Error Handling"
+    ],
+    "Web Development": [
+        "HTTP Module",
+        "Express.js Basics",
+        "Middleware",
+        "Routing",
+        "Template Engines",
+        "RESTful APIs"
+    ],
+    "Database Integration": [
+        "MongoDB",
+        "MySQL",
+        "PostgreSQL",
+        "ODM and ORM"
+    ],
+    "Advanced Topics": [
+        "Streams",
+        "Clustering",
+        "Child Processes",
+        "WebSockets",
+        "Authentication",
+        "Security"
+    ],
+    "Node.js Tools & Standards": [
+        "Package.json",
+        "NPM Scripts",
+        "Testing Frameworks",
+        "Debugging Tools",
+        "Process Management",
+        "Deployment Strategies"
+    ]
+}
