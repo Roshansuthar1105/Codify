@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
 import ReactIntroduction from "./ReactNotes/ReactIntroduction";
+import LayoutComp from "./ReactNotes/LayoutComp";
 
 const iconMap = {
   "React Basics": <FiBook />,
@@ -18,7 +19,8 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
+  "Layout Component Pattern" : <LayoutComp />,
   // add all other topics here
 };
 
