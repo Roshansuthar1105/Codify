@@ -9,6 +9,7 @@ import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { AuthProvider } from "./store/auth.jsx";
 import { PopupProvider } from "./context/PopupContext.jsx";
 import { QuestionsProvider } from "./context/QuestionContext.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 // Toast notifications
 import { ToastContainer } from "react-toastify";
@@ -16,32 +17,34 @@ import "react-toastify/dist/ReactToastify.css"; // Correct import path
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <AuthProvider>
-        <PopupProvider>
-          <QuestionsProvider>
-            <App />
-            <ToastContainer
-              position="top-right"
-              autoClose={2500}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
-          </QuestionsProvider>
-        </PopupProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <AuthProvider>
+          <PopupProvider>
+            <QuestionsProvider>
+              <App />
+              <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+              />
+            </QuestionsProvider>
+          </PopupProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
-// ✅ Register service worker for PWA support
-if ("serviceWorker" in navigator) {
+// ✅ Register service worker for PWA support (only in production)
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     // Use the correct base path based on environment
     const swUrl = `${window.location.origin}/service-worker.js`;

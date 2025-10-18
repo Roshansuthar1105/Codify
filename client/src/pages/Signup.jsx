@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useLoading } from "../components/loadingContext";
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserPlus, FaExclamationCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import OtpModal from "../components/OtpModal";
-import PasswordStrength from "../../components/PasswordStrength";
+import PasswordStrength from "../components/PasswordStrength";
 
 function Signup() {
   const [user, setUser] = useState({
@@ -30,6 +30,19 @@ function Signup() {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [resending, setResending] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handle OAuth errors
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const error = params.get("error");
+    if (error) {
+      toast.error(decodeURIComponent(error));
+      // Remove query from URL after toast display
+      navigate("/signup", { replace: true });
+    }
+  }, [location, navigate]);
 
   const validateField = (name, value) => {
     let error = "";
@@ -614,6 +627,23 @@ function Signup() {
                       Create Account
                     </motion.button>
                   </motion.div>
+
+                {/* OAuth - Google Sign Up */}
+                <div className="mt-3 flex flex-col items-center gap-3">
+                  <span className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
+                    Or continue with
+                  </span>
+                  <a
+                    href={`${API}/api/v1/auth/google/signup`}
+                    className="w-full py-3 px-4 flex items-center justify-center gap-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-medium transition-all duration-300 transform hover:scale-[1.02]">
+                    <img
+                      src="https://www.svgrepo.com/show/355037/google.svg"
+                      alt="Google"
+                      className="w-6 h-6"
+                    />
+                    <span>Google</span>
+                  </a>
+                </div>
                   
                   {/* Enhanced Login Link */}
                   <motion.div 

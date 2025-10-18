@@ -17,7 +17,7 @@ import NewsletterSubscribeInput from "./NewsletterSubscribeInput";
 const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/`)
+    fetch(`${import.meta.env.VITE_SERVER_API}/api/v1/auth`)
       .then(async res => {
         const data = await res.json();
         setVisitorCount(data.visitorCount); // Set state here

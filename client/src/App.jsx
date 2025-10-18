@@ -86,7 +86,7 @@ function App() {
   const isDark = theme === "dark";
 
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToTop>
         <LoadingProvider>
           <div
