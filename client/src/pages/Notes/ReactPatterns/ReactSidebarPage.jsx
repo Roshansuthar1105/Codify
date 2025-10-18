@@ -10,6 +10,19 @@ import {
 } from "react-icons/fi";
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
 
+
+import ControlAndUn from "./ReactNotes/ControlAndUn";
+
+
+import StateCol from "./ReactNotes/StateCol";
+
+import FunctionComp from "./ReactNotes/FunctionComp";
+
+
+
+import ReactIntroduction from "./ReactNotes/ReactIntroduction";
+
+
 const iconMap = {
   "React Basics": <FiBook />,
   "React Patterns": <FiLayers />,
@@ -17,6 +30,19 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
+
+
+  "Controlled vs Uncontrolled Components": <ControlAndUn />,
+
+
+  "State Colocation" : <StateCol />,
+
+  "Functional components": <FunctionComp />,
+
+
+
+  "What is react" : <ReactIntroduction/>
+
   // add all other topics here
 };
 

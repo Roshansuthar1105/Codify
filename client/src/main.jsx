@@ -59,6 +59,17 @@ if (import.meta.env.PROD && "serviceWorker" in navigator) {
         navigator.serviceWorker.register('./service-worker.js').then(fallbackRegistration => {
           console.log("Service Worker registered with fallback:", fallbackRegistration.scope);
         });
-      });
-  });
+    });
+  } else {
+    // 🚫 Disable SW & clear caches in development (e.g., localhost:5173)
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      for (const reg of regs) {
+        reg.unregister();
+      }
+    });
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((key) => caches.delete(key)))
+    );
+    console.log("⚙️ Service Worker disabled in development (localhost:5173)");
+  }
 }

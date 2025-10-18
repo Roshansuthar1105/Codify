@@ -53,6 +53,9 @@ const ReactPattern = lazy(() =>
 const PythonFundamentals = lazy(() =>
   import("./pages/Notes/PythonFundamentals/PythonFundamentals.jsx")
 );
+const NodeJSFundamentals = lazy(() =>
+  import("./pages/Notes/NodeJsFundamentals/NodeJsFundamentals.jsx")
+);
 
 // Admin layout
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
@@ -134,6 +137,7 @@ function App() {
                     path="/notes/python/*"
                     element={<PythonFundamentals />}
                   />
+                  <Route path="/notes/nodejs/*" element={<NodeJSFundamentals />} />
                   <Route path="/notes/git/*" element={<GitNotes />} />
                   <Route path="/notes/react/*" element={<ReactPattern />} />
                   <Route path="/notes/:topic" element={<FallBackNotes />} />
