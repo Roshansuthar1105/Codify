@@ -8,7 +8,7 @@ import { useLoading } from "../components/loadingContext";
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserPlus, FaExclamationCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import OtpModal from "../components/OtpModal";
-import PasswordStrength from "../../components/PasswordStrength";
+import PasswordStrength from "../components/PasswordStrength";
 
 function Signup() {
   const [user, setUser] = useState({

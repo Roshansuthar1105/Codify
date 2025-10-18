@@ -7,162 +7,174 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function configurePassport() {
-  // Google Login
-  passport.use(
-    "google-login",
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        //callbackURL: "/api/v1/auth/google/login/callback",
-        callbackURL: process.env.GOOGLE_LOGIN_CALLBACK_URL,
-        prompt: "select_account",
-      },
-      async (_, accessToken, refreshToken, profile, done) => {
-        try {
-          const email = profile.emails?.[0]?.value;
-          if (!email) return done(null, false, { message: "Email not found" });
+  // Google Login - only if environment variables are set
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_LOGIN_CALLBACK_URL) {
+    passport.use(
+      "google-login",
+      new GoogleStrategy(
+        {
+          clientID: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          //callbackURL: "/api/v1/auth/google/login/callback",
+          callbackURL: process.env.GOOGLE_LOGIN_CALLBACK_URL,
+          prompt: "select_account",
+        },
+        async (_, accessToken, refreshToken, profile, done) => {
+          try {
+            const email = profile.emails?.[0]?.value;
+            if (!email) return done(null, false, { message: "Email not found" });
 
-          let user = await User.findOne({ googleId: profile.id });
-          if (!user) {
-            // Link existing account by email if exists (For users who signed up manually)
-            const existingUser = await User.findOne({ email });
-            if (!existingUser) {
-              return done(null, false, { message: "Account not found. Please sign up first." });
+            let user = await User.findOne({ googleId: profile.id });
+            if (!user) {
+              // Link existing account by email if exists (For users who signed up manually)
+              const existingUser = await User.findOne({ email });
+              if (!existingUser) {
+                return done(null, false, { message: "Account not found. Please sign up first." });
+              }
+              existingUser.googleId = profile.id;
+              existingUser.isOAuth = true;
+              existingUser.avatar = profile.photos?.[0]?.value || "";
+              await existingUser.save();
+              user = existingUser;
             }
-            existingUser.googleId = profile.id;
-            existingUser.isOAuth = true;
-            existingUser.avatar = profile.photos?.[0]?.value || "";
-            await existingUser.save();
-            user = existingUser;
-          }
 
-          const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-            expiresIn: "30d",
-          });
-
-          return done(null, { user, token });
-        } catch (err) {
-          return done(err, null);
-        }
-      }
-    )
-  );
-
-  // Google Signup 
-  passport.use(
-    "google-signup",
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        //callbackURL: "/api/v1/auth/google/signup/callback",
-        callbackURL: process.env.GOOGLE_SIGNUP_CALLBACK_URL,
-        prompt: "select_account",
-      },
-      async (_, accessToken, refreshToken, profile, done) => {
-        try {
-          const email = profile.emails?.[0]?.value;
-          if (!email) return done(null, false, { message: "Email not found" });
-
-          let existingUser = await User.findOne({ email });
-          if (existingUser) {
-            return done(null, false, { message: "Email already registered. Please login." });
-          }
-
-          // Create unique username
-          let username = profile.displayName?.replace(/\s+/g, "_") || `user_${Date.now()}`;
-          const usernameExists = await User.findOne({ username });
-          if (usernameExists) {
-            username = `${username}_${profile.id.substring(0, 5)}`;
-          }
-
-          const user = await User.create({
-            googleId: profile.id,
-            username,
-            email,
-            avatar: profile.photos?.[0]?.value || "",
-            isOAuth: true,
-          });
-
-          const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-            expiresIn: "30d",
-          });
-
-          return done(null, { user, token });
-        } catch (err) {
-          return done(err, null);
-        }
-      }
-    )
-  );
-
-  // GitHub Login + Signup (merged)
-  passport.use(
-    "github",
-    new GitHubStrategy(
-      {
-        clientID: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: process.env.GITHUB_LOGIN_CALLBACK_URL,
-        scope: ["user:email"],
-      },
-      async (_, __, ___, profile, done) => {
-        try {
-          const emails = profile.emails || [];
-          const verifiedEmail = emails.find(e => e.verified && e.value)?.value;
-          const primaryEmail = emails.find(e => e.primary && e.value)?.value;
-          const anyEmail = emails.find(e => e.value)?.value;
-
-          const email = verifiedEmail || primaryEmail || anyEmail;
-
-          if (!email) {
-            return done(null, false, {
-              message: "No email found. Please make your GitHub email public or verify it.",
+            const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+              expiresIn: "30d",
             });
+
+            return done(null, { user, token });
+          } catch (err) {
+            return done(err, null);
           }
+        }
+      )
+    );
+  } else {
+    console.log("Google Login OAuth not configured - skipping Google Login strategy registration");
+  }
 
-          let user = await User.findOne({ email });
-          let isNewUser = false;
+  // Google Signup - only if environment variables are set
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_SIGNUP_CALLBACK_URL) {
+    passport.use(
+      "google-signup",
+      new GoogleStrategy(
+        {
+          clientID: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          //callbackURL: "/api/v1/auth/google/signup/callback",
+          callbackURL: process.env.GOOGLE_SIGNUP_CALLBACK_URL,
+          prompt: "select_account",
+        },
+        async (_, accessToken, refreshToken, profile, done) => {
+          try {
+            const email = profile.emails?.[0]?.value;
+            if (!email) return done(null, false, { message: "Email not found" });
 
-          if (!user) {
-            // Create new user if not found
-            isNewUser = true;
-            let username = profile.username || `user_${Date.now()}`;
+            let existingUser = await User.findOne({ email });
+            if (existingUser) {
+              return done(null, false, { message: "Email already registered. Please login." });
+            }
+
+            // Create unique username
+            let username = profile.displayName?.replace(/\s+/g, "_") || `user_${Date.now()}`;
             const usernameExists = await User.findOne({ username });
             if (usernameExists) {
               username = `${username}_${profile.id.substring(0, 5)}`;
             }
 
-            user = await User.create({
-              githubId: profile.id,
+            const user = await User.create({
+              googleId: profile.id,
               username,
               email,
-              avatar: profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`,
+              avatar: profile.photos?.[0]?.value || "",
               isOAuth: true,
             });
-          } else if (!user.githubId) {
-            // Link GitHub ID if existing user but no GitHub linked
-            user.githubId = profile.id;
-            user.isOAuth = true;
-            user.avatar = profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`;
-            await user.save();
+
+            const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+              expiresIn: "30d",
+            });
+
+            return done(null, { user, token });
+          } catch (err) {
+            return done(err, null);
           }
-
-          const token = jwt.sign(
-            { id: user._id, email: user.email },
-            process.env.JWT_SECRET,
-            { expiresIn: "30d" }
-          );
-
-          return done(null, { user, token, isNewUser });
-        } catch (err) {
-          console.error("Error in GitHub strategy:", err);
-          return done(err, null);
         }
-      }
-    )
-  );
+      )
+    );
+  } else {
+    console.log("Google Signup OAuth not configured - skipping Google Signup strategy registration");
+  }
+
+  // GitHub Login + Signup (merged) - only if environment variables are set
+  if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET && process.env.GITHUB_LOGIN_CALLBACK_URL) {
+    passport.use(
+      "github",
+      new GitHubStrategy(
+        {
+          clientID: process.env.GITHUB_CLIENT_ID,
+          clientSecret: process.env.GITHUB_CLIENT_SECRET,
+          callbackURL: process.env.GITHUB_LOGIN_CALLBACK_URL,
+          scope: ["user:email"],
+        },
+        async (_, __, ___, profile, done) => {
+          try {
+            const emails = profile.emails || [];
+            const verifiedEmail = emails.find(e => e.verified && e.value)?.value;
+            const primaryEmail = emails.find(e => e.primary && e.value)?.value;
+            const anyEmail = emails.find(e => e.value)?.value;
+
+            const email = verifiedEmail || primaryEmail || anyEmail;
+
+            if (!email) {
+              return done(null, false, {
+                message: "No email found. Please make your GitHub email public or verify it.",
+              });
+            }
+
+            let user = await User.findOne({ email });
+            let isNewUser = false;
+
+            if (!user) {
+              // Create new user if not found
+              isNewUser = true;
+              let username = profile.username || `user_${Date.now()}`;
+              const usernameExists = await User.findOne({ username });
+              if (usernameExists) {
+                username = `${username}_${profile.id.substring(0, 5)}`;
+              }
+
+              user = await User.create({
+                githubId: profile.id,
+                username,
+                email,
+                avatar: profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`,
+                isOAuth: true,
+              });
+            } else if (!user.githubId) {
+              // Link GitHub ID if existing user but no GitHub linked
+              user.githubId = profile.id;
+              user.isOAuth = true;
+              user.avatar = profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`;
+              await user.save();
+            }
+
+            const token = jwt.sign(
+              { id: user._id, email: user.email },
+              process.env.JWT_SECRET,
+              { expiresIn: "30d" }
+            );
+
+            return done(null, { user, token, isNewUser });
+          } catch (err) {
+            console.error("Error in GitHub strategy:", err);
+            return done(err, null);
+          }
+        }
+      )
+    );
+  } else {
+    console.log("GitHub OAuth not configured - skipping GitHub strategy registration");
+  }
 
   passport.serializeUser((data, done) => done(null, data));
   passport.deserializeUser((data, done) => done(null, data));

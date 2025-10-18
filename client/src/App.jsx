@@ -54,7 +54,7 @@ const PythonFundamentals = lazy(() =>
   import("./pages/Notes/PythonFundamentals/PythonFundamentals.jsx")
 );
 const NodeJSFundamentals = lazy(() =>
-  import("./pages/Notes/NodeJsFundamentals/NodeJsFundamentals.jsx")
+  import("./pages/Notes/NodeJSFundamentals/NodeJSFundamentals.jsx")
 );
 
 // Admin layout

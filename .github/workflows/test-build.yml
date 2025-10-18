@@ -1,0 +1,52 @@
+name: Test Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: client/package-lock.json
+        
+    - name: Install client dependencies
+      working-directory: ./client
+      run: npm ci
+      
+    - name: Build client
+      working-directory: ./client
+      env:
+        VITE_SERVER_API: http://localhost:5050   
+        VITE_YOUTUBE_API: dummy
+        VITE_GITHUB_TOKEN: dummy
+        VITE_RAPIDAPI_KEY: dummy
+      run: npm run build
+      
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+        
+    - name: Install server dependencies
+      working-directory: ./server
+      run: npm ci
+      
+    - name: Check server syntax
+      working-directory: ./server
+      run: node --check server.js
