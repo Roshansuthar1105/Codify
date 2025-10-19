@@ -28,6 +28,7 @@ function AdminUsers() {
       const data = await response.json();
       if (response.ok) {
         setUsers(data);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -239,6 +240,44 @@ function AdminUsers() {
           ))}
         </div>
         
+        {/* Sorting Controls */}
+        {users.length > 0 && (
+          <div className={`my-8 p-4 rounded-xl ${isDark
+            ? 'bg-gradient-to-br from-dark-bg-tertiary to-dark-bg-primary hover:from-primary/20 hover:to-primary/10'
+            : 'bg-gradient-to-br from-light-bg-tertiary to-light-bg-primary hover:from-primary/20 hover:to-primary/10'} ${
+            isDark 
+              ? 'bg-dark-bg-secondary border border-dark-border' 
+              : 'bg-light-bg-secondary border border-light-border'
+          }`}>
+            <div className="flex flex-wrap items-center gap-4">
+              <span className={`text-sm font-medium `}>
+                Sort by:
+              </span>
+              
+              {[
+                { key: 'username', label: 'Name', icon: FaUser },
+                { key: 'email', label: 'Email', icon: MdEmail },
+                { key: 'createdAt', label: 'Date', icon: MdSchedule }
+              ].map((sortOption) => (
+                <button
+                  key={sortOption.key}
+                  onClick={() => requestSort(sortOption.key)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    sortConfig?.key === sortOption.key
+                      ? 'bg-primary text-white shadow-md'
+                      : isDark
+                        ? 'bg-dark-bg-tertiary text-dark-text-primary hover:bg-dark-bg-primary'
+                        : 'bg-light-bg-tertiary text-light-text-primary hover:bg-light-bg-primary'
+                  }`}
+                >
+                  <sortOption.icon className="text-sm" />
+                  {sortOption.label}
+                  {sortConfig?.key === sortOption.key && getSortIcon(sortOption.key)}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         {/* User Cards */}
         <div className="space-y-6">
           {sortedUsers.length === 0 ? (
@@ -387,43 +426,6 @@ function AdminUsers() {
             </div>
           )}
         </div>
-
-        {/* Sorting Controls */}
-        {users.length > 0 && (
-          <div className={`mt-8 p-4 rounded-xl ${
-            isDark 
-              ? 'bg-dark-bg-secondary border border-dark-border' 
-              : 'bg-light-bg-secondary border border-light-border'
-          }`}>
-            <div className="flex flex-wrap items-center gap-4">
-              <span className={`text-sm font-medium ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
-                Sort by:
-              </span>
-              
-              {[
-                { key: 'username', label: 'Name', icon: FaUser },
-                { key: 'email', label: 'Email', icon: MdEmail },
-                { key: 'createdAt', label: 'Date', icon: MdSchedule }
-              ].map((sortOption) => (
-                <button
-                  key={sortOption.key}
-                  onClick={() => requestSort(sortOption.key)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    sortConfig?.key === sortOption.key
-                      ? 'bg-primary text-white shadow-md'
-                      : isDark
-                        ? 'bg-dark-bg-tertiary text-dark-text-primary hover:bg-dark-bg-primary'
-                        : 'bg-light-bg-tertiary text-light-text-primary hover:bg-light-bg-primary'
-                  }`}
-                >
-                  <sortOption.icon className="text-sm" />
-                  {sortOption.label}
-                  {sortConfig?.key === sortOption.key && getSortIcon(sortOption.key)}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

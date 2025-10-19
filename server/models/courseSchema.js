@@ -4,6 +4,7 @@ const courseSchema = mongoose.Schema({
   course_category: {
     type: String,
     required: true,
+    lowercase: true, //to avoid case sensitivity issues while filter search, saving all categories in lowercase
   },
   course_title: {
     type: String,

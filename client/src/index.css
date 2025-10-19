@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Luckiest+Guy&family=Righteous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Playwrite+IS:wght@100..400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Luckiest+Guy&family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Playwrite+IS:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-
   --color-primary: #c8bfff;
   --color-primary-light: #d6cfff;
   --color-primary-dark: #b8adff;
@@ -24,16 +23,20 @@ body {
   cursor: url("/cursor.svg") 4 4, auto;
 }
 
-a, button {
+a,
+button,
+.button-cursor {
   cursor: url("/cursor-button.svg") 6 2, pointer;
 }
 
-input, textarea {
+input,
+textarea {
   cursor: url("/cursor-input.svg") 2 12, text;
 }
 
 .dark a,
-.dark button {
+.dark button,
+.dark .button-cursor {
   cursor: url("/cursor-white.svg") 6 2, pointer;
 }
 
@@ -45,41 +48,38 @@ html {
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
+/* Light mode scrollbar */
 ::-webkit-scrollbar-track {
-  background-color: #e5e5e5;
-}
-
-.dark ::-webkit-scrollbar-track {
-  background-color: #181818;
+  background-color: #f1f1f1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(200, 191, 255, 0.5);
-  border-radius: 9999px;
+  background-color: #a0a0a0;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #c8bfff;
+  background-color: #808080;
 }
 
-/* Custom scrollbar for playlist */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background-color: #2d2d2d;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background-color: transparent;
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #555;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(200, 191, 255, 0.3);
-  border-radius: 9999px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(200, 191, 255, 0.7);
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #707070;
 }
 
 /* Enhanced animations for home page */
@@ -145,7 +145,12 @@ html {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,7 +202,12 @@ html {
 
 /* Enhanced gradients */
 .gradient-border {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent)
+  );
   padding: 2px;
   border-radius: inherit;
 }
@@ -209,27 +219,9 @@ html {
 
 /* Smooth transitions for all elements */
 * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-/* Custom scrollbar for the entire page */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  border-radius: 6px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
 }

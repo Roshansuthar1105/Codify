@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { useTheme } from '../../context/ThemeContext';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,23 +43,13 @@ export default function CodifyLearningComponent() {
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      className={`py-16 sm:py-20 px-4 ${isDark ? 'bg-dark-bg-primary' : 'bg-light-bg-primary'}`} 
-      data-aos="fade-right"
-    >
+    <>
       <div
         className={`
-          max-w-5xl mx-auto rounded-2xl p-6 sm:p-10 md:p-12 border shadow-xl relative overflow-hidden 
-          ${isDark ? 'bg-dark-bg-secondary border-dark-border' : 'bg-light-bg-secondary border-light-border'}
+          max-w-5xl mx-auto rounded-2xl p-6 sm:p-10 md:p-12 border shadow-lg relative overflow-hidden 
+          ${isDark ? 'bg-gradient-to-br from-gray-800 to-secondary-1000 border-dark-border' : 'bg-gradient-to-br from-blue-50 to-indigo-50 border-light-border'}
         `}
       >
-        {/* Background pattern */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-40 sm:w-64 h-40 sm:h-64 rounded-full bg-primary"></div>
-          <div className="absolute -bottom-24 -left-24 w-40 sm:w-64 h-40 sm:h-64 rounded-full bg-primary"></div>
-        </div>
-
         <div className="relative z-10">
           {/* Header Section */}
           <div className="text-center mb-8">
@@ -67,7 +58,7 @@ export default function CodifyLearningComponent() {
                 <Code className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
               <h1 
-                className={`text-2xl sm:text-3xl md:text-4xl font-bold 
+                className={`text-2xl sm:text-3xl md:text-4xl font-righteous tracking-wider 
                   ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
               >
                 <span className="text-primary">Codify</span>Learning Platform
@@ -83,11 +74,13 @@ export default function CodifyLearningComponent() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button
+            <motion.button
               onClick={handleViewRepo}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
               className={`
-                flex items-center justify-center px-5 py-3 text-sm sm:text-base rounded-lg font-medium 
-                transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl border
+                flex items-center justify-center px-5 py-3 text-sm sm:text-base rounded-xl font-semibold 
+                transition-all duration-300 shadow-lg hover:shadow-xl border
                 ${isDark
                   ? 'bg-dark-bg-tertiary text-dark-text-primary border-dark-border hover:bg-dark-bg-tertiary/80'
                   : 'bg-light-bg-tertiary text-light-text-primary border-light-border hover:bg-light-bg-tertiary/80'}
@@ -95,22 +88,24 @@ export default function CodifyLearningComponent() {
             >
               <Github className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               View Repository
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               onClick={handleGithubGuide}
-              className="flex items-center justify-center px-5 py-3 text-sm sm:text-base bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center justify-center px-5 py-3 text-sm sm:text-base bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               GitHub Guide
-            </button>
+            </motion.button>
           </div>
 
           {/* Motivation Toggle */}
           <div className="text-center mb-6">
             <button
               onClick={() => setShowMotivation(!showMotivation)}
-              className="text-primary hover:text-primary-dark font-medium transition-colors duration-200 flex items-center mx-auto text-sm sm:text-base"
+              className="text-primary hover:text-primary-dark font-semibold transition-colors duration-200 flex items-center mx-auto text-sm sm:text-base"
             >
               <Heart className="h-4 w-4 mr-2" />
               {showMotivation ? 'Hide' : 'Show'} Contributor Motivation
@@ -120,7 +115,7 @@ export default function CodifyLearningComponent() {
           {/* Motivational Content */}
           {showMotivation && (
             <div 
-              className={`rounded-lg p-4 sm:p-6 shadow-inner border-l-4 border-primary 
+              className={`rounded-2xl p-4 sm:p-6 shadow-inner border-l-4 border-primary 
               transition-all duration-300 
               ${isDark ? 'bg-dark-bg-tertiary' : 'bg-light-bg-tertiary'}`}
             >
@@ -171,7 +166,7 @@ export default function CodifyLearningComponent() {
                 </div>
 
                 <p 
-                  className={`leading-relaxed font-medium text-sm sm:text-base 
+                  className={`leading-relaxed font-semibold text-sm sm:text-base 
                     ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
                 >
                   Remember: You don’t need to be perfect to contribute. Whether it’s fixing a typo,
@@ -180,14 +175,14 @@ export default function CodifyLearningComponent() {
                 </p>
 
                 <div 
-                  className={`flex items-center justify-center mt-6 p-4 rounded-lg 
+                  className={`flex items-center justify-center mt-6 p-4 rounded-2xl 
                   ${isDark ? 'bg-primary/10' : 'bg-primary/10'}`}
                 >
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/20 flex items-center justify-center mr-3">
                     <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                   </div>
                   <span 
-                    className={`font-medium text-sm sm:text-base 
+                    className={`font-semibold text-sm sm:text-base 
                       ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}
                   >
                     Join thousands of contributors making learning accessible to everyone!
@@ -208,6 +203,6 @@ export default function CodifyLearningComponent() {
           </div>
         </div>
       </div>
-    </section>
+      </>
   );
 }

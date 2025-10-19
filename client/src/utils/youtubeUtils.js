@@ -299,7 +299,7 @@ const mockPlaylistData = (playlistId) => {
 export const getYouTubeApiKey = () => {
   // In a real production app, this would come from environment variables
   // For now, we'll return null to use mock data
-  return process.env.REACT_APP_YOUTUBE_API_KEY || null;
+  return process.env.VITE_YOUTUBE_API || null;
 };
 
 /**
@@ -332,16 +332,16 @@ export const fetchChannelData = async (channelId, apiKey = null) => {
     }
 
     const data = await response.json();
-    
+
     if (data.items && data.items.length > 0) {
       const channel = data.items[0];
       return {
         id: channel.id,
         title: channel.snippet.title,
         description: channel.snippet.description,
-        profileImage: channel.snippet.thumbnails?.default?.url || 
-                     channel.snippet.thumbnails?.medium?.url || 
-                     channel.snippet.thumbnails?.high?.url,
+        profileImage: channel.snippet.thumbnails?.default?.url ||
+          channel.snippet.thumbnails?.medium?.url ||
+          channel.snippet.thumbnails?.high?.url,
         subscriberCount: channel.statistics?.subscriberCount,
         videoCount: channel.statistics?.videoCount,
         viewCount: channel.statistics?.viewCount,
@@ -379,7 +379,7 @@ const mockChannelData = (channelId) => {
   };
 
   const channel = knownChannels[channelId];
-  
+
   if (channel) {
     return {
       id: channelId,

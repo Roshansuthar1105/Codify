@@ -1,13 +1,16 @@
-import { useTheme } from "../../context/ThemeContext";
-import { FaQuoteLeft, FaStar } from "react-icons/fa";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion"; // Import motion for framer-motion animations
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
+import { FaQuoteLeft, FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import { useTheme } from "../../context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Testimonials = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const isDark = theme === "dark";
   const scrollRef = useRef(null);
   const sectionRef = useRef(null);
@@ -78,10 +81,9 @@ const Testimonials = () => {
     },
   ];
 
-  // ✅ Animate entire section fade-up
+  // Animate entire section fade-up
   useEffect(() => {
     if (!sectionRef.current) return;
-
     gsap.fromTo(
       sectionRef.current,
       { y: 80, opacity: 0 },
@@ -102,12 +104,10 @@ const Testimonials = () => {
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
-
     const content = scrollContainer.firstElementChild;
     const scrollSpeed = 0.5;
     let animationFrameId;
     let scrollPosition = 0;
-
     const scroll = () => {
       scrollPosition += scrollSpeed;
       if (scrollPosition >= content.offsetWidth) {
@@ -116,17 +116,13 @@ const Testimonials = () => {
       scrollContainer.scrollLeft = scrollPosition;
       animationFrameId = requestAnimationFrame(scroll);
     };
-
     animationFrameId = requestAnimationFrame(scroll);
-
     const handleMouseEnter = () => cancelAnimationFrame(animationFrameId);
     const handleMouseLeave = () => {
       animationFrameId = requestAnimationFrame(scroll);
     };
-
     scrollContainer.addEventListener("mouseenter", handleMouseEnter);
     scrollContainer.addEventListener("mouseleave", handleMouseLeave);
-
     return () => {
       cancelAnimationFrame(animationFrameId);
       scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
@@ -134,25 +130,21 @@ const Testimonials = () => {
     };
   }, []);
 
-  const TestimonialCard = ({ testimonial, isDuplicate = false }) => (
-    <div
+  const TestimonialCard = ({ testimonial }) => (
+    <motion.div
       className={`
         flex-shrink-0 w-[280px] sm:w-[350px] md:w-[400px] 
         h-[380px] sm:h-[420px] md:h-[450px] 
         group relative p-6 sm:p-8 rounded-2xl
         ${
           isDark
-            ? "bg-dark-bg-secondary border-dark-border"
-            : "bg-light-bg-secondary border-light-border"
+            ? "bg-gradient-to-br from-gray-800 to-secondary-1000 border border-dark-border"
+            : "bg-gradient-to-br from-blue-50 to-indigo-50 border border-light-border"
         }
-        border shadow-lg transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl
+        shadow-lg transition-all duration-300 hover:border-b-2 hover:border-r-2 hover:border-primary/50
         flex flex-col justify-between
-        ${
-          isDark
-            ? "hover:bg-gradient-to-br hover:from-primary/5 hover:to-secondary/5"
-            : "hover:bg-gradient-to-br hover:from-primary/5 hover:to-secondary/5"
-        }
       `}
+      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
     >
       {/* Background Pattern */}
       <div className="absolute top-0 right-0 w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 opacity-5 group-hover:opacity-20 transition-opacity duration-500">
@@ -230,14 +222,7 @@ const Testimonials = () => {
           </p>
         </div>
       </div>
-
-      {/* Success Badge */}
-      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-green-400 to-green-600 text-white text-[10px] sm:text-xs rounded-full font-medium">
-          Success Story
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 
   return (
@@ -245,7 +230,7 @@ const Testimonials = () => {
       ref={sectionRef}
       className="py-12 sm:py-20 md:py-24 px-4 relative overflow-hidden"
     >
-      {/* Background decoration */}
+      {/* Background decoration - Using a simplified set to avoid nesting issues */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 rounded-full bg-gradient-to-br from-primary/5 to-secondary/5 blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 rounded-full bg-gradient-to-br from-secondary/5 to-accent/5 blur-3xl"></div>
@@ -255,7 +240,7 @@ const Testimonials = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h2
-            className={`text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 ${
+            className={`text-2xl sm:text-4xl md:text-5xl font-righteous tracking-wider mb-4 sm:mb-6 ${
               isDark ? "text-dark-text-primary" : "text-light-text-primary"
             }`}
           >
@@ -280,11 +265,11 @@ const Testimonials = () => {
             {testimonials.map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
+            {/* Create a duplicate set for infinite scroll effect */}
             {testimonials.map((testimonial, index) => (
               <TestimonialCard
                 key={`duplicate-${index}`}
                 testimonial={testimonial}
-                isDuplicate={true}
               />
             ))}
           </div>
@@ -299,9 +284,15 @@ const Testimonials = () => {
           >
             Ready to join our success stories?
           </p>
-          <button className="bg-gradient-to-r from-primary to-secondary text-white py-2 sm:py-3 px-6 sm:px-8 rounded-xl font-semibold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base">
+          <motion.button
+            onClick={() => navigate("/courses")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate("/roadmap")}
+            className="bg-gradient-to-r from-primary to-secondary text-white py-2 sm:py-3 px-6 sm:px-8 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
+          >
             Start Your Journey
-          </button>
+          </motion.button>
         </div>
       </div>
     </section>

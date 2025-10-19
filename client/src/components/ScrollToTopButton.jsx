@@ -61,7 +61,7 @@ function ScrollToTopButton() {
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed z-50 right-5 bottom-[75px] rounded-full bg-primary text-white 
+      className={`fixed z-50 right-5 bottom-5 rounded-full bg-primary-300 border-2 border-primary text-white 
         shadow-card hover:shadow-card-hover transition-all duration-300 
         focus:outline-none focus:ring-2 focus:ring-primary-300 
         dark:focus:ring-primary-700

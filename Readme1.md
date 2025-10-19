@@ -4,11 +4,12 @@
   <img src="https://github.com/user-attachments/assets/18bb2c91-12e4-45e7-b1e6-2cbee943975c" alt="Codify Banner" width="800"/>
   <p><em>Master coding with interactive courses, personalized learning paths, and expert-curated roadmaps</em></p>
 
-  [![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-id/deploy-status)](https://codifylearn.netlify.app)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![React](https://img.shields.io/badge/React-18.x-blue)](https://reactjs.org/)
-  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC)](https://tailwindcss.com/)
-  [![Node.js](https://img.shields.io/badge/Node.js-18.x-green)](https://nodejs.org/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-id/deploy-status)](https://codifylearn.netlify.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18.x-blue)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC)](https://tailwindcss.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.x-green)](https://nodejs.org/)
+
 </div>
 
 ## 📋 Table of Contents
@@ -36,6 +37,7 @@ Our mission is to make coding education accessible, engaging, and effective for 
 ## ✨ Key Features
 
 ### For Learners
+
 - **Interactive Courses**: Engage with dynamic coding lessons and tutorials
 - **Personalized Dashboard**: Track your progress, continue watching, and manage saved courses
 - **Course Roadmaps**: Follow structured learning paths for different programming domains
@@ -44,6 +46,7 @@ Our mission is to make coding education accessible, engaging, and effective for 
 - **Responsive Design**: Seamless experience across all devices
 
 ### For Administrators
+
 - **Comprehensive Admin Panel**: Manage users, courses, and content
 - **Course Management**: Add, edit, and organize courses and learning materials
 - **User Management**: Monitor user activity and progress
@@ -52,6 +55,7 @@ Our mission is to make coding education accessible, engaging, and effective for 
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 18**: Component-based UI development
 - **TailwindCSS**: Utility-first CSS framework for styling
 - **React Router**: Client-side routing
@@ -60,6 +64,7 @@ Our mission is to make coding education accessible, engaging, and effective for 
 - **JWT Authentication**: Secure user authentication
 
 ### Backend
+
 - **Node.js**: JavaScript runtime
 - **Express**: Web application framework
 - **MongoDB**: NoSQL database for data storage
@@ -67,6 +72,7 @@ Our mission is to make coding education accessible, engaging, and effective for 
 - **JWT**: JSON Web Tokens for authentication
 
 ### DevOps & Tools
+
 - **Vite**: Next-generation frontend tooling
 - **ESLint**: Code quality and style checking
 - **Netlify**: Frontend deployment and hosting
@@ -97,6 +103,7 @@ Codify implements several performance optimization techniques:
 Experience Codify in action: [https://codifylearn.netlify.app](https://codifylearn.netlify.app)
 
 ### Demo Accounts
+
 - **Regular User**:
   - Email: demo@codify.com
   - Password: demo123
@@ -107,11 +114,13 @@ Experience Codify in action: [https://codifylearn.netlify.app](https://codifylea
 ## 📥 Installation
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 - MongoDB (local or cloud instance)
 
 ### Frontend Setup
+
 1. Clone the repository
    ```bash
    git clone https://github.com/Roshansuthar1105/Codify.git
@@ -140,6 +149,7 @@ Experience Codify in action: [https://codifylearn.netlify.app](https://codifylea
 6. Open your browser and navigate to `http://localhost:5173`
 
 ### Backend Setup
+
 1. Clone the backend repository
    ```bash
    git clone https://github.com/Roshansuthar1105/Codify.git
@@ -169,6 +179,7 @@ Experience Codify in action: [https://codifylearn.netlify.app](https://codifylea
    ```
 
 ### Python Setup (for PDF Generation Service)
+
 1. Navigate to the python directory
    ```bash
    cd codify/python
@@ -178,13 +189,15 @@ Experience Codify in action: [https://codifylearn.netlify.app](https://codifylea
    python -m venv venv
    ```
 3. Activate the virtual environment
+
    ```bash
    # On Linux/Mac
    source venv/bin/activate
-   
+
    # On Windows
    venv\Scripts\activate
    ```
+
 4. Install dependencies
    ```bash
    pip install -r requirements.txt
@@ -199,7 +212,8 @@ Experience Codify in action: [https://codifylearn.netlify.app](https://codifylea
    ```
 
 ## Note:
- You might need to run both the client and server simultaneously for fetching data in your local machine.
+
+You might need to run both the client and server simultaneously for fetching data in your local machine.
 
 ## 📁 Project Structure
 
@@ -230,11 +244,13 @@ server/
 ## 📚 API Documentation
 
 ### Authentication Endpoints
+
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login a user
 - `GET /api/auth/me` - Get current user information
 
 ### Course Endpoints
+
 - `GET /api/v1/courses` - Get all courses
 - `GET /api/v1/courses/:id` - Get a specific course
 - `POST /api/v1/courses` - Create a new course (admin only)
@@ -242,15 +258,18 @@ server/
 - `DELETE /api/v1/courses/:id` - Delete a course (admin only)
 
 ### User Progress Endpoints
+
 - `GET /api/progress` - Get user's progress for all courses
 - `GET /api/progress/:courseId` - Get user's progress for a specific course
 - `PUT /api/progress/:courseId` - Update user's progress for a course
 
 ### User Activity Endpoints
+
 - `GET /api/activity` - Get user's activity history
 - `POST /api/activity/add` - Add a new activity record
 
 ### Watchlist Endpoints
+
 - `GET /api/user/watchlist` - Get user's watchlist
 - `POST /api/user/addToWatchlist` - Add/remove a course to/from watchlist
 
@@ -271,19 +290,19 @@ We welcome contributions to Codify! Here's how you can help:
    ```bash
    git fetch upstream
    ```
-3. Create a feature branch
+4. Create a feature branch
    ```bash
    git checkout -b feature/amazing-feature
    ```
-4. Commit your changes
+5. Commit your changes
    ```bash
    git commit -m 'Add some amazing feature'
    ```
-5. Push to the branch
+6. Push to the branch
    ```bash
    git push origin feature/amazing-feature
    ```
-6. Open a Pull Request
+7. Open a Pull Request
 
 Please read our [Contributing Guidelines](CONTRIBUTING.md) for more details.
 

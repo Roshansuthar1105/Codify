@@ -1,7 +1,3 @@
-import React from 'react';
-// Make sure this path is correct for your project structure
-
-
 import UniversalCodePlayground from '../components/CodePlayground';
 const CodeEditor = () => {
   return (

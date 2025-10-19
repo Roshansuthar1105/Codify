@@ -8,10 +8,11 @@ const ytCache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({},{password:0});
+    const users = (await User.find({},{password:0}));
     if (!users || users.length === 0) {
       return res.status(404).json({ message: "no User found " });
     }
+    users.reverse();
     return res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -23,6 +24,7 @@ const getAllContacts = async (req, res) => {
     if (!contacts || contacts.length === 0) {
       return res.status(404).json({ message: "no feedback found" });
     }
+    contacts.reverse();
     return res.status(200).json(contacts);
   } catch (error) {
     next(error);
@@ -30,10 +32,12 @@ const getAllContacts = async (req, res) => {
 };
 const getAllCourses = async (req, res) => {
   try {
-    const courses = await CourseYt.find();
+    const courses = await Course.find();
+    // const courses = await CourseYt.find();
     if (!courses || courses.length === 0) {
       return res.status(404).json({ message: "no course found " });
     }
+    courses.reverse();
     return res.status(200).json(courses);
   } catch (error) {
     next(error);
@@ -42,7 +46,8 @@ const getAllCourses = async (req, res) => {
 const getOneCourse = async (req,res)=>{
   try {
     const id = req.params.id;
-    const course = await CourseYt.findOne({_id:id});
+    // const course = await CourseYt.findOne({_id:id});
+    const course = await Course.findOne({_id:id});
     return res.status(200).json(course);
   } catch (error) {
     next(error);
@@ -50,7 +55,8 @@ const getOneCourse = async (req,res)=>{
 }
 const addNewCourse = async (req,res)=>{
   try {
-    const newCourse = await CourseYt.create(req.body);
+    // const newCourse = await CourseYt.create(req.body);
+    const newCourse = await Course.create(req.body);
     return res.status(200).json({message:"Course added successfully"});
   } catch (error) {
     next(error);
@@ -64,11 +70,16 @@ const updateCourse = async (req,res)=>{
       return res.status(400).json({ message: "Request body is empty" });
     }
 
-    const updatedCourse = await CourseYt.findByIdAndUpdate(
+    const updatedCourse = await Course.findByIdAndUpdate(
       id,
       req.body,
       { new: true, runValidators: true }
     );
+    // const updatedCourse = await CourseYt.findByIdAndUpdate(
+    //   id,
+    //   req.body,
+    //   { new: true, runValidators: true }
+    // );
 
     if (!updatedCourse) {
       return res.status(404).json({ message: "Course not found" });
@@ -85,7 +96,8 @@ const updateCourse = async (req,res)=>{
 const deleteCourse = async (req,res)=>{
   try {
     const id = req.params.id;
-    const deletedCourse = await CourseYt.deleteOne({_id:id});
+    const deletedCourse = await Course.deleteOne({_id:id});
+    // const deletedCourse = await CourseYt.deleteOne({_id:id});
     return res.status(200).json(deletedCourse);
   } catch (error) {
     next(error);

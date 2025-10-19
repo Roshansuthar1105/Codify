@@ -15,7 +15,7 @@ const SearchBar = lazy(() => import("../components/SearchBar"));
 const CardBody = lazy(() => import("../components/CardBody"));
 
 const Courses = () => {
-  const { fetchCoursesData, coursesData, API } = useAuth();
+  const { fetchCoursesData, coursesData,setCoursesData, API } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -49,7 +49,6 @@ const Courses = () => {
   // Fetch user's watchlist
   const fetchWatchlist = async () => {
     try {
-      setIsLoading(true);
       const response = await fetch(`${API}/user/watchlist`, {
         method: "GET",
         headers: {
@@ -70,8 +69,6 @@ const Courses = () => {
       }
     } catch (error) {
       console.error("Error fetching watchlist:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -83,18 +80,26 @@ const Courses = () => {
     fetchWatchlist();
   }, []);
 
-  // Filtered courses
+  // Filtered courses  (Keeping category filter commented out for now for any rollbacks)
+  // const filteredCourses = useMemo(() => {
+  //   return coursesData.filter(
+  //     (course) =>
+  //       (selectedCategory
+  //         ? course.course_category === selectedCategory
+  //         : true) &&
+  //       (course.course_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //         course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //         course.creator_name.toLowerCase().includes(searchTerm.toLowerCase()))
+  //   );
+  // }, [coursesData, selectedCategory, searchTerm]);
   const filteredCourses = useMemo(() => {
-    return coursesData.filter(
-      (course) =>
-        (selectedCategory
-          ? course.course_category === selectedCategory
-          : true) &&
-        (course.course_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          course.creator_name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-  }, [coursesData, selectedCategory, searchTerm]);
+  return coursesData.filter(
+    (course) =>
+      course.course_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.creator_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+}, [coursesData, searchTerm]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
@@ -104,12 +109,26 @@ const Courses = () => {
     indexOfFirstCourse,
     indexOfLastCourse
   );
+  // Fetch courses by category from backend
+  const fetchCoursesByCategory = async (category) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${API}/api/v1/courses/${category}`);
+      const data = await response.json();
+      setCoursesData(data.data); // update coursesData with backend result
+    } catch (error) {
+      console.error("Error fetching courses by category:", error);
+    }
+    setIsLoading(false);
+  };
 
-  const handleCategorySelect = useCallback((category) => {
+  const handleCategorySelect = useCallback(async (category) => {
     setCurrentPage(1);
     if (category === "All") {
+      await fetchCoursesData(); //fetch all courses
       setSelectedCategory(null);
     } else {
+      await fetchCoursesByCategory(category); //fetch courses from backend
       setSelectedCategory(category);
     }
   }, []);
@@ -152,8 +171,8 @@ const Courses = () => {
   // Animation variants matching Roadmaps page
   const backgroundVariants = {
     hidden: { opacity: 0, scale: 1.05 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       transition: {
         duration: 1,
@@ -164,8 +183,8 @@ const Courses = () => {
 
   const headerVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
@@ -176,8 +195,8 @@ const Courses = () => {
 
   const searchVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
@@ -199,13 +218,13 @@ const Courses = () => {
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 30,
       scale: 0.95
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -224,17 +243,17 @@ const Courses = () => {
   };
 
   const buttonVariants = {
-    initial: { 
+    initial: {
       scale: 1
     },
-    hover: { 
+    hover: {
       scale: 1.05,
       transition: {
         duration: 0.2,
         ease: "easeInOut"
       }
     },
-    tap: { 
+    tap: {
       scale: 0.98,
       transition: {
         duration: 0.1
@@ -244,8 +263,8 @@ const Courses = () => {
 
   const noResultsVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
@@ -257,7 +276,7 @@ const Courses = () => {
   return (
     <div className={`relative min-h-screen-minus-nav overflow-hidden z-10 ${isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'}`}>
       {/* Enhanced Background with gradient overlay */}
-      <motion.div 
+      <motion.div
         variants={backgroundVariants}
         initial="hidden"
         animate="visible"
@@ -268,7 +287,7 @@ const Courses = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-12 md:py-16 lg:py-20">
         {/* Enhanced Header Section */}
-        <motion.div 
+        <motion.div
           variants={headerVariants}
           initial="hidden"
           animate="visible"
@@ -278,14 +297,14 @@ const Courses = () => {
             <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-righteous tracking-wider mb-4 ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
               {selectedCategory || "All Courses"}
             </h1>
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               className={`h-1 rounded-full bg-gradient-to-r ${isDark ? 'from-primary via-primary-dark to-primary' : 'from-primary via-primary-dark to-primary'}`}
             ></motion.div>
           </div>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6 }}
@@ -328,21 +347,20 @@ const Courses = () => {
                 initial="initial"
                 whileHover="hover"
                 whileTap="tap"
-                className={`px-4 py-2 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
-                  selectedCategory === null
+                className={`px-4 py-2 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${selectedCategory === null
                     ? 'bg-primary text-white shadow-lg'
                     : isDark
-                    ? 'text-dark-text-secondary hover:text-dark-text-primary hover:bg-dark-bg-primary'
-                    : 'text-light-text-secondary hover:text-light-text-primary hover:bg-light-bg-primary'
-                }`}
+                      ? 'text-dark-text-secondary hover:text-dark-text-primary hover:bg-dark-bg-primary'
+                      : 'text-light-text-secondary hover:text-light-text-primary hover:bg-light-bg-primary'
+                  }`}
                 onClick={() => handleCategorySelect("All")}
               >
                 All Courses
                 <span className={`ml-2 text-xs px-2 py-1 rounded-full ${selectedCategory === null
-                    ? 'bg-white/20'
-                    : isDark
-                      ? 'bg-dark-bg-primary text-dark-text-secondary'
-                      : 'bg-light-bg-primary text-light-text-secondary'
+                  ? 'bg-white/20'
+                  : isDark
+                    ? 'bg-dark-bg-primary text-dark-text-secondary'
+                    : 'bg-light-bg-primary text-light-text-secondary'
                   }`}>
                   {coursesData.length}
                 </span>
@@ -357,22 +375,25 @@ const Courses = () => {
                     initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    className={`px-4 py-2 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
-                      selectedCategory === category
-                        ? 'bg-primary text-white shadow-lg'
+                    className={`px-4 py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-300
+                      ${selectedCategory === category
+                        ? "bg-primary text-white shadow-md"
                         : isDark
-                        ? 'text-dark-text-secondary hover:text-dark-text-primary hover:bg-dark-bg-primary'
-                        : 'text-light-text-secondary hover:text-light-text-primary hover:bg-light-bg-primary'
-                    }`}
+                          ? "bg-dark-bg-secondary/40 text-dark-text-secondary border border-dark-border hover:bg-dark-bg-secondary/70 hover:text-dark-text-primary"
+                          : "bg-light-bg-secondary/40 text-light-text-secondary border border-light-border hover:bg-light-bg-secondary/70 hover:text-light-text-primary"
+                      }`}
                     onClick={() => handleCategorySelect(category)}
                   >
                     {category}
-                    <span className={`ml-2 text-xs px-2 py-1 rounded-full ${selectedCategory === category
-                        ? 'bg-white/20'
-                        : isDark
-                          ? 'bg-dark-bg-primary text-dark-text-secondary'
-                          : 'bg-light-bg-primary text-light-text-secondary'
-                      }`}>
+                    <span
+                      className={`ml-2 text-xs px-2 py-0.5 rounded-full 
+                      ${selectedCategory === category
+                          ? "bg-white/20 text-white"
+                          : isDark
+                            ? "bg-dark-bg-primary/60 text-dark-text-secondary"
+                            : "bg-light-bg-primary/60 text-light-text-secondary"
+                        }`}
+                    >
                       {categoryCount}
                     </span>
                   </motion.button>
@@ -394,7 +415,7 @@ const Courses = () => {
         </motion.div>
 
         {/* Enhanced Courses Grid */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -404,7 +425,7 @@ const Courses = () => {
           {currentCourses.length > 0 ? (
             <div className="max-w-full flex flex-wrap justify-around gap-6">
               {currentCourses.map((course) => (
-                <motion.div 
+                <motion.div
                   key={course._id}
                   variants={cardVariants}
                   whileHover="hover"
@@ -438,7 +459,7 @@ const Courses = () => {
                 No Courses Found
               </h3>
               <p className={`text-lg mb-6 ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
-                {selectedCategory 
+                {selectedCategory
                   ? `We couldn't find any courses in the "${selectedCategory}" category${searchTerm ? ` matching "${searchTerm}"` : ''}.`
                   : `We couldn't find any courses matching "${searchTerm}".`
                 }
@@ -463,31 +484,52 @@ const Courses = () => {
 
         {/* Enhanced Pagination Controls */}
         {totalPages > 1 && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.8 }}
-            className="flex justify-center items-center gap-2"
-          >
-            <motion.button
-              variants={buttonVariants}
-              initial="initial"
-              whileHover="hover"
-              whileTap="tap"
-              className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
-                currentPage === 1 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-primary hover:bg-primary-dark shadow-lg'
-              }`}
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </motion.button>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 1.8 }}
+    className="flex justify-center items-center gap-2 mt-8 flex-wrap"
+  >
+    {(() => {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
-            {getPageNumbers().map((page, index) =>
+      useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 640);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
+      return (
+        <>
+          {/* Previous Button */}
+          <motion.button
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
+              currentPage === 1
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark shadow-lg"
+            }`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </motion.button>
+
+          {/* Pagination Numbers (only for large screens) */}
+          {!isMobile &&
+            getPageNumbers().map((page, index) =>
               page === "..." ? (
-                <span key={index} className={`px-3 py-2 font-bold ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
+                <span
+                  key={index}
+                  className={`px-3 py-2 font-bold ${
+                    isDark
+                      ? "text-dark-text-secondary"
+                      : "text-light-text-secondary"
+                  }`}
+                >
                   ...
                 </span>
               ) : (
@@ -509,40 +551,27 @@ const Courses = () => {
               )
             )}
 
-            <motion.button
-              variants={buttonVariants}
-              initial="initial"
-              whileHover="hover"
-              whileTap="tap"
-              className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
-                currentPage === totalPages 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-primary hover:bg-primary-dark shadow-lg'
-              }`}
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </motion.button>
-          </motion.div>
-        )}
-
-        {/* Call to Action Section */}
-        {currentCourses.length > 0 && (
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.0 }}
-            className={`mt-24 text-center p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${isDark ? 'border border-dark-border' : 'border border-light-border'} shadow-lg`}
+          {/* Next Button */}
+          <motion.button
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
+              currentPage === totalPages
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark shadow-lg"
+            }`}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
           >
-            <h3 className={`text-2xl sm:text-3xl md:text-4xl font-righteous tracking-wider mb-4 ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
-              Ready to Start Learning?
-            </h3>
-            <p className={`text-lg md:text-xl ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'} max-w-3xl mx-auto leading-relaxed`}>
-              Join thousands of learners who have advanced their careers with our expertly crafted courses.
-            </p>
-          </motion.section>
-        )}
+            Next
+          </motion.button>
+        </>
+      );
+    })()}
+  </motion.div>
+)}
       </div>
     </div>
   );

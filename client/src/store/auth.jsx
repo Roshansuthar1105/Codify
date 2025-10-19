@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }) => {
         coursesData,
         authorizationToken,
         fetchCoursesData,
+        setCoursesData,
         API
       }}
     >

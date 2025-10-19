@@ -42,26 +42,29 @@ function ContactUs() {
     e.preventDefault();
     try {
       setIsLoading(true);
+
       const response = await fetch(
-        `${API}/contact`,
+        `${API}/contact`, 
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(user),
-        }
-      );
-      const data = await response.json()
-      if (data.extraDetails) {
-        toast.error(data.extraDetails);
-      } else {
-        toast.success("Message sent successfully");
-        setUser({
-          ...user,
-          message: ""
-        })
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message || "Failed to send message");
+        return;
       }
+
+      toast.success("Message sent successfully");
+
+      setUser({
+        ...user,
+      });
     } catch (error) {
       console.log("message not sent: ", error);
       toast.error("Failed to send message. Please try again.");
@@ -69,6 +72,7 @@ function ContactUs() {
       setIsLoading(false);
     }
   };
+
 
   // Animation variants
   const backgroundVariants = {

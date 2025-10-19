@@ -837,7 +837,14 @@ return (
               : 'bg-gradient-to-br from-light-bg-secondary via-light-bg-tertiary to-light-bg-secondary border-light-border'
           }`}
         >
-          <div className="px-6 py-8 sm:px-10 sm:py-12 md:px-14 md:py-14">
+          <div
+          className={`relative p-6 lg:p-8 rounded-2xl shadow-lg bg-gradient-to-br backdrop-blur-xl transition-all duration-300 hover:shadow-2xl overflow-hidden ${
+            isDark 
+              ? 'from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000' 
+              : 'from-blue-50 to-indigo-50 border border-light-border'
+          }`} 
+          // className="px-6 py-8 sm:px-10 sm:py-12 md:px-14 md:py-14"
+          >
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
               {/* Left - Message */}
               <div className="md:col-span-2 text-center md:text-left">

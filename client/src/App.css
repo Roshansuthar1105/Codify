@@ -8,6 +8,11 @@
   font-family: "Playwrite IS", cursive;
   font-family: "Playwrite GB S", cursive;
 }
+.text-center:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
 * {
   padding: 0;
@@ -419,9 +424,6 @@ span.doated{
   background-color: var(--bg_buttons);
 }
 .admin-cont > .right::-webkit-scrollbar {
-  display: none;
-}
-::-webkit-scrollbar{
   display: none;
 }
 .admin-cont .right {

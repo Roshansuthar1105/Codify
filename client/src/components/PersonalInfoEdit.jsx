@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../store/auth';
 import { useTheme } from '../context/ThemeContext';
@@ -13,6 +13,7 @@ const PersonalInfoEdit = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -42,6 +43,29 @@ const PersonalInfoEdit = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleImageSelect = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select a valid image file');
+      return;
+    }
+    try {
+      const toBase64 = (f) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(f);
+      });
+      const dataUrl = await toBase64(file);
+      setFormData(prev => ({ ...prev, profileImage: dataUrl }));
+      toast.success('Image ready to upload');
+    } catch (err) {
+      console.error('Image load error', err);
+      toast.error('Failed to read image');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -171,10 +195,18 @@ const PersonalInfoEdit = () => {
               </div>
               <button
                 type="button"
+                onClick={() => fileInputRef.current?.click()}
                 className="absolute -bottom-1 -right-1 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs hover:bg-primary-dark transition-colors"
               >
                 <FaCamera />
               </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageSelect}
+              />
             </div>
             <div>
               <p className={`text-sm font-medium ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>

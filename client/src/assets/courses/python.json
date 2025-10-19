@@ -1,0 +1,38 @@
+[
+     {
+        "course_category": "Python",
+        "course_image": "https://i.ytimg.com/vi/_uQrJ0TkZlc/hqdefault.jpg",
+        "course_title": "Python Tutorial - Python Full Course for Beginners",
+        "creator_image": "https://yt3.googleusercontent.com/HCv0fXFEEcD0HRyF0_qR1K7b7qO3KCzmIoyH1DEJYB94CIUFhIE5i2t2IDIPX97W1-DK4hegww=s160-c-k-c0x00ffffff-no-rj",
+        "creator_name": "Programming with Mosh",
+        "creator_youtube_link": "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
+        "description": "Python tutorial - Python full course for beginners - Go from Zero to Hero with Python"
+    },
+    {
+        "course_category": "Python",
+        "course_image": "https://i.ytimg.com/vi/rfscVS0vtbw/hqdefault.jpg",
+        "course_title": "Learn Python - Full Course for Beginners [Tutorial]",
+        "creator_image": "https://yt3.ggpht.com/ytc/AMLnZu-PjRc81p0qP-ZPWxv8aY4k-4gFRzGEYs3HWbIQ=s176-c-k-c0x00ffffff-no-rj",
+        "creator_name": "freeCodeCamp.org",
+        "creator_youtube_link": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+        "description": "This course will give you a full introduction into all of the core concepts in python."
+    },
+    {
+        "course_category": "Python",
+        "course_image": "https://i.ytimg.com/vi/XKHEtdqhLK8/hqdefault.jpg",
+        "course_title": "Python for Beginners",
+        "creator_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG_6aFC98nBX5ECyhzNZfMVEd2Uucm6hjB_Q&s",
+        "creator_name": "Bro Code",
+        "creator_youtube_link": "https://www.youtube.com/watch?v=XKHEtdqhLK8",
+        "description": "This Python tutorial for beginners shows how to get started with Python quickly."
+    },
+    {
+        "course_category": "Python",
+        "course_image": "https://i.ytimg.com/vi/t8pPdKYpowI/hqdefault.jpg",
+        "course_title": "Python for Beginners | Full Python Programming Course",
+        "creator_image": "https://yt3.googleusercontent.com/ZAuMKdMcyV3mhX857oCGWzQAQ4AqZhiDIO76MTC_DqckrujSNg5Mh2AQh6ngWYv7bzfu7TBoj24=s900-c-k-c0x00ffffff-no-rj",
+        "creator_name":"TechWorld with Nana",
+        "creator_youtube_link": "https://www.youtube.com/watch?v=t8pPdKYpowI",
+        "description": "Learn Python programming with this comprehensive course for beginners."
+    }
+]

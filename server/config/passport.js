@@ -1,7 +1,10 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import User from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function configurePassport() {
   // Google Login
@@ -88,6 +91,73 @@ export function configurePassport() {
 
           return done(null, { user, token });
         } catch (err) {
+          return done(err, null);
+        }
+      }
+    )
+  );
+
+  // GitHub Login + Signup (merged)
+  passport.use(
+    "github",
+    new GitHubStrategy(
+      {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_LOGIN_CALLBACK_URL,
+        scope: ["user:email"],
+      },
+      async (_, __, ___, profile, done) => {
+        try {
+          const emails = profile.emails || [];
+          const verifiedEmail = emails.find(e => e.verified && e.value)?.value;
+          const primaryEmail = emails.find(e => e.primary && e.value)?.value;
+          const anyEmail = emails.find(e => e.value)?.value;
+
+          const email = verifiedEmail || primaryEmail || anyEmail;
+
+          if (!email) {
+            return done(null, false, {
+              message: "No email found. Please make your GitHub email public or verify it.",
+            });
+          }
+
+          let user = await User.findOne({ email });
+          let isNewUser = false;
+
+          if (!user) {
+            // Create new user if not found
+            isNewUser = true;
+            let username = profile.username || `user_${Date.now()}`;
+            const usernameExists = await User.findOne({ username });
+            if (usernameExists) {
+              username = `${username}_${profile.id.substring(0, 5)}`;
+            }
+
+            user = await User.create({
+              githubId: profile.id,
+              username,
+              email,
+              avatar: profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`,
+              isOAuth: true,
+            });
+          } else if (!user.githubId) {
+            // Link GitHub ID if existing user but no GitHub linked
+            user.githubId = profile.id;
+            user.isOAuth = true;
+            user.avatar = profile.photos?.[0]?.value || `https://github.com/${profile.username}.png`;
+            await user.save();
+          }
+
+          const token = jwt.sign(
+            { id: user._id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "30d" }
+          );
+
+          return done(null, { user, token, isNewUser });
+        } catch (err) {
+          console.error("Error in GitHub strategy:", err);
           return done(err, null);
         }
       }

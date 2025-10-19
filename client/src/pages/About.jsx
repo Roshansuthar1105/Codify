@@ -22,6 +22,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function About() {
+  <style>{`
+        .text-center:hover {
+          background-color: white; /* CSS uses hyphen-case, not camelCase */
+        }
+      `}
+  </style>
   const { userdata } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -317,35 +323,39 @@ function About() {
 
         {/* Stats Section */}
         <div
-          className={`fade-section p-8 sm:p-10 rounded-2xl mb-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
-            isDark ? "border border-dark-border" : "border border-light-border"
-          } shadow-lg`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-primary text-3xl mb-3 flex justify-center">
-                  {stat.icon}
-                </div>
-                <h3
-                  className="stat-value text-3xl font-bold mb-1"
-                  data-target={stat.value}
-                >
-                  0
-                </h3>
-                <p
-                  className={`${
-                    isDark
-                      ? "text-dark-text-secondary"
-                      : "text-light-text-secondary"
-                  }`}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+  className={`fade-section p-8 sm:p-10 rounded-2xl mb-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
+    isDark ? "border border-dark-border" : "border border-light-border"
+  } shadow-lg`}
+>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    {stats.map((stat, index) => (
+      <div
+        key={index}
+        className="text-center rounded-lg p-6 transition transform hover:scale-105 hover:shadow-xl hover:bg-blue-100 dark:hover:bg-secondary-900 cursor-pointer"
+      >
+        <div className="text-primary text-3xl mb-3 flex justify-center">
+          {stat.icon}
         </div>
+        <h3
+          className="stat-value text-3xl font-bold mb-1"
+          data-target={stat.value}
+        >
+          0
+        </h3>
+        <p
+          className={`${
+            isDark
+              ? "text-dark-text-secondary"
+              : "text-light-text-secondary"
+          }`}
+        >
+          {stat.label}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
 
         {/* Tabs Section */}
         <div className="fade-section mb-20">
@@ -548,7 +558,7 @@ function About() {
                 </h3>
                 {/* added swiper class for slide animation on cards */}
                 <Swiper
-                  modules={[Navigation, Pagination,Autoplay]}
+                  modules={[Navigation, Pagination, Autoplay]}
                   spaceBetween={30}
                   slidesPerView={1}
                   navigation
@@ -558,23 +568,40 @@ function About() {
                     disableOnInteraction: false,
                   }}
                   loop={true}
-                  className="pb-10 mt-6 flex justify-center w-[700px]"
+                  className="pb-10 mt-6 flex justify-center lg:w-[700px]"
                 >
                   {teamMembers.map((member, index) => (
                     <SwiperSlide
                       key={index}
-                      
-                      style={{ display: "flex", justifyContent: "center" ,alignItems:"center" }}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
                       <div
-                        className={`group p-6 rounded-xl mt-6 mb-8 hover:border-b-2 hover:border-r-2 w-[350px] shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${isDark ? 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl' : 'bg-light-bg-secondary border border-light-border hover:border-primary/50'}  transition duration-300 hover:-translate-y-2 hover:scale-105`}
+                        className={`group p-6 rounded-xl mt-6 mb-8 hover:border-b-2 hover:border-r-2 w-[350px] shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${
+                          isDark
+                            ? "bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl"
+                            : "bg-light-bg-secondary border border-light-border hover:border-primary/50"
+                        }  transition duration-300 hover:-translate-y-2 hover:scale-105`}
                       >
                         <img
                           src={member.image}
                           alt={member.name}
-                          className={` flex items-center justify-center w-[7.5rem] h-[7.5rem] rounded-full p-4 mb-4  border-primary ${isDark ? 'bg-dark-bg-primary' : 'bg-light-bg-primary'}`}
+                          className={` flex items-center justify-center w-[7.5rem] h-[7.5rem] rounded-full p-4 mb-4  border-primary ${
+                            isDark
+                              ? "bg-dark-bg-primary"
+                              : "bg-light-bg-primary"
+                          }`}
                         />
-                        <h3 className={`text-lg sm:text-xl lg:text-2xl font-semibold mb-3 leading-tight ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'} transition-all duration-300 group-hover:text-primary`}>
+                        <h3
+                          className={`text-lg sm:text-xl lg:text-2xl font-semibold mb-3 leading-tight ${
+                            isDark
+                              ? "text-dark-text-primary"
+                              : "text-light-text-primary"
+                          } transition-all duration-300 group-hover:text-primary`}
+                        >
                           {member.name}
                         </h3>
                         <p className=" text-left text-sm font-medium mb-3">

@@ -159,7 +159,7 @@ function AdminLayout() {
   };
 
   return (
-    <div className={`relative min-h-screen-minus-nav overflow-hidden z-10 ${isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'}`}>
+    <div className={`relative min-h-screen overflow-hidden z-10 ${isDark ? 'bg-dark-bg-primary text-dark-text-primary' : 'bg-light-bg-primary text-light-text-primary'}`}>
       {/* Enhanced Background with gradient overlay */}
       <div className={`absolute top-0 left-0 w-full h-full -z-10 bg-[size:30px_30px] ${isDark ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`}>
         <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-dark-bg-primary/90 via-transparent to-dark-bg-primary/50' : 'bg-gradient-to-br from-light-bg-primary/90 via-transparent to-light-bg-primary/50'}`}></div>
@@ -169,14 +169,18 @@ function AdminLayout() {
       <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-primary/5 blur-3xl -z-5"></div>
       <div className="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-primary/5 blur-3xl -z-5"></div>
 
-      <div className="flex flex-col md:flex-row min-h-[calc(100vh-100px)]">
+      <div className="flex flex-col md:flex-row h-screen-minus-nav ">
         {/* Enhanced Sidebar */}
         <motion.div 
           variants={sidebarVariants}
           initial="hidden"
           animate="visible"
-          className={`w-full md:w-64 md:min-h-[calc(100vh-100px)] ${isDark ? 'bg-dark-bg-secondary' : 'bg-light-bg-secondary'} shadow-xl transition-all duration-300 backdrop-blur-xl border-r ${isDark ? 'border-dark-border' : 'border-light-border'}`}
-        >
+          className={`w-full md:w-64 md:max h-screen-minus-nav
+            ${isDark
+            ? 'bg-gradient-to-br from-dark-bg-tertiary to-dark-bg-primary hover:from-primary/20 hover:to-primary/10'
+            : 'bg-gradient-to-br from-light-bg-tertiary to-light-bg-primary hover:from-primary/20 hover:to-primary/10'} shadow-xl transition-all duration-300 backdrop-blur-xl border-r-2 ${isDark ? 'border-dark-border' : 'border-light-border'}
+            `}
+            >
           {/* Admin header */}
           <div className={`p-6 border-b ${isDark ? 'border-dark-border' : 'border-light-border'}`}>
             <motion.div
@@ -308,46 +312,6 @@ function AdminLayout() {
                 </div>
               </motion.div>
             ))}
-
-            {/* Enhanced Admin info card */}
-            <motion.div 
-              variants={cardVariants}
-              whileHover="hover"
-              className={`mt-8 p-4 rounded-xl ${isDark ? 'bg-gradient-to-br from-dark-bg-tertiary to-dark-bg-primary' : 'bg-gradient-to-br from-light-bg-tertiary to-light-bg-primary'} hidden md:block shadow-lg border ${isDark ? 'border-dark-border' : 'border-light-border'} relative overflow-hidden`}
-            >
-              {/* Animated border effects */}
-              <motion.div 
-                className="absolute top-0 right-0 w-0 h-full bg-primary rounded-r-xl"
-                whileHover={{ 
-                  width: "3px",
-                  transition: { duration: 0.3, ease: "easeOut" }
-                }}
-              />
-              <motion.div 
-                className="absolute bottom-0 left-0 w-full h-0 bg-primary rounded-b-xl"
-                whileHover={{ 
-                  height: "3px",
-                  transition: { duration: 0.3, ease: "easeOut", delay: 0.05 }
-                }}
-              />
-              
-              <div className="flex items-center gap-3 relative z-10">
-                <motion.div 
-                  variants={buttonVariants}
-                  initial="initial"
-                  whileHover="hover"
-                  className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-lg"
-                >
-                  {userdata.username ? userdata.username.charAt(0).toUpperCase() : 'A'}
-                </motion.div>
-                <div>
-                  <p className="font-semibold">{userdata.username || 'Admin User'}</p>
-                  <p className={`text-xs ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
-                    Administrator
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </motion.div>
 

@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaTrophy, FaStar, FaCode, FaUsers, FaGithub, FaSearch, FaBook, FaBookOpen } from "react-icons/fa";
+import {
+  FaTrophy,
+  FaStar,
+  FaCode,
+  FaUsers,
+  FaGithub,
+  FaSearch,
+  FaBook,
+  FaBookOpen,
+} from "react-icons/fa";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useTheme } from "../context/ThemeContext"; // Theme context
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 const GITHUB_REPO = "Roshansuthar1105/Codify";
 const token = import.meta.env.VITE_GITHUB_TOKEN;
@@ -29,8 +39,20 @@ const Badge = ({ count, label, color }) => (
 
 // Skeleton Loader Component
 const SkeletonLoader = ({ isDark }) => (
-  <div className={`${isDark ? "bg-dark-bg-primary border-dark-border" : "bg-white border-gray-100"} rounded-xl shadow-sm border overflow-hidden`}>
-    <div className={`hidden sm:grid grid-cols-12 gap-4 px-6 py-4 ${isDark ? "bg-dark-bg-secondary border-dark-border" : "bg-gray-50 border-gray-100"} border-b`}>
+  <div
+    className={`${
+      isDark
+        ? "bg-dark-bg-primary border-dark-border"
+        : "bg-white border-gray-100"
+    } rounded-xl shadow-sm border overflow-hidden`}
+  >
+    <div
+      className={`hidden sm:grid grid-cols-12 gap-4 px-6 py-4 ${
+        isDark
+          ? "bg-dark-bg-secondary border-dark-border"
+          : "bg-gray-50 border-gray-100"
+      } border-b`}
+    >
       <div className="col-span-1 text-sm font-medium text-gray-500 dark:text-gray-400">
         #
       </div>
@@ -94,8 +116,9 @@ export default function LeaderBoard() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const { theme } = useTheme();
-  const isDark = theme === 'dark';
-  const navigate = useNavigate()
+  const isDark = theme === "dark";
+  const navigate = useNavigate();
+  const { ref, inView } = useInView({ triggerOnce: false }); // trigger every time visible
 
   useEffect(() => {
     const fetchContributorsWithPoints = async () => {
@@ -117,7 +140,11 @@ export default function LeaderBoard() {
           );
           const prs = await res.json();
 
-          if (!Array.isArray(prs) || prs.length === 0 || (prs.length === 1 && prs[0].message)) {
+          if (
+            !Array.isArray(prs) ||
+            prs.length === 0 ||
+            (prs.length === 1 && prs[0].message)
+          ) {
             keepFetching = false;
             break;
           }
@@ -150,9 +177,20 @@ export default function LeaderBoard() {
           page += 1;
         }
 
-        setContributors(
-          Object.values(contributorsMap).sort((a, b) => b.points - a.points)
+        // Sort by points (or by PRs if that's your criteria)
+        const contributorsArray = Object.values(contributorsMap);
+        const sorted = contributorsArray.sort(
+          (a, b) => b.points - a.points
         );
+        // assign rank -> ranks will same on searching 
+        const rankedContributers = sorted.map(
+          (c, index) => ({
+            ...c ,
+            rank : index + 1, //store real rank
+          })
+        );
+
+        setContributors(rankedContributers);
       } catch (error) {
         console.error("Error fetching contributors:", error);
       } finally {
@@ -196,7 +234,10 @@ export default function LeaderBoard() {
   // Calculate which contributors to show on current page
   const indexOfLast = currentPage * PAGE_SIZE;
   const indexOfFirst = indexOfLast - PAGE_SIZE;
-  const currentContributors = filteredContributors.slice(indexOfFirst, indexOfLast);
+  const currentContributors = filteredContributors.slice(
+    indexOfFirst,
+    indexOfLast
+  );
 
   const totalPages = Math.ceil(filteredContributors.length / PAGE_SIZE);
 
@@ -210,7 +251,26 @@ export default function LeaderBoard() {
     : "bg-light-bg-tertiary border-light-border";
 
   return (
-    <div className={`${isDark ? "bg-dark-bg-primary" : "bg-gray-50"} min-h-screen py-6 sm:py-12 px-2 sm:px-4`}>
+    <div
+      className={`${
+        isDark ? "bg-dark-bg-primary" : "bg-gray-50"
+      } min-h-screen py-6 sm:py-12 px-2 sm:px-4 relative overflow-hidden z-10`}
+    >
+      {/* enhance background with grid pattern */}
+      <div
+        className={`absolute top-0 left-0 w-full h-full -z-10 bg-[size:30px_30px] ${
+          isDark ? "bg-grid-pattern-dark" : "bg-grid-pattern-light"
+        }`}
+      >
+        <div
+          className={`absolute inset-0 ${
+            isDark
+              ? "bg-gradient-to-br from-dark-bg-primary/90 via-transparent to-dark-bg-primary/50"
+              : "bg-gradient-to-br from-light-bg-primary/90 via-transparent to-light-bg-primary/50"
+          }`}
+        ></div>
+      </div>
+
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
@@ -220,15 +280,169 @@ export default function LeaderBoard() {
           transition={{ duration: 0.5 }}
         >
           <h1
+            ref={ref}
             className={`text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 text-primary-600`}
           >
-            GSSoC'25 Leaderboard
+            {/* GSSoC'25 Leaderboard */}
+            <span className="inline-block mr-2">
+              {"GSSoC'25 LeaderBoard ".split("").map((char, i) => (
+                <span
+                  key={`Welcome-${i}`}
+                  className={`inline-block opacity-0 ${
+                    inView ? "animate-fadeIn" : ""
+                  }
+                `}
+                  style={{
+                    animationDelay: `${i * 0.1}s`,
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </span>
           </h1>
-          <p className={`text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed ${isDark ? "text-dark-text-secondary" : "text-light-text-secondary"}`}>
+          <p
+            className={`text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed ${
+              isDark ? "text-dark-text-secondary" : "text-light-text-secondary"
+            }`}
+          >
             Celebrating the amazing contributions from GSSoC'25 participants.
             Join us in building something incredible together!
           </p>
         </motion.div>
+
+        {/* Stats Cards */}
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 px-2`}
+        >
+          <div
+            className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${
+              isDark ? "border-dark-border" : "border-light-border"
+            }`}
+          >
+            <div className="flex items-center">
+              <div
+                className={`p-2 sm:p-3 rounded-lg ${
+                  isDark
+                    ? "bg-blue-900/30 text-blue-400"
+                    : "bg-blue-100 text-blue-600"
+                } mr-3 sm:mr-4 flex-shrink-0`}
+              >
+                <FaUsers className="text-lg sm:text-2xl" />
+              </div>
+              <div className="min-w-0">
+                <p
+                  className={`text-xs sm:text-sm ${
+                    isDark
+                      ? "text-dark-text-secondary"
+                      : "text-light-text-secondary"
+                  }`}
+                >
+                  Contributors
+                </p>
+                <p
+                  className={`text-lg sm:text-2xl font-bold ${
+                    isDark
+                      ? "text-dark-text-primary"
+                      : "text-light-text-primary"
+                  }`}
+                >
+                  {loading ? "..." : stats.totalContributors}+
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${
+              isDark ? "border-dark-border" : "border-light-border"
+            }`}
+          >
+            <div className="flex items-center">
+              <div
+                className={`p-2 sm:p-3 rounded-lg ${
+                  isDark
+                    ? "bg-green-900/30 text-green-400"
+                    : "bg-green-100 text-green-600"
+                } mr-3 sm:mr-4 flex-shrink-0`}
+              >
+                <FaCode className="text-lg sm:text-2xl" />
+              </div>
+              <div className="min-w-0">
+                <p
+                  className={`text-xs sm:text-sm ${
+                    isDark
+                      ? "text-dark-text-secondary"
+                      : "text-light-text-secondary"
+                  }`}
+                >
+                  Pull Requests
+                </p>
+                <p
+                  className={`text-lg sm:text-2xl font-bold ${
+                    isDark
+                      ? "text-dark-text-primary"
+                      : "text-light-text-primary"
+                  }`}
+                >
+                  {loading ? "..." : stats.flooredTotalPRs}+
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${
+              isDark ? "border-dark-border" : "border-light-border"
+            } sm:col-span-2 md:col-span-1`}
+          >
+            <div className="flex items-center">
+              <div
+                className={`p-2 sm:p-3 rounded-lg ${
+                  isDark
+                    ? "bg-purple-900/30 text-purple-400"
+                    : "bg-purple-100 text-purple-600"
+                } mr-3 sm:mr-4 flex-shrink-0`}
+              >
+                <FaStar className="text-lg sm:text-2xl" />
+              </div>
+              <div className="min-w-0">
+                <p
+                  className={`text-xs sm:text-sm ${
+                    isDark
+                      ? "text-dark-text-secondary"
+                      : "text-light-text-secondary"
+                  }`}
+                >
+                  Total Points
+                </p>
+                <p
+                  className={`text-lg sm:text-2xl font-bold ${
+                    isDark
+                      ? "text-dark-text-primary"
+                      : "text-light-text-primary"
+                  }`}
+                >
+                  {loading ? "..." : stats.flooredTotalPoints}+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* contributer guid */}
+        <div
+          onClick={() => navigate("/contributorGuide")}
+          className={`flex items-center justify-center flex-col mb-8 sm:mb-12 px-2 py-10 rounded-xl shadow-sm border ${gradientBg} ${
+            isDark ? "border-dark-border" : "border-light-border"
+          }`}
+        >
+          <div>
+            <FaBookOpen className="h-8 w-8" />
+          </div>
+          <div className="text-2xl">Contributor Guide</div>
+        </div>
 
         {/* Search Bar */}
         <div className="flex justify-center mb-6 px-2">
@@ -241,7 +455,7 @@ export default function LeaderBoard() {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              className={`w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none transition-colors ${
+              className={`w-full pl-10 pr-6 py-4 rounded-lg border focus:outline-none transition-colors placeholder:text-lg ${
                 isDark
                   ? "bg-dark-bg-secondary border-dark-border text-dark-text-primary placeholder:text-dark-text-secondary"
                   : "bg-white border-light-border text-light-text-primary placeholder:text-light-text-secondary"
@@ -249,76 +463,30 @@ export default function LeaderBoard() {
             />
             <FaSearch
               className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
-                isDark ? "text-dark-text-secondary" : "text-light-text-secondary"
+                isDark
+                  ? "text-dark-text-secondary"
+                  : "text-light-text-secondary"
               }`}
             />
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 px-2`}>
-          <div className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${isDark ? "border-dark-border" : "border-light-border"}`}>
-            <div className="flex items-center">
-              <div className={`p-2 sm:p-3 rounded-lg ${isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-100 text-blue-600"} mr-3 sm:mr-4 flex-shrink-0`}>
-                <FaUsers className="text-lg sm:text-2xl" />
-              </div>
-              <div className="min-w-0">
-                <p className={`text-xs sm:text-sm ${isDark ? "text-dark-text-secondary" : "text-light-text-secondary"}`}>
-                  Contributors
-                </p>
-                <p className={`text-lg sm:text-2xl font-bold ${isDark ? "text-dark-text-primary" : "text-light-text-primary"}`}>
-                  {loading ? "..." : stats.totalContributors}+
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${isDark ? "border-dark-border" : "border-light-border"}`}>
-            <div className="flex items-center">
-              <div className={`p-2 sm:p-3 rounded-lg ${isDark ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-600"} mr-3 sm:mr-4 flex-shrink-0`}>
-                <FaCode className="text-lg sm:text-2xl" />
-              </div>
-              <div className="min-w-0">
-                <p className={`text-xs sm:text-sm ${isDark ? "text-dark-text-secondary" : "text-light-text-secondary"}`}>
-                  Pull Requests
-                </p>
-                <p className={`text-lg sm:text-2xl font-bold ${isDark ? "text-dark-text-primary" : "text-light-text-primary"}`}>
-                  {loading ? "..." : stats.flooredTotalPRs}+
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={`p-4 sm:p-6 rounded-xl shadow-sm border ${gradientBg} ${isDark ? "border-dark-border" : "border-light-border"} sm:col-span-2 md:col-span-1`}>
-            <div className="flex items-center">
-              <div className={`p-2 sm:p-3 rounded-lg ${isDark ? "bg-purple-900/30 text-purple-400" : "bg-purple-100 text-purple-600"} mr-3 sm:mr-4 flex-shrink-0`}>
-                <FaStar className="text-lg sm:text-2xl" />
-              </div>
-              <div className="min-w-0">
-                <p className={`text-xs sm:text-sm ${isDark ? "text-dark-text-secondary" : "text-light-text-secondary"}`}>
-                  Total Points
-                </p>
-                <p className={`text-lg sm:text-2xl font-bold ${isDark ? "text-dark-text-primary" : "text-light-text-primary"}`}>
-                  {loading ? "..." : stats.flooredTotalPoints}+
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div onClick={()=>navigate('/contributorGuide')} className={`flex items-center justify-center flex-col mb-8 sm:mb-12 px-2 py-10 rounded-xl shadow-sm border ${gradientBg} ${isDark ? "border-dark-border" : "border-light-border"}`}>
-          <div>
-            <FaBookOpen className="h-8 w-8" />
-          </div>
-          <div className="text-2xl">Contributor Guide</div>
-        </div>
-
         {loading ? (
           <SkeletonLoader isDark={isDark} />
         ) : (
-          <div className={`rounded-xl shadow-sm border overflow-hidden mx-2 sm:mx-0 ${gradientBg} ${isDark ? "border-dark-border" : "border-light-border"}`}>
+          <div
+            className={`rounded-xl shadow-sm border overflow-hidden mx-2 sm:mx-0 ${gradientBg} ${
+              isDark ? "border-dark-border" : "border-light-border"
+            }`}
+          >
             {/* Desktop Table Header - Hidden on mobile */}
-            <div className={`hidden sm:grid grid-cols-12 gap-4 px-6 py-4 ${isDark ? "bg-dark-bg-secondary border-dark-border" : "bg-gray-50 border-light-border"} border-b`}>
+            <div
+              className={`hidden sm:grid grid-cols-12 gap-4 px-6 py-4 ${
+                isDark
+                  ? "bg-dark-bg-secondary border-dark-border"
+                  : "bg-gray-50 border-light-border"
+              } border-b`}
+            >
               <div className="col-span-1 text-sm font-medium text-dark-text-secondary">
                 #
               </div>
@@ -343,7 +511,11 @@ export default function LeaderBoard() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.03 }}
-                    className={`group ${isDark ? "hover:bg-dark-bg-secondary" : "hover:bg-light-bg-secondary"} transition-colors`}
+                    className={`group ${
+                      isDark
+                        ? "hover:bg-dark-bg-secondary"
+                        : "hover:bg-light-bg-secondary"
+                    } transition-colors`}
                   >
                     {/* Mobile Layout */}
                     <div className="sm:hidden p-4">
@@ -351,31 +523,34 @@ export default function LeaderBoard() {
                         {/* Rank Badge */}
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 ${
-                            index === 0
+                            index === 0 && currentPage == 1
                               ? isDark
                                 ? "bg-yellow-900/30 text-yellow-400"
                                 : "bg-yellow-100 text-yellow-600"
-                              : index === 1
+                              : index === 1 && currentPage == 1
                               ? isDark
                                 ? "bg-gray-800 text-gray-300"
                                 : "bg-gray-100 text-gray-600"
-                              : index === 2
+                              : index === 2 && currentPage == 1
                               ? isDark
                                 ? "bg-amber-900/30 text-amber-400"
                                 : "bg-amber-100 text-amber-600"
                               : isDark
-                                ? "bg-dark-bg-tertiary text-dark-text-secondary"
-                                : "bg-light-bg-tertiary text-light-text-secondary"
+                              ? "bg-dark-bg-tertiary text-dark-text-secondary"
+                              : "bg-light-bg-tertiary text-light-text-secondary"
                           }`}
                         >
-                          {indexOfFirst + index + 1}
+                          {/* rendering the rank on search also */}
+                          {contributor.rank}
                         </div>
 
                         {/* Avatar */}
                         <img
                           src={contributor.avatar}
                           alt={contributor.username}
-                          className={`w-10 h-10 rounded-full border-2 ${isDark ? "border-dark-border" : "border-white"} shadow-sm flex-shrink-0`}
+                          className={`w-10 h-10 rounded-full border-2 ${
+                            isDark ? "border-dark-border" : "border-white"
+                          } shadow-sm flex-shrink-0`}
                         />
 
                         {/* User Info */}
@@ -386,7 +561,11 @@ export default function LeaderBoard() {
                                 href={contributor.profile}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`font-medium ${isDark ? "text-dark-text-primary hover:text-blue-400" : "text-light-text-primary hover:text-primary"} transition-colors text-sm truncate block`}
+                                className={`font-medium ${
+                                  isDark
+                                    ? "text-dark-text-primary hover:text-blue-400"
+                                    : "text-light-text-primary hover:text-primary"
+                                } transition-colors text-sm truncate block`}
                               >
                                 {contributor.username}
                               </a>
@@ -394,7 +573,11 @@ export default function LeaderBoard() {
                                 href={`https://github.com/${GITHUB_REPO}/pulls?q=is:pr+author:${contributor.username}+is:merged`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`text-xs ${isDark ? "text-dark-text-secondary hover:text-blue-400" : "text-light-text-secondary hover:text-primary"} transition-colors block`}
+                                className={`text-xs ${
+                                  isDark
+                                    ? "text-dark-text-secondary hover:text-blue-400"
+                                    : "text-light-text-secondary hover:text-primary"
+                                } transition-colors block`}
                               >
                                 View Contributions →
                               </a>
@@ -406,12 +589,20 @@ export default function LeaderBoard() {
                             <Badge
                               count={contributor.prs}
                               label={`PR${contributor.prs !== 1 ? "s" : ""}`}
-                              color={isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-100 text-blue-700"}
+                              color={
+                                isDark
+                                  ? "bg-blue-900/30 text-blue-400"
+                                  : "bg-blue-100 text-blue-700"
+                              }
                             />
                             <Badge
                               count={contributor.points}
                               label="Points"
-                              color={isDark ? "bg-purple-900/30 text-purple-400" : "bg-purple-100 text-purple-700"}
+                              color={
+                                isDark
+                                  ? "bg-purple-900/30 text-purple-400"
+                                  : "bg-purple-100 text-purple-700"
+                              }
                             />
                           </div>
                         </div>
@@ -423,25 +614,26 @@ export default function LeaderBoard() {
                       <div className="col-span-1">
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            index === 0
+                            index === 0 && currentPage == 1
                               ? isDark
                                 ? "bg-yellow-900/30 text-yellow-400"
                                 : "bg-yellow-100 text-yellow-600"
-                              : index === 1
+                              : index === 1 && currentPage == 1
                               ? isDark
                                 ? "bg-gray-800 text-gray-300"
                                 : "bg-gray-100 text-gray-600"
-                              : index === 2
+                              : index === 2 && currentPage == 1
                               ? isDark
                                 ? "bg-amber-900/30 text-amber-400"
                                 : "bg-amber-100 text-amber-600"
                               : isDark
-                                ? "bg-dark-bg-tertiary text-dark-text-secondary"
-                                : "bg-light-bg-tertiary text-light-text-secondary"
+                              ? "bg-dark-bg-tertiary text-dark-text-secondary"
+                              : "bg-light-bg-tertiary text-light-text-secondary"
                           }`}
                         >
                           <span className="font-medium">
-                            {indexOfFirst + index + 1}
+                            {/* rendering the rank on search also */}
+                            {contributor.rank}
                           </span>
                         </div>
                       </div>
@@ -451,14 +643,20 @@ export default function LeaderBoard() {
                           <img
                             src={contributor.avatar}
                             alt={contributor.username}
-                            className={`w-10 h-10 rounded-full border-2 ${isDark ? "border-dark-border" : "border-white"} shadow-sm`}
+                            className={`w-10 h-10 rounded-full border-2 ${
+                              isDark ? "border-dark-border" : "border-white"
+                            } shadow-sm`}
                           />
                           <div>
                             <a
                               href={contributor.profile}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`font-medium ${isDark ? "text-dark-text-primary hover:text-blue-400" : "text-light-text-primary hover:text-primary"} transition-colors`}
+                              className={`font-medium ${
+                                isDark
+                                  ? "text-dark-text-primary hover:text-blue-400"
+                                  : "text-light-text-primary hover:text-primary"
+                              } transition-colors`}
                             >
                               {contributor.username}
                             </a>
@@ -467,7 +665,11 @@ export default function LeaderBoard() {
                                 href={`https://github.com/${GITHUB_REPO}/pulls?q=is:pr+author:${contributor.username}+is:merged`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`text-xs ${isDark ? "text-dark-text-secondary hover:text-blue-400" : "text-light-text-secondary hover:text-primary"} transition-colors`}
+                                className={`text-xs ${
+                                  isDark
+                                    ? "text-dark-text-secondary hover:text-blue-400"
+                                    : "text-light-text-secondary hover:text-primary"
+                                } transition-colors`}
                               >
                                 View Contributions →
                               </a>
@@ -481,12 +683,20 @@ export default function LeaderBoard() {
                           <Badge
                             count={contributor.prs}
                             label={`PR${contributor.prs !== 1 ? "s" : ""}`}
-                            color={isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-100 text-blue-700"}
+                            color={
+                              isDark
+                                ? "bg-blue-900/30 text-blue-400"
+                                : "bg-blue-100 text-blue-700"
+                            }
                           />
                           <Badge
                             count={contributor.points}
                             label="Points"
-                            color={isDark ? "bg-purple-900/30 text-purple-400" : "bg-purple-100 text-purple-700"}
+                            color={
+                              isDark
+                                ? "bg-purple-900/30 text-purple-400"
+                                : "bg-purple-100 text-purple-700"
+                            }
                           />
                         </div>
                       </div>
@@ -497,7 +707,11 @@ export default function LeaderBoard() {
             </div>
 
             {/* Pagination Controls */}
-            <div className={`flex justify-center items-center gap-2 py-4 border-t ${isDark ? "border-dark-border" : "border-light-border"}`}>
+            <div
+              className={`flex justify-center items-center gap-2 py-4 border-t ${
+                isDark ? "border-dark-border" : "border-light-border"
+              }`}
+            >
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((p) => p - 1)}
@@ -507,7 +721,9 @@ export default function LeaderBoard() {
               </button>
               <div className="flex justify-center gap-2 mt-4">
                 {Array.from(
-                  { length: Math.ceil(filteredContributors.length / PAGE_SIZE) },
+                  {
+                    length: Math.ceil(filteredContributors.length / PAGE_SIZE),
+                  },
                   (_, i) => (
                     <button
                       key={i + 1}
@@ -536,7 +752,13 @@ export default function LeaderBoard() {
 
             {/* CTA Footer */}
             <div className={`px-4 sm:px-6 py-4 text-center border-t ${cardBg}`}>
-              <p className={`text-xs sm:text-sm ${isDark ? "text-dark-text-secondary" : "text-light-text-secondary"} mb-3`}>
+              <p
+                className={`text-xs sm:text-sm ${
+                  isDark
+                    ? "text-dark-text-secondary"
+                    : "text-light-text-secondary"
+                } mb-3`}
+              >
                 Want to see your name here? Join GSSoC'25 and start
                 contributing!
               </p>
@@ -544,7 +766,11 @@ export default function LeaderBoard() {
                 href="https://gssoc.girlscript.tech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center px-3 sm:px-4 py-2 ${isDark ? "bg-blue-500 hover:bg-blue-600" : "bg-primary hover:bg-primary-dark"} text-white text-xs sm:text-sm font-medium rounded-lg transition-colors`}
+                className={`inline-flex items-center px-3 sm:px-4 py-2 ${
+                  isDark
+                    ? "bg-blue-500 hover:bg-blue-600"
+                    : "bg-primary hover:bg-primary-dark"
+                } text-white text-xs sm:text-sm font-medium rounded-lg transition-colors`}
               >
                 <FaGithub className="mr-1.5 sm:mr-2" /> Join GSSoC'25
               </a>
