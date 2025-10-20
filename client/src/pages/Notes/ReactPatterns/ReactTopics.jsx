@@ -3,8 +3,13 @@ export const reactTopics = [
     category: "React Basics",
     topics: [
       "Introduction to React Patterns",
+
+      "What is React",
+      "Functional components",
+
       "What is react",
       "Functional Components",
+
       "State Colocation",
       "Controlled vs Uncontrolled Components",
       "Context API",

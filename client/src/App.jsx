@@ -57,6 +57,9 @@ const PythonFundamentals = lazy(() =>
 const NodeJSFundamentals = lazy(() =>
   import("./pages/Notes/NodeJsFundamentals/NodeJsFundamentals.jsx")
 );
+const TypeScriptEssentials = lazy(() =>
+  import("./pages/Notes/TypeScriptEssentials/TypeScriptEssentials.jsx")
+);
 
 // Admin layout
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
@@ -129,8 +132,7 @@ function App() {
                   <Route path="/ide" element={<CodeEditor />} />
                   <Route path="/playground" element={<CodeEditor />} />
 
-                  {/* Notes section */}
-                  <Route path="/notes/*" element={<NotesPage />} />
+                  {/* Notes section - Specific routes first */}
                   <Route
                     path="/notes/javascript/*"
                     element={<JavaScriptFundamentals />}
@@ -142,7 +144,9 @@ function App() {
                   <Route path="/notes/nodejs/*" element={<NodeJSFundamentals />} />
                   <Route path="/notes/git/*" element={<GitNotes />} />
                   <Route path="/notes/react/*" element={<ReactPattern />} />
+                  <Route path="/notes/typescript/*" element={<TypeScriptEssentials />} />
                   <Route path="/notes/:topic" element={<FallBackNotes />} />
+                  <Route path="/notes/*" element={<NotesPage />} />
 
                   {/* Misc pages */}
                   <Route path="/bookmarks" element={<Bookmarks />} />
