@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import ErrorBoundaryPattern from "./ReactNotes/ErrorBoundaryPattern";
 
 
 
@@ -80,13 +81,15 @@ const topicComponents = {
 
 
 
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
 
 
 
 
 
 
+  
+  "Error Boundary Pattern": <ErrorBoundaryPattern />,
   // add all other topics here
 };
 
