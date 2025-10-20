@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import SuspensePattern from "./ReactNotes/SuspensePattern";
 
 
 
@@ -80,13 +81,16 @@ const topicComponents = {
 
 
 
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
 
 
 
 
 
 
+  
+  
+  "Suspense Pattern": <SuspensePattern />  
   // add all other topics here
 };
 
