@@ -205,6 +205,7 @@ export default {
       },
     },
   },
+  
   plugins: [
     function({ addUtilities, theme }) {
       const animationDelayUtilities = Object.entries(theme('animationDelay')).map(([key, value]) => {
@@ -218,4 +219,6 @@ export default {
       addUtilities(animationDelayUtilities);
     },
   ],
+  
 }
+

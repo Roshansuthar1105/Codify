@@ -2,6 +2,7 @@
 .env
 info.txt
 
+leaderboard_create.py
 # Logs
 logs
 *.log

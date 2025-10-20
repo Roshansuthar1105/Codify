@@ -39,6 +39,7 @@ const QuestionDetail = lazy(() => import("./components/QuestionDetail.jsx"));
 const OAuthCallback = lazy(() => import("./pages/OAuthCallback"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const CodeEditor = lazy(() => import("./pages/CodeEditor"));
+const Flashcards = lazy(() => import("./pages/Flashcards"));
 
 // Notes sub-sections
 const JavaScriptFundamentals = lazy(() =>
@@ -54,7 +55,10 @@ const PythonFundamentals = lazy(() =>
   import("./pages/Notes/PythonFundamentals/PythonFundamentals.jsx")
 );
 const NodeJSFundamentals = lazy(() =>
-  import("./pages/Notes/NodeJsFundamentals/NodeJsFundamentals.jsx")
+  import("./pages/Notes/NodeJSFundamentals/NodeJSFundamentals.jsx")
+);
+const TypeScriptEssentials = lazy(() =>
+  import("./pages/Notes/TypeScriptEssentials/TypeScriptEssentials.jsx")
 );
 
 // Admin layout
@@ -120,6 +124,7 @@ function App() {
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/oauth/callback" element={<OAuthCallback />} />
                   <Route path="/terms" element={<Terms />} />
+                   <Route path="/flashcards" element={<Flashcards />} /> 
 
                   {/* Code editor aliases */}
                   <Route path="/code-editor" element={<CodeEditor />} />
@@ -127,8 +132,7 @@ function App() {
                   <Route path="/ide" element={<CodeEditor />} />
                   <Route path="/playground" element={<CodeEditor />} />
 
-                  {/* Notes section */}
-                  <Route path="/notes/*" element={<NotesPage />} />
+                  {/* Notes section - Specific routes first */}
                   <Route
                     path="/notes/javascript/*"
                     element={<JavaScriptFundamentals />}
@@ -140,7 +144,9 @@ function App() {
                   <Route path="/notes/nodejs/*" element={<NodeJSFundamentals />} />
                   <Route path="/notes/git/*" element={<GitNotes />} />
                   <Route path="/notes/react/*" element={<ReactPattern />} />
+                  <Route path="/notes/typescript/*" element={<TypeScriptEssentials />} />
                   <Route path="/notes/:topic" element={<FallBackNotes />} />
+                  <Route path="/notes/*" element={<NotesPage />} />
 
                   {/* Misc pages */}
                   <Route path="/bookmarks" element={<Bookmarks />} />

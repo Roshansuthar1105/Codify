@@ -1,0 +1,42 @@
+{
+    "Introduction": [
+        "Introduction",
+        "Installation",
+        "Configuration"
+    ],
+    "TypeScript Basics": [
+        "What is TypeScript",
+        "Type Annotations",
+        "Basic Types",
+        "Type Inference",
+        "Type Assertions"
+    ],
+    "Advanced Types": [
+        "Union Types",
+        "Intersection Types",
+        "Literal Types",
+        "Enums",
+        "Generics",
+        "Utility Types"
+    ],
+    "Functions and Classes": [
+        "Function Types",
+        "Optional Parameters",
+        "Default Parameters",
+        "Rest Parameters",
+        "Class Types",
+        "Interfaces",
+        "Abstract Classes"
+    ],
+    "Modules and Namespaces": [
+        "Modules",
+        "Namespaces",
+        "Import Export",
+        "Declaration Files"
+    ],
+    "Error Handling and Debugging": [
+        "Error Handling",
+        "Type Guards",
+        "Debugging"
+    ]
+}
