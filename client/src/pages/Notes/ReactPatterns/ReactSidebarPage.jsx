@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import PortalPattern from "./ReactNotes/PortalPattern";
 
 
 
@@ -80,13 +81,18 @@ const topicComponents = {
 
 
 
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
 
 
 
 
 
 
+  
+  
+  
+  
+  "Portal Pattern" : <PortalPattern />,
   // add all other topics here
 };
 
