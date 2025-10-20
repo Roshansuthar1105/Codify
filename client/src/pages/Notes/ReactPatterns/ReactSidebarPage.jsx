@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import ContainerPresenter from "./ReactNotes/ContainerPresenter";
 
 
 
@@ -80,14 +81,16 @@ const topicComponents = {
 
 
 
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
 
 
 
 
 
 
+  "Container-Presenter Pattern": <ContainerPresenter />,
   // add all other topics here
+
 };
 
 const ReactSidebarPage = () => {
