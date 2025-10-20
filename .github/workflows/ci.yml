@@ -5,60 +5,79 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v5.0.0
-      with:
-        path: .
+      uses: actions/checkout@v4
     - name: Setup Node
-      uses: actions/setup-node@v5.0.0
-    - name: Install Dependencies
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    - name: Install Frontend Dependencies
+      working-directory: ./client
       run: npm install
-    - name: Check Health
+    - name: Build Frontend
+      working-directory: ./client
       env:
-        VITE_SERVER_API : http://localhost:5050   
-        VITE_YOUTUBE_API : dummy
-        VITE_GITHUB_TOKEN : dummy
-        VITE_RAPIDAPI_KEY : dummy
+        VITE_SERVER_API: http://localhost:5050   
+        VITE_YOUTUBE_API: dummy
+        VITE_GITHUB_TOKEN: dummy
+        VITE_RAPIDAPI_KEY: dummy
+      run: npm run build
+    - name: Check Health
+      working-directory: ./client
+      env:
+        VITE_SERVER_API: http://localhost:5050   
+        VITE_YOUTUBE_API: dummy
+        VITE_GITHUB_TOKEN: dummy
+        VITE_RAPIDAPI_KEY: dummy
       run: |
-         cd client
-         npm install
-         npm run dev || exit 1 &      
-         sleep  15           
-         curl -f http://localhost:5173 || exit 1
-         pkill -f "node"
+         npm run dev &
+         DEV_PID=$!
+         sleep 20
+         if curl -f http://localhost:5173; then
+           echo "Frontend health check passed"
+         else
+           echo "Frontend health check failed"
+           exit 1
+         fi
+         kill $DEV_PID
   Backend:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v5.0.0
-      with:
-        path: .
+      uses: actions/checkout@v4
     - name: Setup Node
-      uses: actions/setup-node@v5.0.0
-    - name: Install Dependencies
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    - name: Install Backend Dependencies
+      working-directory: ./server
       run: npm install
     - name: Check Server Directory
-      run: |
-        cd server
-        ls
+      working-directory: ./server
+      run: ls -la
     - name: Check Health
+      working-directory: ./server
       env:
-       MONGODB_URI : "mongodb+srv://publicuser:public_codify@cluster0.5bysaia.mongodb.net/"
+       MONGODB_URI: "mongodb+srv://publicuser:public_codify@cluster0.5bysaia.mongodb.net/"
        PORT: 5050
-       JWT_SECRET : your_jwt_secret
-       CLIENT_CORS : "*" 
-       EMAIL_USER : demo@gmail.com
-       EMAIL_PASS : demo1234
-       GOOGLE_CLIENT_ID : dummy
-       GOOGLE_CLIENT_SECRET : dummy
-       GOOGLE_LOGIN_CALLBACK_URL : http://localhost:5050/api/v1/auth/google/login/callback
-       GOOGLE_SIGNUP_CALLBACK_URL : http://localhost:5050/api/v1/auth/google/signup/callback
-       FRONTEND_URL : http://localhost:5173  
-       YOUTUBE_API_KEY : dummy
+       JWT_SECRET: your_jwt_secret
+       CLIENT_CORS: "*" 
+       EMAIL_USER: demo@gmail.com
+       EMAIL_PASS: demo1234
+       GOOGLE_CLIENT_ID: dummy
+       GOOGLE_CLIENT_SECRET: dummy
+       GOOGLE_LOGIN_CALLBACK_URL: http://localhost:5050/api/v1/auth/google/login/callback
+       GOOGLE_SIGNUP_CALLBACK_URL: http://localhost:5050/api/v1/auth/google/signup/callback
+       FRONTEND_URL: http://localhost:5173  
+       YOUTUBE_API_KEY: dummy
       run: |
-         cd server
-         npm install
-         npm run server || exit 1 &
-         sleep 15
-         curl -f http://localhost:5050 || exit 1
-         pkill -f "node"
+         npm run server &
+         SERVER_PID=$!
+         sleep 20
+         if curl -f http://localhost:5050; then
+           echo "Backend health check passed"
+         else
+           echo "Backend health check failed"
+           exit 1
+         fi
+         kill $SERVER_PID
             
