@@ -25,7 +25,11 @@ import FunctionComp from "./ReactNotes/FunctionComp";
 
 
 import ReactIntroduction from "./ReactNotes/ReactIntroduction";
+
+import Props from "./ReactNotes/Props";
+
 import HOC from "./ReactNotes/HOC";
+
 
 
 const iconMap = {
@@ -35,6 +39,10 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
+
+  "What is react" : <ReactIntroduction/>,
+  "Render Props": <Props />,
+
 
   "What is react" : <ReactIntroduction/>,
   "Higher-Order Components (HOC)": <HOC />,
@@ -55,6 +63,7 @@ const topicComponents = {
 
 
   "What is react" : <ReactIntroduction/>
+
 
 
   // add all other topics here
