@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import CodeSplitting from "./ReactNotes/CodeSplitting";
 
 
 
@@ -80,13 +81,17 @@ const topicComponents = {
 
 
 
-  "What is react" : <ReactIntroduction/>
+  "What is react" : <ReactIntroduction/>,
 
 
 
 
 
 
+  
+  
+  
+  "Code Splitting": <CodeSplitting />,
   // add all other topics here
 };
 
