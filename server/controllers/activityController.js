@@ -8,42 +8,37 @@ import Course from "../models/courseSchema.js";
  */
 export const addActivity = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { courseId, activityType, details } = req.body;
-    
+    const { id: userId } = req.user;
+    const { courseId, activityType, details = {} } = req.body;
+
     // Validate required fields
     if (!courseId || !activityType) {
-      return res.status(400).json({ error: "Course ID and activity type are required" });
+      return res
+        .status(400)
+        .json({ error: "Course ID and activity type are required" });
     }
-    
-    // Validate course exists
+
+    // Check if the course exists
     const courseExists = await Course.findById(courseId);
     if (!courseExists) {
       return res.status(404).json({ error: "Course not found" });
     }
-    
-    // Create new activity
+
+    // Create new activity document
     const activity = new UserActivity({
       userId,
       courseId,
       activityType,
-      details: details || {}
+      details,
+      ...(details.moduleId && { moduleId: details.moduleId }),
+      ...(details.moduleName && { moduleName: details.moduleName }),
     });
-    
-    // Add module info if provided
-    if (details && details.moduleId) {
-      activity.moduleId = details.moduleId;
-    }
-    
-    if (details && details.moduleName) {
-      activity.moduleName = details.moduleName;
-    }
-    
+
     await activity.save();
-    
-    return res.status(201).json({ 
+
+    return res.status(201).json({
       message: "Activity recorded successfully",
-      activity
+      activity,
     });
   } catch (error) {
     console.error("Error recording activity:", error);
@@ -58,14 +53,14 @@ export const addActivity = async (req, res) => {
  */
 export const getUserActivities = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const limit = parseInt(req.query.limit) || 10;
-    
+    const { id: userId } = req.user;
+    const limit = parseInt(req.query.limit, 10) || 10;
+
     const activities = await UserActivity.find({ userId })
-      .populate('courseId')
+      .populate("courseId")
       .sort({ timestamp: -1 })
       .limit(limit);
-    
+
     return res.status(200).json({ activities });
   } catch (error) {
     console.error("Error fetching user activities:", error);
@@ -80,23 +75,20 @@ export const getUserActivities = async (req, res) => {
  */
 export const getCourseActivities = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const { id: userId } = req.user;
     const { courseId } = req.params;
-    const limit = parseInt(req.query.limit) || 10;
-    
-    // Validate course exists
+    const limit = parseInt(req.query.limit, 10) || 10;
+
+    // Validate course existence
     const courseExists = await Course.findById(courseId);
     if (!courseExists) {
       return res.status(404).json({ error: "Course not found" });
     }
-    
-    const activities = await UserActivity.find({ 
-      userId, 
-      courseId 
-    })
+
+    const activities = await UserActivity.find({ userId, courseId })
       .sort({ timestamp: -1 })
       .limit(limit);
-    
+
     return res.status(200).json({ activities });
   } catch (error) {
     console.error("Error fetching course activities:", error);
