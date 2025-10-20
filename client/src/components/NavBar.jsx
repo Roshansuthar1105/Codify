@@ -10,6 +10,7 @@ import {
   FaRoad,
   FaStickyNote,
   FaCode,
+  FaBook,
 } from "react-icons/fa";
 import { RiMenu3Fill } from "react-icons/ri";
 import MobileMenu from "./MobileMenu";
@@ -144,6 +145,7 @@ function NavBar() {
               { to: "/roadmap", label: "Roadmaps", icon: <FaRoad /> },
               { to: "/notes", label: "Notes", icon: <FaStickyNote /> },
               { to: "/code-editor", label: "Code Editor", icon: <FaCode /> },
+              { to: "/flashcards", label: "Flashcards", icon: <FaBook /> }
             ].map(({ to, label, icon }) => (
               <NavLink
                 key={to}
