@@ -17,6 +17,8 @@
   --color-accent: #a8e6e1;
   --color-accent-light: #baeae6;
   --color-accent-dark: #96e0da;
+  --gradient_clr: rgba(168, 85, 247, 0.1); 
+
 }
 
 body {
@@ -225,3 +227,65 @@ html {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+
+
+/* flip helpers */
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* rotation helpers (Tailwind can't do rotateY easily without plugin) */
+.rotate-y-180 {
+  transform: rotateY(180deg) !important;
+}
+
+/* utility to rotate the back face */
+.rotate-y-180.backface-hidden {
+  transform: rotateY(180deg);
+}
+
+.heading-underline {
+  position: relative;
+  display: inline-block;
+  color: #000;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  font-family: "Righteous", sans-serif;
+}
+
+.heading-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 4px;
+  background-color: #a78bfa; /* purple underline */
+  border-radius: 2px;
+  animation: underlineWipe 0.8s ease-out forwards;
+}
+
+@keyframes underlineWipe {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+
+/* basic modal backdrop & panel styling already done inline in Modal.jsx */
