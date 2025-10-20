@@ -63,8 +63,19 @@ export function QuestionsProvider({ children }) {
   const [sort, setSort] = useState("latest");
 
   const API =  import.meta.env.VITE_SERVER_API;
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const userId = getUserIdFromToken(token);
+
+  // Listen for token changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newToken = localStorage.getItem("token");
+      setToken(newToken);
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const getAuthHeader = () =>
     token ? { Authorization: `Bearer ${token}` } : {};
