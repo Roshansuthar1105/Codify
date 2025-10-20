@@ -21,6 +21,71 @@ import ConditionalStatements from './PyTopics/PythonBasics/ConditionalStatements
 import Loops from './PyTopics/PythonBasics/Loops';
 import Functions from './PyTopics/PythonBasics/Functions';
 import VariablesDataTypes from './PyTopics/PythonBasics/VariablesDataTypes';
+// Object-Oriented Programming
+import ClassesObjects from './PyTopics/OOP/ClassesObjects';
+import Inheritance from './PyTopics/OOP/Inheritance';
+import Encapsulation from './PyTopics/OOP/Encapsulation';
+import Polymorphism from './PyTopics/OOP/Polymorphism';
+import StaticMethods from './PyTopics/OOP/StaticMethods';
+import MagicMethods from './PyTopics/OOP/MagicMethods';
+import AbstractClasses from './PyTopics/OOP/AbstractClasses';
+import InterfacesProtocols from './PyTopics/OOP/InterfacesProtocols';
+import PropertiesAndGettersSetters from './PyTopics/OOP/PropertiesAndGettersSetters';
+
+// Data Structures
+import Strings from './PyTopics/DataStructures/Strings';
+
+
+import Lists from './PyTopics/DataStructures/Lists';
+import ListComprehension from './PyTopics/DataStructures/ListComprehension';
+import TuplesSets from './PyTopics/DataStructures/TuplesSets';
+import Dictionaries from './PyTopics/DataStructures/Dictionaries';
+import NestedLoops from './PyTopics/DataStructures/NestedLoops';
+import ArraysDoc from './PyTopics/DataStructures/ArraysDoc';
+import StacksDoc from './PyTopics/DataStructures/StacksDoc';
+import LinkedListDoc from './PyTopics/DataStructures/LinkedListDoc';
+import QueuesDoc from './PyTopics/DataStructures/QueuesDoc';
+import TreesAndGraphs from './PyTopics/DataStructures/TreesAndGraphs';
+
+// Intermediate Topics
+import IteratorsDoc from './PyTopics/IntermediateTopics/IteratorsDoc';
+import ContextManagersDoc from './PyTopics/IntermediateTopics/ContextManagersDoc';
+import  ClosuresDoc from './PyTopics/IntermediateTopics/ClosuresDoc';
+import  CopyDoc  from './PyTopics/IntermediateTopics/CopyDoc';
+import RecursionDoc from './PyTopics/IntermediateTopics/RecursionDoc';
+import MutableImmutableDoc from './PyTopics/IntermediateTopics/MutableImmutableDoc';  
+import ScopeNamespacesDoc from './PyTopics/IntermediateTopics/ScopeNamespacesDoc';
+import FunctionAnnotationsDoc from './PyTopics/IntermediateTopics/FunctionAnnotationsDoc';
+import ZipEnumerateRangeDoc from './PyTopics/IntermediateTopics/ZipEnumerateRangeDoc';
+// Advanced Topics
+import ModulesImports from './PyTopics/AdvancedTopics/ModulesImports';
+import FileHandling from './PyTopics/AdvancedTopics/FileHandling';
+import LambdaFunctions from './PyTopics/AdvancedTopics/LambdaFunctions';
+import MapFilterReduce from './PyTopics/AdvancedTopics/MapFilterReduce';
+import BuiltinFunctions from './PyTopics/AdvancedTopics/BuiltinFunctions';
+import ExceptionHandling from './PyTopics/AdvancedTopics/ExceptionHandling';
+import BreakContinue from './PyTopics/AdvancedTopics/BreakContinue';
+import MultithreadingAndMultiprocessing from './PyTopics/AdvancedTopics/MultithreadingAndMultiprocessing';
+import DecoratorsAndGenerators from './PyTopics/AdvancedTopics/DecoratorsAndGenerators';  
+
+// Memory Management
+import MemoryManagementDoc from './PyTopics/MemoryManagement/MemoryManagementDoc';
+import GarbageCollectionDoc from './PyTopics/MemoryManagement/GarbageCollectionDoc';
+import HeapStackMemoryDoc from './PyTopics/MemoryManagement/HeapStackMemoryDoc';
+import GenerationalGarbageCollectionDoc from './PyTopics/MemoryManagement/GenerationalGarbageCollectionDoc';
+import ExplicitGarbageCollectionDoc from './PyTopics/MemoryManagement/ExplicitGarbageCollectionDoc';
+import MemoryProfilingToolsDoc from './PyTopics/MemoryManagement/MemoryProfilingToolsDoc';
+
+// Python Tools & Standard
+import PEP8Doc from './PyTopics/PythonToolsStandards/PEP8Doc';
+import DocstringsTypeHintsDoc from './PyTopics/PythonToolsStandards/DocstringsTypeHintsDoc';
+import VirtualEnvironmentsDoc from './PyTopics/PythonToolsStandards/VirtualEnvironmentsDoc';
+import TestingDoc from './PyTopics/PythonToolsStandards/TestingDoc';
+import PackageManagementDoc from './PyTopics/PythonToolsStandards/PackageManagementDoc';
+import CodeFormattingLintingDoc from './PyTopics/PythonToolsStandards/CodeFormattingLintingDoc';
+
+
+
 
 
 
@@ -85,6 +150,14 @@ const PythonFundamentals = () => {
                 <Route path="introduction-to-python" element={<PyIntroduction />} />
                 <Route path="python-installation" element={<PythonInstallation />} />
                 <Route path="running-python-code" element={<RunningPythonCode />} />
+                
+                
+                
+                
+                
+                
+                
+                
                  {/* Python Basics */}
                 <Route path="variables-&-data-types" element={<VariablesDataTypes />} />
                 <Route path="operators" element={<Operators />} />
@@ -94,7 +167,79 @@ const PythonFundamentals = () => {
                 <Route path="conditional-statements" element={<ConditionalStatements />} />
                 <Route path="loops" element={<Loops />} />
                 <Route path="functions" element={<Functions />} />
+                  
+                  
+                  
+                  
+                  
+                  {/* Object-Oriented Programming */}
+                <Route path="classes-&-objects" element={<ClassesObjects />} />
+                <Route path="inheritance" element={<Inheritance />} />
+                <Route path="encapsulation" element={<Encapsulation />} />
+                <Route path="polymorphism" element={<Polymorphism />} />
+                <Route path="static-methods" element={<StaticMethods />} />
+                <Route path="magic-methods" element={<MagicMethods />} />
+                <Route path="abstract-classes" element={<AbstractClasses />} /> 
+                <Route path="interfaces-&-protocols" element={<InterfacesProtocols />} />
+                <Route path="properties-&-getters-setters" element={<PropertiesAndGettersSetters />} />
+                 
+                 
+                 
+                 
+                 
+                 {/* Data Structures */}
+                <Route path="strings" element={<Strings />} />
+                <Route path="lists" element={<Lists />} />
+                <Route path="list-comprehension" element={<ListComprehension />} />
+                <Route path="tuples-&-sets" element={<TuplesSets />} />
+                <Route path="dictionaries" element={<Dictionaries />} />
+                <Route path="nested-loops" element={<NestedLoops />} />
+                 <Route path="arrays" element={<ArraysDoc />} />
+                 <Route path="trees-&-graphs" element={<TreesAndGraphs />} />
+                 <Route path="stacks" element={<StacksDoc />} />
+                <Route path="queues" element={<QueuesDoc />} />
+                <Route path="linked-lists" element={<LinkedListDoc />} />
 
+                {/* Intermediate Topics */}
+                <Route path="iterators-&-iterables" element={<IteratorsDoc />} />
+                <Route path="context-managers" element={<ContextManagersDoc />} />
+                <Route path="closures" element={<ClosuresDoc />} />
+                <Route path="copy-&-deepcopy" element={<CopyDoc />} />
+                <Route path="recursion" element={<RecursionDoc />} />
+                <Route path="mutable-&-immutable" element={<MutableImmutableDoc />} />
+                <Route path="scope-&-namespaces" element={<ScopeNamespacesDoc />} />
+                <Route path="function-annotations" element={<FunctionAnnotationsDoc />} />
+                <Route path="zip-enumerate-range" element={<ZipEnumerateRangeDoc />} />
+
+
+                 {/* Advanced Topics */}
+                <Route path="modules-&-imports" element={<ModulesImports />} />
+                <Route path="file-handling" element={<FileHandling />} />
+                <Route path="lambda-functions" element={<LambdaFunctions />} />
+                <Route path="map-filter-reduce" element={<MapFilterReduce />} />
+                <Route path="built-in-functions" element={<BuiltinFunctions />} />
+                <Route path="exception-handling" element={<ExceptionHandling />} /> 
+              <Route path="break-&-continue" element={<BreakContinue />} />
+              <Route path="multithreading-&-multiprocessing" element={<MultithreadingAndMultiprocessing />} />
+              <Route path="properties-&-getters/setters" element={<PropertiesAndGettersSetters />} />  
+              <Route path="decorators-&-generators" element={<DecoratorsAndGenerators />} />
+
+                {/* Memory Management */}
+              <Route path="memory-management" element={<MemoryManagementDoc />} />
+              <Route path="garbage-collection" element={<GarbageCollectionDoc />} />
+              <Route path="heap-&-stack-memory" element={<HeapStackMemoryDoc />} />
+              <Route path="generational-garbage-collection" element={<GenerationalGarbageCollectionDoc />} />
+              <Route path="explicit-garbage-collection" element={<ExplicitGarbageCollectionDoc />} />
+              <Route path="memory-profiling-tools" element={<MemoryProfilingToolsDoc />} />
+
+                {/* Python Tools & Standard */}
+                
+               <Route path="pep8" element={<PEP8Doc />} />
+                <Route path="docstrings-type-hints" element={<DocstringsTypeHintsDoc />} />
+                <Route path="virtual-environments" element={<VirtualEnvironmentsDoc />} />
+                <Route path="testing" element={<TestingDoc />} />
+                <Route path="package-management" element={<PackageManagementDoc />} />
+               <Route path="code-formatting-&-linting" element={<CodeFormattingLintingDoc />} />  
 
 
                

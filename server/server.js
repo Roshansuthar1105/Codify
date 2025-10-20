@@ -1,10 +1,13 @@
 import dotenv from "dotenv";
 import express from "express";
+import cron from "node-cron";
+import axios from "axios";
 import authRouter from "./routes/authRouter.js";
 import contactRouter from "./routes/contactRoute.js";
 import coursesRouter from "./routes/coursesRoute.js";
 import connectDB from "./utils/db.js";
 import cors from "cors";
+import mongoose from "mongoose";
 import errorMiddleware from "./middlewares/errorMiddlewares.js";
 import userRouter from "./routes/userRoute.js";
 import router from "./routes/router.js";
@@ -13,13 +16,14 @@ import progressRouter from "./routes/progressRoute.js";
 import activityRouter from "./routes/activityRoute.js";
 import leaderBoardRoute from "./routes/leaderBoardRoute.js";
 import bookmarkRouter from "./routes/bookmarkRoute.js";
-import questionRouter from "./routes/questionRoute.js"
-import replyRouter from "./routes/replyRoute.js"
+import questionRouter from "./routes/questionRoute.js";
+import replyRouter from "./routes/replyRoute.js";
 import todoRouter from "./routes/todoRoute.js";
 import newsletterRouter from "./routes/newsletterRoute.js";
 
 import session from "express-session";
 import passport from "passport";
+import flashcardRoutes from './routes/flashcardRoutes.js';
 import { configurePassport } from "./config/passport.js";
 dotenv.config();
 const app = express();
@@ -29,6 +33,7 @@ const corsOption = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false,
 };
+
 app.use(cors(corsOption));
 
 // // using cors
@@ -63,8 +68,9 @@ app.use("/api/v1", leaderBoardRoute);
 app.use("/api/v1/bookmarks", bookmarkRouter);
 app.use("/api/todos", todoRouter);
 app.use("/api/newsletter", newsletterRouter);
-app.use("/api/questions",questionRouter);
-app.use("/api",replyRouter)
+app.use("/api/questions", questionRouter);
+app.use("/api", replyRouter);
+app.use('/api/flashcards', flashcardRoutes);
 // app.get("/",)
 const PORT = process.env.PORT || 5050;
 
@@ -76,3 +82,12 @@ connectDB()
     })
   )
   .catch(() => console.error("error during connection with mongodb"));
+
+cron.schedule("*/14 * * * *", async () => {
+  try {
+    await axios.get("https://bitwise-backend.onrender.com");
+    console.log("Pinged self to prevent sleeping 🚀");
+  } catch (error) {
+    console.error("Error pinging server:", error.message);
+  }
+});

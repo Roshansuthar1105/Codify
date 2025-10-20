@@ -4,6 +4,16 @@
         "Python Installation",
         "Running Python Code"
     ],
+
+
+
+
+
+
+
+
+
+
     "Python Basics": [
         "Variables & Data Types",
         "Operators",
@@ -14,14 +24,59 @@
         "Loops",
         "Functions"
     ],
+
+
+
+
+
+
+
+
+
+
     "Data Structures": [
         "Strings",
         "Lists",
         "List Comprehension",
         "Tuples & Sets",
         "Dictionaries",
-        "Nested Loops"
+        "Nested Loops",
+        "Arrays",
+        "Stacks",
+        "Queues",
+        "Linked Lists",
+        "Trees & Graphs"
     ],
+
+    "Object-Oriented  Programming": [
+        "Classes & Objects",
+        "Inheritance",
+        "Encapsulation",
+        "Polymorphism",
+        "Static Methods",
+        "Magic Methods",
+        "Abstract Classes",
+        "Interfaces & Protocols",
+        "Properties & Getters/Setters"
+    ],
+
+
+
+     "Intermediate Topics": [
+        "Iterators & Iterables",
+        "Context Managers",
+        "Closures",
+         "Copy & Deepcopy",
+            "Recursion",
+         "Mutable & Immutable",
+         "Scope & Namespaces",
+         "Function Annotations",
+    "Zip,Enumerate,Range"
+    ],
+
+
+     
+
     "Advanced Topics": [
         "Break & Continue",
         "Exception Handling",
@@ -29,14 +84,46 @@
         "File Handling",
         "Lambda Functions",
         "Map Filter Reduce",
-        "Built-in Functions"
+        "Built-in Functions",
+        "Multithreading & Multiprocessing",
+        "Decorators & Generators"
     ],
-    "Object-Oriented Programming": [
-        "Classes & Objects",
-        "Inheritance",
-        "Encapsulation",
-        "Polymorphism",
-        "Static Methods",
-        "Magic Methods"
+    "Memory Management": [
+        "Garbage Collection",
+        "Memory Management",
+        "Heap & Stack Memory",
+        "Generational Garbage Collection",
+        "Explicit Garbage Collection",
+        "Memory Profiling Tools"
+        
+    ],
+    "Python Tools & Standard":[
+        "PEP8",
+        "Docstrings & Type Hints",
+        "Virtual Environments",
+        "Testing",
+        "Package Management",
+    "Code Formatting & Linting"
     ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
 }

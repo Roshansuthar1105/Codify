@@ -8,6 +8,7 @@ import { useLoading } from "../components/loadingContext";
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserPlus, FaExclamationCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import OtpModal from "../components/OtpModal";
+import PasswordStrength from "../../components/PasswordStrength";
 
 function Signup() {
   const [user, setUser] = useState({
@@ -28,6 +29,7 @@ function Signup() {
   const [serverOtp, setServerOtp] = useState(null);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [resending, setResending] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const validateField = (name, value) => {
     let error = "";
@@ -52,10 +54,9 @@ function Signup() {
         }
         break;
       case "password":
-        if (!value) {
-          error = "Password is required";
-        } else if (value.length < 6) {
-          error = "Password must be at least 6 characters";
+        const validation = validatePassword(value);
+        if (!validation.isValid) {
+          error = validation.errors[0];
         }
         break;
       default:
@@ -70,7 +71,14 @@ function Signup() {
       ...user,
       [name]: value,
     });
-    if (errors[name]) {
+    // Validate password on change for immediate feedback
+    if (name === "password") {
+      const error = validateField(name, value);
+      setErrors({
+          ...errors,
+          [name]: error,
+      });
+    } else if (errors[name]) {
       setErrors({
         ...errors,
         [name]: "",
@@ -80,11 +88,18 @@ function Signup() {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
+    if (name === "password") {
+      setPasswordFocused(false);
+    }
     const error = validateField(name, value);
     setErrors({
       ...errors,
       [name]: error,
     });
+  };
+
+  const handlePasswordFocus = () => {
+    setPasswordFocused(true);
   };
 
   const handleSubmit = async (e) => {
@@ -541,6 +556,7 @@ function Signup() {
                         placeholder="Create a secure password"
                         value={user.password}
                         onChange={handleChange}
+                        onFocus={handlePasswordFocus}
                         onBlur={handleBlur}
                         className={`w-full px-4 py-4 pr-12 text-lg rounded-xl ${
                           isDark 
@@ -557,17 +573,27 @@ function Signup() {
                       >
                         {show ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
                       </motion.button>
-                      {errors.password && (
-                        <motion.p 
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-red-500 text-sm mt-2 flex items-center"
-                        >
-                          <FaExclamationCircle className="mr-2" />
-                          {errors.password}
-                        </motion.p>
-                      )}
                     </motion.div>
+
+                    {/* Show strength meter if field is focused OR already has text */}
+                    {(passwordFocused || user.password) && (
+                      <PasswordStrength 
+                        password={user.password} 
+                        isDark={isDark}
+                      />
+                    )}
+
+                    {/* Show error message if an error exists for the password field */}
+                    {errors.password && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-500 text-sm mt-2 flex items-center"
+                      >
+                        <FaExclamationCircle className="mr-2" />
+                        {errors.password}
+                      </motion.p>
+                    )}
                   </motion.div>
 
                   {/* Enhanced Submit Button */}

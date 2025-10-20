@@ -11,18 +11,21 @@ export default function OAuthCallback() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const token = params.get("token");
+    const error = params.get("error");
 
     if (token) {
-      storeTokenInLS(token);        
-      localStorage.setItem("isLoggedIn", "true");         // save JWT (localStorage or memory—your choice)
-      toast.success("Logged in with Google");
-      navigate("/", { replace: true }); // success : clean URL,so re-direct to home
+      storeTokenInLS(token);
+      localStorage.setItem("isLoggedIn", "true");
+      toast.success("Logged in successfully");
+      navigate("/", { replace: true });
+    } else if (error) {
+      toast.error(decodeURIComponent(error));
+      navigate("/login", { replace: true });
     } else {
-      toast.error("Missing token in callback");
+      toast.error("OAuth login failed");
       navigate("/login", { replace: true });
     }
   }, [location, navigate, storeTokenInLS]);
 
   return null;
 }
-// this component handles the OAuth callback from Google 

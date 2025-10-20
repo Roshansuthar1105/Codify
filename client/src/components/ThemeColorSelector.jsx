@@ -1,5 +1,6 @@
 import React from "react";
 import { FaPalette, FaCheck } from "react-icons/fa";
+import { createPortal } from "react-dom";
 import { useTheme } from "../context/ThemeContext";
 
 const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
@@ -11,10 +12,27 @@ const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
     onClose();
   };
 
+  // Get button bounding rect for precise positioning
+  const buttonRef = React.useRef();
+
+  // Calculate dropdown position below the button (optional: improve user experience)
+  const [dropdownPosition, setDropdownPosition] = React.useState({ top: 0, left: 0 });
+
+  React.useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + 8, // 8px below button
+        left: rect.left + rect.width / 2,
+      });
+    }
+  }, [isOpen]);
+
   return (
     <div className="relative flex flex-col items-center">
       {/* Trigger Button */}
       <button
+        ref={buttonRef}
         onClick={onToggle}
         className={`
           flex items-center justify-center p-2 rounded-full border backdrop-blur-sm
@@ -26,14 +44,18 @@ const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
         <FaPalette className="text-lg" />
       </button>
 
-      {/* Dropdown Panel */}
-      {isOpen && (
+      {/* Dropdown Panel: via Portal */}
+      {isOpen && createPortal(
         <div
           className={`
-            absolute top-full mt-2 left-1/2 transform -translate-x-1/2
-            p-3 rounded-lg shadow-lg z-50 grid grid-cols-3 gap-2 w-48
+            fixed z-[9999] grid grid-cols-3 gap-2 w-48 p-3 rounded-lg shadow-lg
             ${isDark ? "bg-dark-bg-secondary border border-dark-border" : "bg-white border border-light-border"}
           `}
+          style={{
+            top: dropdownPosition.top,
+            left: dropdownPosition.left,
+            transform: "translate(-50%, 0)",
+          }}
         >
           <div className="col-span-3 mb-2 text-center text-sm font-medium">
             <span className={isDark ? "text-dark-text-primary" : "text-light-text-primary"}>
@@ -57,7 +79,8 @@ const ThemeColorSelector = ({ isOpen, onToggle, onClose }) => {
               )}
             </button>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

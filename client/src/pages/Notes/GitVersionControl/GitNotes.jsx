@@ -33,6 +33,27 @@ import GitRemoteAdd from './GitTopics/RemoteRepositories/GitRemoteAdd'
 import GitPushPull from './GitTopics/RemoteRepositories/GitPushPull'
 import GitFetch from './GitTopics/RemoteRepositories/GitFetch'
 import TrackingBranches from './GitTopics/RemoteRepositories/TrackingBranches'
+import GitClone from './GitTopics/CollabrativeWorkflow/GitClone'
+import ForkingWorkflow from './GitTopics/CollabrativeWorkflow/ForkingWorkflow'
+import PullRequests from './GitTopics/CollabrativeWorkflow/PullRequests'
+import CodeReviewBasics from './GitTopics/CollabrativeWorkflow/CodeReviewBasics'
+import GitCheckoutVsRestore from './GitTopics/GitUndoingChanges/GitCheckoutVsRestore'
+import GitRevert from './GitTopics/GitUndoingChanges/GitRevert'
+import GitResetExplained from './GitTopics/GitUndoingChanges/GitResetExplained'
+import GitStash from './GitTopics/GitStashAndTag/GitStash'
+import GitStashList from './GitTopics/GitStashAndTag/GitStashList'
+import GitTagging from './GitTopics/GitStashAndTag/GitTagging'
+import TagTypesComparison from './GitTopics/GitStashAndTag/TagTypeComparison'
+import GitRebase from './GitTopics/AdvanceGit/GitRebase'
+import GitCherryPick from './GitTopics/AdvanceGit/GitCherryPick'
+import GitHooks from './GitTopics/AdvanceGit/GitHooks'
+import GitInteractiveRebase from './GitTopics/AdvanceGit/GitInteractiveRebase'
+import GitSquashingCommits from './GitTopics/AdvanceGit/GitSquashingCommits'
+import GoodCommitMessages from './GitTopics/BestPractices/GoodCommitMessages'
+import BranchNamingConventions from './GitTopics/BestPractices/BranchNamingConventions'
+import KeepingReposClean from './GitTopics/BestPractices/KeepingReposClean'
+import AvoidingLargeBinaries from './GitTopics/BestPractices/AvoidingLargeBinaries'
+import GitPageTitleManager from './GitPageTitleManager'
 
 
 
@@ -179,7 +200,7 @@ const GitNotes = () => {
           <Breadcrumb isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} className={"p-4"} />
 
           {/* Page Title Manager */}
-          {/* <GitPageTitleManager /> */}
+          <GitPageTitleManager />
 
           {/* ROUTES OF THE SUB NOTES */}
           <div className="p-4 md:p-8">
@@ -220,8 +241,37 @@ const GitNotes = () => {
                 <Route path='git-fetch' element={<GitFetch />} />
                 <Route path='tracking-branches' element={<TrackingBranches />} />
 
+                {/* Collaborative workflows */}
+                <Route path='cloning-a-repository-(git-clone)' element={<GitClone />} />
+                <Route path='forking-workflow' element={<ForkingWorkflow />} />
+                <Route path='pull-requests' element={<PullRequests />} />
+                <Route path='code-review-basics' element={<CodeReviewBasics />} />
 
 
+                {/* Undoing changes */}
+                <Route path='git-checkout-vs-git-restore' element={<GitCheckoutVsRestore />} />
+                <Route path='git-revert' element={<GitRevert />} />
+                <Route path='git-reset-(soft,-mixed,-hard)' element={<GitResetExplained />} />
+
+
+                {/* Git stash and tag */}
+                <Route path='git-stash-save-&-git-stash-pop' element={<GitStash />} />
+                <Route path='git-stash-list' element={<GitStashList />} />
+                <Route path='creating-tags-(git-tag)' element={<GitTagging />} />
+                <Route path='annotated-vs-lightweight-tags' element={<TagTypesComparison />} />
+
+                {/* Advance git */}
+                <Route path='rebasing-(git-rebase)' element={<GitRebase />} />
+                <Route path='cherry-picking-(git-cherry-pick)' element={<GitCherryPick />} />
+                <Route path='git-hooks' element={<GitHooks />} />
+                <Route path='interactive-rebase' element={<GitInteractiveRebase />} />
+                <Route path='squashing-commits' element={<GitSquashingCommits />} />
+
+                {/* Git best practices */}
+                <Route path='writing-good-commit-messages' element={<GoodCommitMessages />} />
+                <Route path='branch-naming-conventions' element={<BranchNamingConventions />} />
+                <Route path='keeping-repositories-clean' element={<KeepingReposClean />} />
+                <Route path='avoiding-large-binary-files' element={<AvoidingLargeBinaries />} />
 
               </Routes>
             </React.Suspense>

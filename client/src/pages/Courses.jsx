@@ -484,30 +484,52 @@ const Courses = () => {
 
         {/* Enhanced Pagination Controls */}
         {totalPages > 1 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.8 }}
-            className="flex justify-center items-center gap-2"
-          >
-            <motion.button
-              variants={buttonVariants}
-              initial="initial"
-              whileHover="hover"
-              whileTap="tap"
-              className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${currentPage === 1
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-primary hover:bg-primary-dark shadow-lg'
-                }`}
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </motion.button>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 1.8 }}
+    className="flex justify-center items-center gap-2 mt-8 flex-wrap"
+  >
+    {(() => {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
-            {getPageNumbers().map((page, index) =>
+      useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 640);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
+      return (
+        <>
+          {/* Previous Button */}
+          <motion.button
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
+              currentPage === 1
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark shadow-lg"
+            }`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </motion.button>
+
+          {/* Pagination Numbers (only for large screens) */}
+          {!isMobile &&
+            getPageNumbers().map((page, index) =>
               page === "..." ? (
-                <span key={index} className={`px-3 py-2 font-bold ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
+                <span
+                  key={index}
+                  className={`px-3 py-2 font-bold ${
+                    isDark
+                      ? "text-dark-text-secondary"
+                      : "text-light-text-secondary"
+                  }`}
+                >
                   ...
                 </span>
               ) : (
@@ -517,10 +539,11 @@ const Courses = () => {
                   initial="initial"
                   whileHover="hover"
                   whileTap="tap"
-                  className={`px-4 py-2 rounded-xl font-semibold transition-all duration-300 ${currentPage === page
+                  className={`px-4 py-2 rounded-xl font-semibold transition-all duration-300 ${
+                    currentPage === page
                       ? "bg-primary-dark text-white shadow-lg scale-110"
                       : "bg-primary hover:bg-primary-dark text-white shadow-md"
-                    }`}
+                  }`}
                   onClick={() => handlePageChange(page)}
                 >
                   {page}
@@ -528,39 +551,27 @@ const Courses = () => {
               )
             )}
 
-            <motion.button
-              variants={buttonVariants}
-              initial="initial"
-              whileHover="hover"
-              whileTap="tap"
-              className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${currentPage === totalPages
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-primary hover:bg-primary-dark shadow-lg'
-                }`}
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </motion.button>
-          </motion.div>
-        )}
-
-        {/* Call to Action Section */}
-        {currentCourses.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.0 }}
-            className={`mt-24 text-center p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${isDark ? 'border border-dark-border' : 'border border-light-border'} shadow-lg`}
+          {/* Next Button */}
+          <motion.button
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className={`px-4 py-2 rounded-xl font-semibold text-white transition-all duration-300 ${
+              currentPage === totalPages
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark shadow-lg"
+            }`}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
           >
-            <h3 className={`text-2xl sm:text-3xl md:text-4xl font-righteous tracking-wider mb-4 ${isDark ? 'text-dark-text-primary' : 'text-light-text-primary'}`}>
-              Ready to Start Learning?
-            </h3>
-            <p className={`text-lg md:text-xl ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'} max-w-3xl mx-auto leading-relaxed`}>
-              Join thousands of learners who have advanced their careers with our expertly crafted courses.
-            </p>
-          </motion.section>
-        )}
+            Next
+          </motion.button>
+        </>
+      );
+    })()}
+  </motion.div>
+)}
       </div>
     </div>
   );

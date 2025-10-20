@@ -309,22 +309,33 @@ function Login() {
                     Login
                   </motion.button>
 
-                  {/* Google Oauth  */}
+                  {/* Google & GitHub OAuth  */} 
                   <div className="mt-3 flex flex-col items-center gap-3">
                     <span className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-light-text-secondary'}`}>
                       Or continue with
                     </span>
+                    {/* Google Button */}
                     <a
                       href={`${API}/api/v1/auth/google/login`} // Your backend Google Login endpoint
-                      className="w-full py-3 px-4 flex items-center justify-center gap-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-medium transition-all duration-300 transform hover:scale-[1.02]"
-                    >
-                      {/* Google Icon */}
+                      className="w-full py-3 px-4 flex items-center justify-center gap-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-medium transition-all duration-300 transform hover:scale-[1.02]">
                       <img
                         src="https://www.svgrepo.com/show/355037/google.svg"
                         alt="Google"
                         className="w-6 h-6"
                       />
                       <span>Google</span>
+                    </a>
+
+                    {/* GitHub Button */}
+                    <a
+                      href={`${import.meta.env.VITE_SERVER_API}/api/v1/auth/github`}
+                      className="w-full py-3 px-4 flex items-center justify-center gap-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-medium transition-all duration-300 transform hover:scale-[1.02]">
+                      <img
+                        src="https://www.svgrepo.com/show/341847/github.svg"
+                        alt="GitHub"
+                        className="w-6 h-6"
+                      />
+                      <span>GitHub</span>
                     </a>
                   </div>
 

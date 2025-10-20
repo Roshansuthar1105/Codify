@@ -568,7 +568,7 @@ function About() {
                     disableOnInteraction: false,
                   }}
                   loop={true}
-                  className="pb-10 mt-6 flex justify-center w-[700px]"
+                  className="pb-10 mt-6 flex justify-center lg:w-[700px]"
                 >
                   {teamMembers.map((member, index) => (
                     <SwiperSlide
