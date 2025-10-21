@@ -34,6 +34,9 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+
+import PortalPattern from "./ReactNotes/PortalPattern";
+
 import CodeSplitting from "./ReactNotes/CodeSplitting";
 
 import SuspensePattern from "./ReactNotes/SuspensePattern";
@@ -51,6 +54,7 @@ import StateReducer from "./ReactNotes/StateReducer";
 import HooksFactory from "./ReactNotes/HooksFactory";
 
 import RenderOptimization from "./ReactNotes/RenderOptimization";
+
 
 
 
@@ -125,6 +129,10 @@ const topicComponents = {
   "What is react" : <ReactIntroduction/>,
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
 
 
   
@@ -151,6 +159,11 @@ const topicComponents = {
   
   "Suspense Pattern": <SuspensePattern />  
 
+  
+  
+  
+  
+  "Portal Pattern" : <PortalPattern />,
   // add all other topics here
 
 };
