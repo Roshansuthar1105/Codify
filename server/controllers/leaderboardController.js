@@ -3,17 +3,18 @@ import { Contributor, Cache } from "../models/Contributor.js";
 
 const GITHUB_URL = "https://api.github.com/repos/Roshansuthar1105/Codify";
 const CACHE_KEY = "leaderboard";
-const CACHE_TTL = 30 * 60 * 1000; // 30 mins
+const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
-async function fetchFromGitHub(url) {
-  const res = await fetch(url, {
+const fetchFromGitHub = async (url) => {
+  const response = await fetch(url, {
     headers: {
       Accept: "application/vnd.github+json",
       // Authorization: `token ${process.env.GITHUB_TOKEN}`, // optional
     },
   });
-  return res.json();
-}
+  if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+  return response.json();
+};
 
 export const fetchLeaderboard = async (req, res) => {
   try {
@@ -21,26 +22,30 @@ export const fetchLeaderboard = async (req, res) => {
     const cache = await Cache.findOne({ key: CACHE_KEY });
     const now = Date.now();
 
-    // ✅ Serve from cache if still valid
-    if (cache && !forceRefresh && now - cache.lastUpdated.getTime() < CACHE_TTL) {
+    // ✅ Serve from cache if valid and no force refresh
+    if (
+      cache &&
+      !forceRefresh &&
+      now - cache.lastUpdated.getTime() < CACHE_TTL
+    ) {
       return res.json({ success: true, data: cache.data });
     }
 
-    // ✅ Fetch contributors & PRs from GitHub
-    const contributorsData = await fetchFromGitHub(`${GITHUB_URL}/contributors`);
-    const prsData = await fetchFromGitHub(`${GITHUB_URL}/pulls?state=all&per_page=100`);
+    // ✅ Fetch contributors and PRs from GitHub
+    const [contributorsData, prsData] = await Promise.all([
+      fetchFromGitHub(`${GITHUB_URL}/contributors`),
+      fetchFromGitHub(`${GITHUB_URL}/pulls?state=all&per_page=100`),
+    ]);
 
-    // ✅ Count PRs per user
-    const prCounts = {};
-    prsData.forEach(pr => {
-      if (pr.user?.login) {
-        prCounts[pr.user.login] = (prCounts[pr.user.login] || 0) + 1;
-      }
-    });
+    // ✅ Calculate PR counts per user
+    const prCounts = prsData.reduce((acc, pr) => {
+      const user = pr.user?.login;
+      if (user) acc[user] = (acc[user] || 0) + 1;
+      return acc;
+    }, {});
 
-    // ✅ Build leaderboard
-
-    let leaderboard = contributorsData.map(c => {
+    // ✅ Construct leaderboard
+    let leaderboard = contributorsData.map((c) => {
       const prs = prCounts[c.login] || 0;
       const points = prs * 10 + c.contributions;
       return {
@@ -49,19 +54,19 @@ export const fetchLeaderboard = async (req, res) => {
         contributions: c.contributions,
         avatar: c.avatar_url,
         points,
-        profileUrl: c.html_url || `https://github.com/${c.login}`, // ✅ Add profile link
+        profileUrl: c.html_url || `https://github.com/${c.login}`,
       };
     });
 
-    // Sort & add progress bar %
+    // ✅ Sort leaderboard and add progress percentage
     leaderboard.sort((a, b) => b.points - a.points);
     const maxPoints = leaderboard[0]?.points || 1;
-    leaderboard = leaderboard.map(c => ({
-      ...c,
-      progress: Math.round((c.points / maxPoints) * 100),
+    leaderboard = leaderboard.map((user) => ({
+      ...user,
+      progress: Math.round((user.points / maxPoints) * 100),
     }));
 
-    // ✅ Save to DB
+    // ✅ Update database
     await Contributor.deleteMany({});
     await Contributor.insertMany(leaderboard);
 
@@ -71,10 +76,12 @@ export const fetchLeaderboard = async (req, res) => {
       { upsert: true }
     );
 
-    res.json({ success: true, data: leaderboard });
-  } catch (err) {
-    console.log(err)
-    // console.error("❌ Error in fetchLeaderboard:", err.message);
-    res.status(500).json({ success: false, error: "Failed to fetch leaderboard" });
+    return res.json({ success: true, data: leaderboard });
+  } catch (error) {
+    console.error("❌ Error in fetchLeaderboard:", error.message);
+    return res.status(500).json({
+      success: false,
+      error: "Failed to fetch leaderboard",
+    });
   }
 };
