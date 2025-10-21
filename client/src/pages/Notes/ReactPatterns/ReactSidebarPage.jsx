@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import ErrorBoundaryPattern from "./ReactNotes/ErrorBoundaryPattern";
 
 import ContainerPresenter from "./ReactNotes/ContainerPresenter";
 
@@ -101,12 +102,20 @@ const topicComponents = {
 
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
   "Props Getters": <PropsGetter />,
 
   "Slot Pattern": <SlotPattern />,
 
 
 
+
+
+  
+  "Error Boundary Pattern": <ErrorBoundaryPattern />,
 
 
   "Container-Presenter Pattern": <ContainerPresenter />,
@@ -117,6 +126,7 @@ const topicComponents = {
   
   
   "Render Optimization" : <RenderOptimization />,
+
 
   // add all other topics here
 
