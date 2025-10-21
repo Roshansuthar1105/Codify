@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import CodeSplitting from "./ReactNotes/CodeSplitting";
 
 import SuspensePattern from "./ReactNotes/SuspensePattern";
 
@@ -121,6 +122,10 @@ const topicComponents = {
 
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
 
   
   "Error Boundary Pattern": <ErrorBoundaryPattern />,
@@ -138,7 +143,14 @@ const topicComponents = {
 
   
   
+  
+  "Code Splitting": <CodeSplitting />,
+
+
+  
+  
   "Suspense Pattern": <SuspensePattern />  
+
   // add all other topics here
 
 };
