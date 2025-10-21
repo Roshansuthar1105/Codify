@@ -16,11 +16,11 @@ import TsInstallation from './TsTopics/Introduction/TsInstallation';
 import TsConfiguration from './TsTopics/Introduction/TsConfiguration';
 
 // TypeScript Basics
-// import WhatIsTypeScript from './TsTopics/TsBasics/WhatIsTypeScript';
-// import TypeAnnotations from './TsTopics/TsBasics/TypeAnnotations';
-// import BasicTypes from './TsTopics/TsBasics/BasicTypes';
-// import TypeInference from './TsTopics/TsBasics/TypeInference';
-// import TypeAssertions from './TsTopics/TsBasics/TypeAssertions';
+import WhatIsTypeScript from './TsTopics/TsBasics/WhatIsTypeScript';
+import TypeAnnotations from './TsTopics/TsBasics/TypeAnnotations';
+import BasicTypes from './TsTopics/TsBasics/BasicTypes';
+import TypeInference from './TsTopics/TsBasics/TypeInference';
+import TypeAssertions from './TsTopics/TsBasics/TypeAssertions';
 
 // Advanced Types
 // import UnionTypes from './TsTopics/AdvancedTypes/UnionTypes';
@@ -111,12 +111,12 @@ const TypeScriptEssentials = () => {
                 <Route path="installation" element={<TsInstallation />} />
                 <Route path="configuration" element={<TsConfiguration />} />
 
-                {/* TypeScript Basics - Will be added in PR #3 */}
-                {/* <Route path="what-is-typescript" element={<WhatIsTypeScript />} />
+                {/* TypeScript Basics */}
+                <Route path="what-is-typescript" element={<WhatIsTypeScript />} />
                 <Route path="type-annotations" element={<TypeAnnotations />} />
                 <Route path="basic-types" element={<BasicTypes />} />
                 <Route path="type-inference" element={<TypeInference />} />
-                <Route path="type-assertions" element={<TypeAssertions />} /> */}
+                <Route path="type-assertions" element={<TypeAssertions />} />
 
                 {/* Advanced Types - Will be added in PR #4 */}
                 {/* <Route path="union-types" element={<UnionTypes />} />
