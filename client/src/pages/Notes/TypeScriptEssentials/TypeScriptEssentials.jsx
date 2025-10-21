@@ -11,9 +11,9 @@ import categories from './TsTopics.json';
 // Import note components - will be added in subsequent PRs
 
 // Introduction
-// import TsIntroduction from './TsTopics/Introduction/TsIntroduction';
-// import TsInstallation from './TsTopics/Introduction/TsInstallation';
-// import TsConfiguration from './TsTopics/Introduction/TsConfiguration';
+import TsIntroduction from './TsTopics/Introduction/TsIntroduction';
+import TsInstallation from './TsTopics/Introduction/TsInstallation';
+import TsConfiguration from './TsTopics/Introduction/TsConfiguration';
 
 // TypeScript Basics
 // import WhatIsTypeScript from './TsTopics/TsBasics/WhatIsTypeScript';
@@ -106,10 +106,10 @@ const TypeScriptEssentials = () => {
               <Routes>
                 <Route index element={<TsHeroPage />} />
 
-                {/* Introduction - Will be added in PR #2 */}
-                {/* <Route path="introduction" element={<TsIntroduction />} />
+                {/* Introduction */}
+                <Route path="introduction" element={<TsIntroduction />} />
                 <Route path="installation" element={<TsInstallation />} />
-                <Route path="configuration" element={<TsConfiguration />} /> */}
+                <Route path="configuration" element={<TsConfiguration />} />
 
                 {/* TypeScript Basics - Will be added in PR #3 */}
                 {/* <Route path="what-is-typescript" element={<WhatIsTypeScript />} />
