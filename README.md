@@ -218,27 +218,68 @@ Follow these steps to set up **Codify** locally and begin contributing.
 ## 📁 Project Structure
 
 ```
-client/
-├── public/             # Static files
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── context/        # React Context providers
-│   ├── layouts/        # Page layout components
-│   ├── pages/          # Main application pages
-│   ├── store/          # State management
-│   ├── utils/          # Utility functions
-│   ├── App.jsx         # Main application component
-│   └── main.jsx        # Application entry point
-├── index.html          # HTML template
-└── vite.config.js      # Vite configuration
+📦 project-root
+├── 📁 .github
+│   ├── 📁 ISSUE_TEMPLATE
+│   │   └── style_enhencement.md
+│   ├── 📁 workflows
+│   │   └── ci.yml
+│   └── 📄 PULL_REQUEST_TEMPLATE.md
+│
+├── 📁 client
+│   ├── 📁 public
+│   ├── 📁 src
+│   ├── 📄 .eslintrc.cjs
+│   ├── 📄 .gitignore
+│   ├── 📄 README.md
+│   ├── 📄 index.html
+│   ├── 📄 netlify.toml
+│   ├── 📄 package-lock.json
+│   ├── 📄 package.json
+│   ├── 📄 postcss.config.js
+│   ├── 📄 tailwind.config.js
+│   ├── 📄 vite.config.js
+│   └── 📄 webpack.config.js
+│
+├── 📁 python
+│   ├── 📄 .env.example
+│   ├── 📄 app.py
+│   └── 📄 requirements.txt
+│
+├── 📁 server
+│   ├── 📁 .github
+│   │   └── 📁 workflows
+│   │       └── (save complete code)
+│   ├── 📁 config
+│   ├── 📁 controllers
+│   ├── 📁 dataconnect-generated
+│   │   └── 📁 js
+│   │       └── default-connector
+│   ├── 📁 dataconnect
+│   ├── 📁 middlewares
+│   ├── 📁 models
+│   ├── 📁 public
+│   ├── 📁 routes
+│   ├── 📁 utils
+│   ├── 📁 validations
+│   ├── 📄 .gitignore
+│   ├── 📄 README.md
+│   ├── 📄 package-lock.json
+│   ├── 📄 package.json
+│   └── 📄 server.js
+│
+├── 📄 .gitignore
+├── 📄 CODE_OF_CONDUCT.md
+├── 📄 CONTRIBUTING.md
+├── 📄 LEARN.md
+├── 📄 License
+├── 📄 README.md
+├── 📄 Readme-1.md
+├── 📄 Readme1.md
+├── 📄 SECURITY.md
+├── 📄 package-lock.json
+└── 📄 package.json
 
-server/
-├── controllers/        # Request handlers
-├── models/             # Database models
-├── routes/             # API routes
-├── middleware/         # Custom middleware
-├── utils/              # Utility functions
-└── server.js           # Server entry point
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)

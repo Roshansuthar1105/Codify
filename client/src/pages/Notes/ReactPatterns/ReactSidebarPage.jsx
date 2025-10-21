@@ -11,6 +11,9 @@ import {
 import IntroductionToReactPatterns from "./ReactNotes/IntroductionToReactPatterns";
 
 
+import ContextAPI from "./ReactNotes/ContextAPI";
+
+
 import ControlAndUn from "./ReactNotes/ControlAndUn";
 
 
@@ -20,7 +23,24 @@ import FunctionComp from "./ReactNotes/FunctionComp";
 
 
 
+
 import ReactIntroduction from "./ReactNotes/ReactIntroduction";
+import ProviderComp from "./ReactNotes/ProviderComp";
+
+import LayoutComp from "./ReactNotes/LayoutComp";
+
+import CompoundComp from "./ReactNotes/CompoundComp";
+
+import Props from "./ReactNotes/Props";
+
+import HOC from "./ReactNotes/HOC";
+
+import HooksFactory from "./ReactNotes/HooksFactory";
+
+import RenderOptimization from "./ReactNotes/RenderOptimization";
+
+
+
 
 
 const iconMap = {
@@ -30,19 +50,37 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
-
-
+  "What is react" : <ReactIntroduction/>,
+  "Provider Pattern": <ProviderComp />,
+  "Layout Component Pattern" : <LayoutComp />,
+  "Compound Components": <CompoundComp />,
+  "Render Props": <Props />,
+  "Higher-Order Components (HOC)": <HOC />,
+  "Context API": <ContextAPI />,
   "Controlled vs Uncontrolled Components": <ControlAndUn />,
-
-
   "State Colocation" : <StateCol />,
-
   "Functional components": <FunctionComp />,
 
+  "Hooks Factory": <HooksFactory />,
 
 
-  "What is react" : <ReactIntroduction/>
 
+
+
+  "What is react" : <ReactIntroduction/>,
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  "Render Optimization" : <RenderOptimization />,
   // add all other topics here
 };
 
