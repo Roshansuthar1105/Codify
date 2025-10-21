@@ -34,6 +34,9 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+
+import SuspensePattern from "./ReactNotes/SuspensePattern";
+
 import ErrorBoundaryPattern from "./ReactNotes/ErrorBoundaryPattern";
 
 import ContainerPresenter from "./ReactNotes/ContainerPresenter";
@@ -47,6 +50,7 @@ import StateReducer from "./ReactNotes/StateReducer";
 import HooksFactory from "./ReactNotes/HooksFactory";
 
 import RenderOptimization from "./ReactNotes/RenderOptimization";
+
 
 
 
@@ -108,7 +112,11 @@ const topicComponents = {
 
   "Props Getters": <PropsGetter />,
 
+
+  "What is react" : <ReactIntroduction/>,
+
   "Slot Pattern": <SlotPattern />,
+
 
 
 
@@ -128,6 +136,9 @@ const topicComponents = {
   "Render Optimization" : <RenderOptimization />,
 
 
+  
+  
+  "Suspense Pattern": <SuspensePattern />  
   // add all other topics here
 
 };
