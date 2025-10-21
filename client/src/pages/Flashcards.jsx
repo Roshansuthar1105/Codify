@@ -213,7 +213,7 @@ export default function Flashcards() {
                     setCurrentIndex(0);
                     setFlipped(false);
                   }}
-                  className="block w-full text-left px-4 py-2 hover:bg-purple-100 dark:hover:bg-gray-800 rounded-t-lg"
+                  className="block w-full text-left px-4 py-2 hover:bg-primary-100 dark:hover:bg-gray-800 rounded-t-lg"
                 >
                   All Topics
                 </button>
@@ -226,7 +226,7 @@ export default function Flashcards() {
                       setCurrentIndex(0);
                       setFlipped(false);
                     }}
-                    className="block w-full text-left px-4 py-2 hover:bg-purple-100 dark:hover:bg-gray-800"
+                    className="block w-full text-left px-4 py-2 hover:bg-primary-100 dark:hover:bg-gray-800"
                   >
                     {t}
                   </button>
@@ -241,7 +241,7 @@ export default function Flashcards() {
           <div className="flex gap-4">
             <button
               onClick={handleReview}
-              className="p-2 bg-purple-100 text-purple-800 rounded font-medium"
+              className="p-2 bg-primary-100 text-primary-800 rounded font-medium"
             >
               Reviewed: {reviewCount}
             </button>
@@ -256,7 +256,7 @@ export default function Flashcards() {
           <div className="flex flex-col items-end gap-2">
             <button
               onClick={handleOpenModal}
-              className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600"
             >
               + Add Flashcard
             </button>
@@ -293,7 +293,7 @@ export default function Flashcards() {
 
                   <div
                     className={`flip-card-back flex flex-col justify-center items-center text-center p-8 rounded-2xl shadow-2xl ${
-                      isDark ? "bg-purple-800 text-white" : "bg-purple-200 text-gray-900"
+                      isDark ? "bg-primary-800 text-white" : "bg-primary-200 text-gray-900"
                     }`}
                   >
                     <h2 className="text-2xl font-semibold mb-3">Definition</h2>
@@ -307,13 +307,13 @@ export default function Flashcards() {
             <div className="flex justify-center gap-6 mt-8">
               <button
                 onClick={prevCard}
-                className="px-6 py-2 rounded bg-purple-200 hover:bg-purple-300 text-purple-900 font-medium"
+                className="px-6 py-2 rounded bg-primary-200 hover:bg-primary-300 text-primary-900 font-medium"
               >
                 ← Previous
               </button>
               <button
                 onClick={nextCard}
-                className="px-6 py-2 rounded bg-purple-500 hover:bg-purple-600 text-white font-medium"
+                className="px-6 py-2 rounded bg-primary hover:bg-primary-600 text-white font-medium"
               >
                 Next →
               </button>
@@ -334,9 +334,10 @@ export default function Flashcards() {
           <div>
             <label className="block text-sm font-medium mb-1">Term</label>
             <input
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 dark:bg-slate-800 bg-gray-100"
               value={form.term}
               onChange={(e) => setForm({ ...form, term: e.target.value })}
+              placeholder="Enter Term here"
               required
             />
           </div>
@@ -344,7 +345,7 @@ export default function Flashcards() {
           <div>
             <label className="block text-sm font-medium mb-1">Definition</label>
             <textarea
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 dark:bg-slate-800 bg-gray-100"
               value={form.definition}
               onChange={(e) => setForm({ ...form, definition: e.target.value })}
               rows={3}
@@ -356,7 +357,7 @@ export default function Flashcards() {
             <label className="block text-sm font-medium mb-1">Topic</label>
             <div className="flex gap-3">
               <select
-                className="border rounded p-2 flex-1"
+                className="border rounded p-2 flex-1 dark:bg-slate-800 bg-gray-100"
                 value={topicChoice === "custom" ? "custom" : form.topic || ""}
                 onChange={(e) => {
                   const val = e.target.value;
@@ -379,7 +380,7 @@ export default function Flashcards() {
               </select>
 
               <input
-                className="border rounded p-2 flex-1"
+                className="border rounded p-2 flex-1 dark:bg-slate-800 bg-gray-100"
                 placeholder="Or type a new topic"
                 value={topicChoice === "custom" ? form.topic : ""}
                 onChange={(e) => {
@@ -394,7 +395,7 @@ export default function Flashcards() {
             <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded border">
               Cancel
             </button>
-            <button type="submit" className="px-4 py-2 rounded bg-purple-500 text-white hover:bg-purple-600">
+            <button type="submit" className="px-4 py-2 rounded bg-primary text-white hover:bg-primary-600">
               Add
             </button>
           </div>

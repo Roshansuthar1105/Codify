@@ -281,6 +281,24 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
                   <FaQuestionCircle className="text-xl transition-transform duration-200 group-hover:scale-110" />
                   <span className="text-xl">Questions</span>
                 </NavLink>
+                <NavLink
+                  to="/flashcards"
+                  onClick={onClose}
+                  className={({ isActive }) => `
+                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
+                    ${isActive
+                      ? isDark
+                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
+                        : "bg-light-bg-tertiary text-primary shadow-md"
+                      : isDark
+                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
+                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
+                    }
+                  `}
+                >
+                  <FaBook className="text-xl transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-xl">Flashcards</span>
+                </NavLink>
 
                 <NavLink
                   to="/contact"
