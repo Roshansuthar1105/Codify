@@ -34,7 +34,11 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+
 import HooksFactory from "./ReactNotes/HooksFactory";
+
+import RenderOptimization from "./ReactNotes/RenderOptimization";
+
 
 
 
@@ -56,12 +60,27 @@ const topicComponents = {
   "Controlled vs Uncontrolled Components": <ControlAndUn />,
   "State Colocation" : <StateCol />,
   "Functional components": <FunctionComp />,
+
   "Hooks Factory": <HooksFactory />,
 
 
 
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  "Render Optimization" : <RenderOptimization />,
   // add all other topics here
 };
 
