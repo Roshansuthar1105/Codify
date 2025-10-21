@@ -55,7 +55,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-configurePassport();
+// configurePassport();
 app.use("/api/v1/auth", authRouter);
 app.use("/contact", contactRouter);
 app.use("/user", userRouter);

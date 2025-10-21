@@ -157,7 +157,7 @@ const topicComponents = {
 
   
   
-  "Suspense Pattern": <SuspensePattern />  
+  "Suspense Pattern": <SuspensePattern />, 
 
   
   
