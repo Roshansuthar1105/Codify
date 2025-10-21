@@ -34,7 +34,16 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+
 import PropsGetter from "./ReactNotes/PropsGetter";
+
+import StateReducer from "./ReactNotes/StateReducer";
+
+import HooksFactory from "./ReactNotes/HooksFactory";
+
+import RenderOptimization from "./ReactNotes/RenderOptimization";
+
+
 
 
 
@@ -46,42 +55,34 @@ const iconMap = {
 };
 const topicComponents = {
   "Introduction to React Patterns": <IntroductionToReactPatterns />,
-
   "What is react" : <ReactIntroduction/>,
   "Provider Pattern": <ProviderComp />,
-
-
-  "What is react" : <ReactIntroduction/>,
   "Layout Component Pattern" : <LayoutComp />,
-
-
-  "What is react" : <ReactIntroduction/>,
   "Compound Components": <CompoundComp />,
-
-
-  "What is react" : <ReactIntroduction/>,
   "Render Props": <Props />,
-
-
-  "What is react" : <ReactIntroduction/>,
   "Higher-Order Components (HOC)": <HOC />,
-
-
-
   "Context API": <ContextAPI />,
-
-
   "Controlled vs Uncontrolled Components": <ControlAndUn />,
-
-
   "State Colocation" : <StateCol />,
-
   "Functional components": <FunctionComp />,
 
+  "Hooks Factory": <HooksFactory />,
+
+
 
 
 
   "What is react" : <ReactIntroduction/>,
+
+
+  "What is react" : <ReactIntroduction/>, 
+  "State Reducer Pattern": <StateReducer />,
+
+
+
+  "What is react" : <ReactIntroduction/>,
+
+
 
 
   "Props Getters": <PropsGetter />,
@@ -90,6 +91,12 @@ const topicComponents = {
 
 
 
+  
+  
+  
+  
+  
+  "Render Optimization" : <RenderOptimization />,
   // add all other topics here
 };
 
