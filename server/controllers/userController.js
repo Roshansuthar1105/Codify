@@ -2,15 +2,17 @@ import User from "../models/userSchema.js";
 import Course from "../models/courseSchema.js";
 import UserActivity from "../models/userActivitySchema.js";
 import mongoose from "mongoose";
+
+// Toggle a course in user's watchlist
 export const toggleWatchlist = async (req, res) => {
   const { courseId } = req.body;
-  const userId = req.user.id; // set by authMiddleware
-  // const userId = req.params.userId;
-  // console.log(userId);
+  const userId = req.user.id;
+
   try {
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
       return res.status(400).json({ error: "Invalid courseId" });
     }
+
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);
 
@@ -18,37 +20,28 @@ export const toggleWatchlist = async (req, res) => {
       return res.status(404).json({ error: "User or Course not found" });
     }
 
-    // Check if course is already in the watchlist
     const exists = user.watchlist.some((id) => id.toString() === courseId);
-    if (!exists) {
-      // If course is not in the watchlist, add it
-      user.watchlist.push(courseId);
-      await user.save();
+    const activityType = exists
+      ? "removed_from_watchlist"
+      : "added_to_watchlist";
 
-      // Create activity for adding to watchlist
-      const activity = new UserActivity({
-        userId,
-        courseId,
-        activityType: 'added_to_watchlist'
-      });
-      await activity.save();
-
-      return res.status(200).json({ message: "Course added to watchlist" });
+    if (exists) {
+      user.watchlist = user.watchlist.filter(
+        (id) => id.toString() !== courseId
+      );
     } else {
-      // If course is in the watchlist, remove it
-      user.watchlist = user.watchlist.filter((id) => id.toString() !== courseId);
-      await user.save();
-
-      // Create activity for removing from watchlist
-      const activity = new UserActivity({
-        userId,
-        courseId,
-        activityType: 'removed_from_watchlist'
-      });
-      await activity.save();
-
-      return res.status(200).json({ message: "Course removed from watchlist" });
+      user.watchlist.push(courseId);
     }
+
+    await user.save();
+
+    await UserActivity.create({ userId, courseId, activityType });
+
+    return res.status(200).json({
+      message: exists
+        ? "Course removed from watchlist"
+        : "Course added to watchlist",
+    });
   } catch (error) {
     console.error("toggleWatchlist error", error);
     return res.status(500).json({ error: "Server error" });
@@ -57,29 +50,26 @@ export const toggleWatchlist = async (req, res) => {
 
 // Get the user's watchlist
 export const getWatchlist = async (req, res) => {
-  // const userId = req.params.userId;
-  const userId = req.user.id; // Assuming you're using authMiddleware to get the user
+  const userId = req.user.id;
 
   try {
     const user = await User.findById(userId).populate("watchlist");
+    if (!user) return res.status(404).json({ error: "User not found" });
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    res.status(200).json({ watchlist: user.watchlist });
+    return res.status(200).json({ watchlist: user.watchlist });
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    console.error("getWatchlist error", error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
+
+// Get logged-in user's details
 export const user = async (req, res) => {
   try {
-    const user = req.user;
-    // const list =await user.populate("watchlist")  ;
-    // console.log(list,"user.....")
-    return res.status(200).json({ user });
+    return res.status(200).json({ user: req.user });
   } catch (error) {
-    res.status(400).json({ message: error });
+    console.error("user error", error);
+    return res.status(400).json({ message: error.message || error });
   }
 };
 
@@ -87,44 +77,39 @@ export const user = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-
-    // Whitelist of fields that can be updated
-    const {
-      username,
-      email,
-      firstName,
-      lastName,
-      bio,
-      profileImage,
-      phone,
-    } = req.body || {};
-
+    const allowedFields = [
+      "username",
+      "email",
+      "firstName",
+      "lastName",
+      "bio",
+      "profileImage",
+      "phone",
+    ];
     const update = {};
-    if (typeof username === "string") update.username = username;
-    if (typeof email === "string") update.email = email;
-    if (typeof firstName === "string") update.firstName = firstName;
-    if (typeof lastName === "string") update.lastName = lastName;
-    if (typeof bio === "string") update.bio = bio;
-    if (typeof profileImage === "string") update.profileImage = profileImage;
-    if (typeof phone === "string") update.phone = phone;
+
+    allowedFields.forEach((field) => {
+      if (typeof req.body[field] === "string") update[field] = req.body[field];
+    });
 
     if (Object.keys(update).length === 0) {
       return res.status(400).json({ message: "No valid fields to update" });
     }
 
-    const updated = await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $set: update },
       { new: true, runValidators: true }
     );
-
-    if (!updated) {
+    if (!updatedUser)
       return res.status(404).json({ message: "User not found" });
-    }
 
-    return res.status(200).json({ message: "Profile updated", user: updated });
+    return res
+      .status(200)
+      .json({ message: "Profile updated", user: updatedUser });
   } catch (error) {
     console.error("updateProfile error", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
+
