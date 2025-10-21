@@ -34,6 +34,7 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+import SlotPattern from "./ReactNotes/SlotPattern";
 
 import PropsGetter from "./ReactNotes/PropsGetter";
 
@@ -85,8 +86,16 @@ const topicComponents = {
 
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
+
+
+
   "Props Getters": <PropsGetter />,
 
+  "Slot Pattern": <SlotPattern />,
 
 
 
