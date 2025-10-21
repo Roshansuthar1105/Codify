@@ -10,7 +10,7 @@ export default function Modal({ open, onClose, title, children }) {
         onClick={onClose}
       />
       {/* Panel */}
-      <div className="relative bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6 z-10">
+      <div className="relative dark:bg-slate-900 bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6 z-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">{title}</h2>
           <button
