@@ -34,6 +34,9 @@ import CompoundComp from "./ReactNotes/CompoundComp";
 import Props from "./ReactNotes/Props";
 
 import HOC from "./ReactNotes/HOC";
+
+import ContainerPresenter from "./ReactNotes/ContainerPresenter";
+
 import SlotPattern from "./ReactNotes/SlotPattern";
 
 import PropsGetter from "./ReactNotes/PropsGetter";
@@ -43,6 +46,7 @@ import StateReducer from "./ReactNotes/StateReducer";
 import HooksFactory from "./ReactNotes/HooksFactory";
 
 import RenderOptimization from "./ReactNotes/RenderOptimization";
+
 
 
 
@@ -93,6 +97,10 @@ const topicComponents = {
 
 
 
+  "What is react" : <ReactIntroduction/>,
+
+
+
   "Props Getters": <PropsGetter />,
 
   "Slot Pattern": <SlotPattern />,
@@ -100,13 +108,18 @@ const topicComponents = {
 
 
 
+
+  "Container-Presenter Pattern": <ContainerPresenter />,
+
   
   
   
   
   
   "Render Optimization" : <RenderOptimization />,
+
   // add all other topics here
+
 };
 
 const ReactSidebarPage = () => {
