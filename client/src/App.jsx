@@ -71,6 +71,8 @@ const AddNewCourse = lazy(() =>
   import("./layouts/CourseLayout/AddNewCourse.jsx")
 );
 const CourseUpdate = lazy(() => import("./layouts/CourseLayout/CourseUpdate"));
+// AlgorithmPage
+const AlgorithmPage = lazy(() => import("./pages/Notes/AlgorithmPage"));
 
 /* Utility to scroll to top on route change */
 const ScrollToTop = ({ children }) => {
@@ -168,6 +170,9 @@ function App() {
                       element={<CourseUpdate />}
                     />
                   </Route>
+
+                  {/*AlgorithmPage route*/}
+                  <Route path="/notes/algorithms" element={<AlgorithmPage />} />
 
                   {/* Catch-all */}
                   <Route path="*" element={<ErrorPage />} />
