@@ -334,14 +334,14 @@ const Courses = () => {
                 }
               >
                 {/* THIS IS THE CORRECTED LINE */}
-                <div className={`relative flex items-center h-16 rounded-2xl overflow-hidden ${isDark ? 'bg-dark-bg-secondary border border-dark-border' : 'bg-light-bg-secondary border border-light-border'} backdrop-blur-sm shadow-lg transition-all duration-300`}>
+             
                   <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                </div>
+                
               </Suspense>
             </div>
 
             {/* Enhanced Category Filters */}
-            <div className={`flex flex-wrap justify-center gap-3 p-4 rounded-xl shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-secondary-1000 backdrop-blur-xl ${isDark ? 'border border-dark-border' : 'border border-light-border'}`}>
+            
               <motion.button
                 variants={buttonVariants}
                 initial="initial"
@@ -399,7 +399,7 @@ const Courses = () => {
                   </motion.button>
                 );
               })}
-            </div>
+           
 
             {/* Search Results Count */}
             {searchTerm && (
