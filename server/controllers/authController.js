@@ -13,16 +13,32 @@ const otpStore = {}; // Temporary in-memory OTP store
 // -------------------- Visitor --------------------
 const homePage = async (req, res) => {
   try {
-    let counter = await Visitor.findOne({ name: "visitors" });
+    let counter = await Visitor.findOne({ name: "visitors"});
+
     if (!counter) {
-      counter = await Visitor.create({ name: "visitors", count: 1 });
-    } else {
+      // Try to create the counter; if permission denied, fall back to 0
+      try {
+        counter = await Visitor.create({ name: "visitors", count: 1});
+        return res.status(200).json({ visitorCount: counter.count });
+      } catch (e) {
+        console.warn("Visitor create failed (likely read-only DB):", e?.codeName || e?.message);
+        return res.status(200).json({ visitorCount: 0 });
+      }
+    }
+
+    // Try to increment; if permission denied, return existing count
+    try {
       counter.count += 1;
       await counter.save();
+      return res.status(200).json({ visitorCount: counter.count });
+    } catch (e) {
+      console.warn("Visitor increment failed (likely read-only DB):", e?.codeName || e?.message);
+      return res.status(200).json({ visitorCount: counter.count || 0 });
     }
-    res.status(200).json({ visitorCount: counter.count });
   } catch (error) {
-    res.status(404).json({ error });
+    // Final fallback: never throw 5xx for this endpoint
+    console.warn("Visitor handler unexpected error:", error?.message || error);
+    return res.status(200).json({ visitorCount: 0 });
   }
 };
 
@@ -186,72 +202,106 @@ const resetPassword = async (req, res) => {
 
 // -------------------- Social Auth --------------------
 const googleLogin = async (req, res, next) => {
-  passport.authenticate("google-login", (err, data, info) => {
-    if (err)
-      return res.redirect(
-        `${process.env.FRONTEND_URL}/login?error=server_error`
-      );
-    if (!data) {
-      const errorMsg = encodeURIComponent(
-        info?.message || "Authentication failed"
-      );
-      return res.redirect(
-        `${process.env.FRONTEND_URL}/login?error=${errorMsg}`
-      );
-    }
-    const { token } = data;
-    res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?token=${token}`);
-  })(req, res, next);
-};
-
-const googleSignup = async (req, res, next) => {
-  passport.authenticate("google-signup", async (err, data, info) => {
-    if (err)
-      return res.redirect(
-        `${process.env.FRONTEND_URL}/signup?error=server_error`
-      );
-    if (!data) {
-      const errorMsg = encodeURIComponent(
-        info?.message || "Authentication failed"
-      );
-      return res.redirect(
-        `${process.env.FRONTEND_URL}/signup?error=${errorMsg}`
-      );
-    }
-
-    try {
-      const userEmail = data.user.email;
-      const forgotPasswordLink = `${process.env.FRONTEND_URL}/forgot-password`;
-      await sendEmail(
-        userEmail,
-        "Welcome to Codify - Set Your Password",
-        `Hi ${
-          data.user.username || "there"
-        }, set your password here: ${forgotPasswordLink}`
-      );
-    } catch (emailError) {
-      console.error("Failed to send welcome email:", emailError);
-    }
-
-    const { token } = data;
-    res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?token=${token}`);
-  })(req, res, next);
-};
-
-const githubAuth = (req, res, next) => {
-  passport.authenticate("github", async (err, data, info) => {
-    try {
-      if (err)
+  try {
+    passport.authenticate("google-login", (err, data, info) => {
+      if (err) {
+        console.error("❌ Google Login Passport Error:", err);
         return res.redirect(
           `${process.env.FRONTEND_URL}/login?error=server_error`
         );
+      }
       if (!data) {
         const errorMsg = encodeURIComponent(
           info?.message || "Authentication failed"
         );
+        console.error("❌ Google Login No Data:", info);
         return res.redirect(
           `${process.env.FRONTEND_URL}/login?error=${errorMsg}`
         );
+      }
+      
+      console.log("✅ Google Login Success:", { userId: data.user._id, email: data.user.email });
+      
+      // Upon Successful Login, Redirect URL with token to frontend
+      const { token } = data;
+      console.log("🔑 Redirecting with token:", token ? "Token present" : "No token");
+      res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?token=${token}`);
+    })(req, res, next);
+  } catch (error) {
+    console.error("❌ Google Login Error:", error);
+    return res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+  }
+};
+
+const googleSignup = async (req, res, next) => {
+  try {
+    passport.authenticate("google-signup", async (err, data, info) => {
+      if (err) {
+        console.error("❌ Google Signup Passport Error:", err);
+        return res.redirect(
+          `${process.env.FRONTEND_URL}/login?error=server_error`
+        );
+      }
+      if (!data) {
+        const errorMsg = encodeURIComponent(
+          info?.message || "Authentication failed"
+        );
+        console.error("❌ Google Signup No Data:", info);
+        return res.redirect(
+          `${process.env.FRONTEND_URL}/signup?error=${errorMsg}`
+        );
+      }
+      
+      console.log("✅ Google Signup Success:", { userId: data.user._id, email: data.user.email });
+      
+      // Send email reminder to set password (optional - don't fail if email fails)
+      try {
+        const userEmail = data.user.email;
+        const forgotPasswordLink = `${process.env.FRONTEND_URL}/forgot-password`;
+
+        await sendEmail(
+          userEmail,
+          "Welcome to Codify - Set Your Password",
+          `Hi ${data.user.username || "there"},\n\n
+          Welcome to Codify! 🎉\n\n
+          Since you signed up using Google, you don't have a password yet.  
+          You can set one anytime by clicking the link below:\n\n
+          ${forgotPasswordLink}\n\n
+          This will let you log in directly using your email & password as well as Google.\n\n
+          Cheers,  
+          Codify Team`
+        );
+        console.log("✅ Welcome email sent successfully");
+      } catch (emailError) {
+        console.error("❌ Failed to send welcome email (non-blocking):", emailError.message);
+        // Don't throw - email failure shouldn't block OAuth
+      }
+      
+      // Upon Successful Signup, Redirect URL with token to frontend
+      const { token } = data;
+      console.log("🔑 Redirecting with token:", token ? "Token present" : "No token");
+      res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?token=${token}`);
+    })(req, res, next);
+  } catch (error) {
+    console.error("❌ Google Signup Error:", error);
+    return res.redirect(
+      `${process.env.FRONTEND_URL}/signup?error=server_error`
+    );
+  }
+};
+
+// GitHub Auth (Merged Login + Signup)
+const githubAuth = (req, res, next) => {
+  passport.authenticate("github", async (err, data, info) => {
+    try {
+      if (err) {
+        console.error("GitHub Auth Error:", err);
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+      }
+
+      if (!data) {
+        const errorMsg = encodeURIComponent(info?.message || "Authentication failed");
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=${errorMsg}`);
       }
 
       const { user, token, isNewUser } = data;
