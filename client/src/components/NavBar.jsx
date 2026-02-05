@@ -3,15 +3,8 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { useTheme } from "../context/ThemeContext";
-import {
-  FaGraduationCap,
-  FaUser,
-  FaBookOpen,
-  FaRoad,
-  FaStickyNote,
-  FaCode,
-  FaBook,
-} from "react-icons/fa";
+import { FaGraduationCap, FaUser } from "react-icons/fa";
+import { NAV_LINKS, CONDENSED_LINKS } from "../constants/navLinks";
 import { RiMenu3Fill } from "react-icons/ri";
 import MobileMenu from "./MobileMenu";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -122,63 +115,56 @@ function NavBar() {
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo - Enhanced */}
           <div className="flex-shrink-0 flex items-center">
-            <NavLink
-              to="/"
-              className="flex items-center space-x-3 font-bold text-2xl sm:text-3xl text-primary transition-all duration-300 hover:scale-105 group"
-            >
-              <div className="relative">
-                <FaGraduationCap className="text-2xl sm:text-3xl transition-transform duration-300 group-hover:rotate-12" />
-                <div className="absolute inset-0 text-2xl sm:text-3xl text-primary opacity-20 blur-sm group-hover:opacity-40 transition-opacity duration-300">
-                  <FaGraduationCap />
-                </div>
-              </div>
-              <h2 className="text-primary text-3xl font-playwrite-gb flex items-center">
-                Codify
-              </h2>
+            <NavLink to="/" className={`flex items-center space-x-2 font-bold text-2xl sm:text-3xl text-primary transition-colors`}>
+              <FaGraduationCap className="text-2xl sm:text-3xl" />
+              <span className="font-righteous text-2xl sm:text-3xl">Codify</span>
             </NavLink>
+            
           </div>
 
-          {/* Centered Links - Enhanced */}
-          <div className="hidden lg:flex flex-1 justify-center items-center space-x-3">
-            {[
-              { to: "/courses", label: "Courses", icon: <FaBookOpen /> },
-              { to: "/roadmap", label: "Roadmaps", icon: <FaRoad /> },
-              { to: "/notes", label: "Notes", icon: <FaStickyNote /> },
-              { to: "/code-editor", label: "Code Editor", icon: <FaCode /> },
-              { to: "/flashcards", label: "Flashcards", icon: <FaBook /> }
-            ].map(({ to, label, icon }) => (
+          {/* Direct Navigation Links (Desktop full) */}
+          <div className="hidden xl:flex items-center space-x-1">
+            {NAV_LINKS.map(({ to, label, icon: Icon }) => (
               <NavLink
                 key={to}
                 to={to}
                 className={({ isActive }) => `
-                  flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-base font-medium 
-                  transition-all duration-300 ease-out relative group
-                  transform hover:scale-[1.02] hover:-translate-y-0.5
+                  group flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-200
                   ${isActive
-                    ? "bg-primary dark:text-white text-black shadow-lg shadow-primary/25"
+                    ? 'bg-primary text-white shadow-md'
                     : isDark
-                      ? "bg-gray-800/40 border border-gray-700/30 text-dark-text-primary hover:bg-primary/10 hover:text-white hover:border-primary/30 hover:shadow-md hover:shadow-primary/10"
-                      : "bg-white/25 border border-white/20 text-light-text-primary hover:bg-primary/10 hover:text-black hover:border-primary/30 hover:shadow-md hover:shadow-primary/10"
-                  }
+                      ? 'text-dark-text-primary/90 hover:text-white hover:bg-dark-bg-tertiary/70'
+                      : 'text-light-text-primary/90 hover:text-light-text-primary hover:bg-light-bg-tertiary'}
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
                 `}
               >
-                {({ isActive }) => (
-                  <>
-                    {/* Subtle background glow */}
-                    <div
-                      className={`absolute inset-0 rounded-xl transition-all duration-400 ${isActive
-                        ? "bg-gradient-to-br from-primary/20 to-transparent opacity-100"
-                        : "bg-gradient-to-br from-primary/15 to-transparent opacity-0 group-hover:opacity-100"
-                        }`}
-                    />
+                <Icon className="text-base opacity-80 group-hover:opacity-100" />
+                <span>{label}</span>
+              </NavLink>
+            ))}
+          </div>
 
-                    {/* Icon with gentle animation */}
-                    <span
-                      className={`text-lg transition-all duration-300 relative z-10 ${isActive ? "scale-105" : "group-hover:scale-110"
-                        }`}
-                    >
-                      {icon}
-                    </span>
+          {/* Condensed Navigation Links (Between lg and xl) */}
+          <div className="hidden lg:flex xl:hidden items-center space-x-2">
+            {NAV_LINKS.filter(l => CONDENSED_LINKS.includes(l.to)).map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) => `
+                  group flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isActive
+                    ? 'bg-primary text-white shadow'
+                    : isDark
+                      ? 'text-dark-text-primary/90 hover:text-white hover:bg-dark-bg-tertiary/70'
+                      : 'text-light-text-primary/90 hover:bg-light-bg-tertiary'}
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                `}
+              >
+                <Icon className="text-sm" />
+                <span>{label === 'Questions' ? 'Q&A' : label}</span>
+              </NavLink>
+            ))}
+          </div>
 
                     {/* Clean label */}
                     <span className="relative z-10 transition-all duration-300">

@@ -5,6 +5,9 @@ import { RiCloseLargeLine } from 'react-icons/ri';
 import { FaBook, FaBookReader, FaBookmark, FaEnvelope, FaGraduationCap, FaHome, FaRoad, FaSignInAlt, FaSignOutAlt, FaUser, FaUserPlus, FaUserTie, FaArrowUp, FaArrowDown, FaQuestionCircle } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { FaCode } from "react-icons/fa";
+import ThemeSwitcher from './ThemeSwitcher';
+import ThemeColorSelector from './ThemeColorSelector';  
+import { NAV_LINKS } from "../constants/navLinks";
 
 function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
   const { theme } = useTheme();
@@ -110,214 +113,27 @@ function MobileMenu({ isOpen, onClose, isLoggedIn, userdata }) {
             </div>
 
             <div className="mt-6">
-              <nav className="grid gap-y-1">
-                <NavLink
-                  to="/"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaHome className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Home</span>
-                </NavLink>
-
-                <NavLink
-                  to="/about"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaUser className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">About</span>
-                </NavLink>
-
-                <NavLink
-                  to="/editor"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaCode className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Code Editor</span>
-                </NavLink>
-
-                <NavLink
-                  to="/courses"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaBook className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Courses</span>
-                </NavLink>
-
-                <NavLink
-                  to="/notes"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaBookReader className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Notes</span>
-                </NavLink>
-
-                <NavLink
-                  to="/roadmap"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaRoad className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Roadmaps</span>
-                </NavLink>
-
-                <NavLink
-                  to="/bookmarks"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaBookmark className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Bookmark</span>
-                </NavLink>
-
-                <NavLink
-                  to="/contributors"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaUser className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Contributors</span>
-                </NavLink>
-
-                <NavLink
-                  to="/Questions"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaQuestionCircle className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Questions</span>
-                </NavLink>
-                <NavLink
-                  to="/flashcards"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaBook className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Flashcards</span>
-                </NavLink>
-
-                <NavLink
-                  to="/contact"
-                  onClick={onClose}
-                  className={({ isActive }) => `
-                    px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-300 flex items-center gap-2 group relative overflow-hidden
-                    ${isActive
-                      ? isDark
-                        ? "bg-dark-bg-tertiary text-primary shadow-lg"
-                        : "bg-light-bg-tertiary text-primary shadow-md"
-                      : isDark
-                        ? "text-dark-text-primary hover:bg-dark-bg-tertiary/70"
-                        : "text-light-text-primary hover:bg-light-bg-tertiary/70"
-                    }
-                  `}
-                >
-                  <FaEnvelope className="text-xl transition-transform duration-200 group-hover:scale-110" />
-                  <span className="text-xl">Contact</span>
-                </NavLink>
+              <nav className="grid gap-y-2">
+                {NAV_LINKS.map(({ to, label, icon: Icon }) => (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    onClick={onClose}
+                    className={({ isActive }) => `
+                      px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2
+                      ${isActive
+                        ? isDark
+                          ? 'bg-dark-bg-tertiary text-primary'
+                          : 'bg-light-bg-tertiary text-primary'
+                        : isDark
+                          ? 'text-dark-text-primary hover:bg-dark-bg-tertiary'
+                          : 'text-light-text-primary hover:bg-light-bg-tertiary'}
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                    `}
+                  >
+                    <Icon className="text-xl" /> <span className="text-xl">{label === 'Questions' ? 'Questions' : label}</span>
+                  </NavLink>
+                ))}
 
                 {isLoggedIn ? (
                   <>
