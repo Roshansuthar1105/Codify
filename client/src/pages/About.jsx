@@ -34,7 +34,7 @@ function About() {
   const [activeTab, setActiveTab] = useState("story");
 
   const { ref, inView } = useInView({ triggerOnce: false }); // trigger every time visible
-  const text = userdata.username
+  const text = userdata && userdata.username
     ? userdata.username.toUpperCase()
     : "to Codify";
   // Team members data
